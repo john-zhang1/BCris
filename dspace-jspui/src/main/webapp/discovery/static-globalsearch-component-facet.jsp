@@ -101,7 +101,7 @@
 <div class="row">
 <form id="searchglobalprocessor" name="searchglobalprocessor" class="col-md-10 col-md-offset-1" action="<%= request.getContextPath() %>/simple-search" method="get">
 <div class="input-group">
-    <input type="text" class="form-control" name="query" placeholder="Search term...">
+    <input type="text" class="form-control" name="query" placeholder="Search WIRE@WKU...">
     <span class="input-group-btn">
         <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
     </span>    
