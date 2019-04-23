@@ -304,3 +304,12 @@ footer .container {
 .navbar-custom {
     background-color: #FFFFFF
 }
+
+.carousel-control.left, .carousel-control.right {
+   background-image:none !important;
+   filter:none !important;
+}
+
+.top-news {
+    padding-top: 35px;
+}

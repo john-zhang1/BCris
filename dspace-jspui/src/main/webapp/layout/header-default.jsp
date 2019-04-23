@@ -115,6 +115,7 @@
         <script type="text/javascript" src="<%= request.getContextPath()%>/js/dataTables.responsive.min.js"></script>	
         <script type="text/javascript" src="<%= request.getContextPath()%>/js/bootstrap-datetimepicker.min.js"></script>
         <script type="text/javascript" src="<%= request.getContextPath()%>/js/jszip.min.js"></script>
+
         <script type='text/javascript'>
 var j = jQuery.noConflict();
 var $ = jQuery.noConflict();
@@ -259,6 +260,17 @@ jQuery(document).ready(function ($) {
                         <%
                             }
                         %>
+		</div>
+
+                    <div class="col-sm-8 brand pull-<%= isRtl ?"right" :"left" %>">
+                        <dspace:include page="/layout/home-carousel.jsp" />
+                    </div>
+                    <div class="col-sm-4 top-news hidden-xs pull-<%= isRtl ?"left" :"right" %>">
+Explore the diversity of the University's research outputs and	the authors behind the research
+The WIRE is an online	platform that actively collects and disseminates the research and	scholarly outputs created by the WIRE community. By showcasing the publications, research interests, activities and academic achievement of WKU's scholars, the WIRE aims to increase the visibility of	the University's research and facilitate knowledge transfer. >>More
+                    </div>
+
+
 
                     </div>
                 </div>
