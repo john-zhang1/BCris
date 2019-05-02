@@ -12,7 +12,7 @@
             <img src="<%= request.getContextPath()%>/image/home-carousel/img-1.jpg">
             <div class="container">
                 <div class="carousel-caption">
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    <p>Wenzhou-Kean University | To Build a Model for a Sino-Foreign Cooperative University.</p>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
             <img src="<%= request.getContextPath()%>/image/home-carousel/img-2.jpg">
             <div class="container">
                 <div class="carousel-caption">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <p>Wenzhou-Kean University (WKU) Returned Overseas Chinese Federation & Overseas Students and Family Association is Established.</p>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
             <img src="<%= request.getContextPath()%>/image/home-carousel/img-3.jpg">
             <div class="container">
                 <div class="carousel-caption">
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    <p>Stay in Wenzhou, Share the World: Start A World Culture Journey with WKU.</p>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <img src="<%= request.getContextPath()%>/image/home-carousel/img-4.jpg">
             <div class="container">
                 <div class="carousel-caption">
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    <p>The first session of Sino-foreign Cooperative University Association Leadership Summit was held in WKU.</p>
                 </div>
             </div>
         </div>

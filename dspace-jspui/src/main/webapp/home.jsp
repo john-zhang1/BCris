@@ -71,6 +71,30 @@
 
 <dspace:layout locbar="nolink" titlekey="jsp.home.title" feedData="<%= feedData %>">
     <div class="row">
+        <div class="col-sm-6 hidden-xsX pull-<%= isRtl ?"right" :"left" %>">
+            <dspace:include page="/layout/home-carousel.jsp" />
+        </div>
+        <div class="col-sm-6 brand top-news pull-<%= isRtl ?"left" :"right" %>">
+            <div class="container" style="height: 300px;">
+                <div class="row">
+                    <div class="row hidden-xs">
+                        <%= topNews %>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="well well-sm">
+                                <h3>Communities & Collections</h3>
+                                <p class="lead">List of communities and the collections of students' master’s thesis, doctoral dissertation or faculty publications.
+                                <p><a class="btn btn-default" href="<%= request.getContextPath() %>/community-list" role="button">View details »</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
         <div class="col-md-8 sm-12 pull-<%= isRtl? "right":"left" %>">
 
             <%
