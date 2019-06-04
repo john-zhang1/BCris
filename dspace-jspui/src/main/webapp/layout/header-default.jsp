@@ -77,6 +77,10 @@
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/static/css/responsive.bootstrap.min.css"/>
         <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/bootstrap/dspace-theme.css" type="text/css" />
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/css/bootstrap-datetimepicker.min.css" />
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/leaflet/leaflet.css" type="text/css" />
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/leaflet/MarkerCluster.css" type="text/css" />
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/leaflet/MarkerCluster.Default.css" type="text/css" />
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/leaflet/screen.css" type="text/css" />
         <%
             if (!"NONE".equals(feedRef)) {
                 for (int i = 0; i < parts.size(); i += 3) {
@@ -115,6 +119,9 @@
         <script type="text/javascript" src="<%= request.getContextPath()%>/js/dataTables.responsive.min.js"></script>	
         <script type="text/javascript" src="<%= request.getContextPath()%>/js/bootstrap-datetimepicker.min.js"></script>
         <script type="text/javascript" src="<%= request.getContextPath()%>/js/jszip.min.js"></script>
+        <script type='text/javascript' src='<%= request.getContextPath()%>/static/js/leaflet/leaflet-src.js'></script>
+        <script type='text/javascript' src='<%= request.getContextPath()%>/static/js/leaflet/leaflet.js'></script>
+        <script type='text/javascript' src='<%= request.getContextPath()%>/static/js/leaflet/leaflet.markercluster-src.js'></script>
 
         <script type='text/javascript'>
 var j = jQuery.noConflict();
