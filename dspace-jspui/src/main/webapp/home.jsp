@@ -71,7 +71,7 @@
 
 <dspace:layout locbar="nolink" titlekey="jsp.home.title" feedData="<%= feedData %>">
     <div class="row">
-        <div class="col-sm-6 hidden-xsX pull-<%= isRtl ?"right" :"left" %>">
+        <div class="col-sm-6 hidden-xsX hidden-xs pull-<%= isRtl ?"right" :"left" %>">
             <dspace:include page="/layout/home-carousel.jsp" />
         </div>
         <div class="col-sm-6 brand top-news pull-<%= isRtl ?"left" :"right" %>">
@@ -80,7 +80,7 @@
                     <div class="row hidden-xs">
                         <%= topNews %>
                     </div>
-                    <div class="row">
+                    <div class="row hidden-xs">
                         <div class="col-sm">
                             <div class="well well-sm">
                                 <h3>Communities & Collections</h3>
@@ -95,7 +95,7 @@
     </div>
     <div class="row">
 
-        <div class="col-md-8 sm-12 pull-<%= isRtl? "right":"left" %>">
+        <div class="col-md-12 sm-12 pull-<%= isRtl? "right":"left" %>">
 
             <%
             int discovery_panel_cols = 8;
