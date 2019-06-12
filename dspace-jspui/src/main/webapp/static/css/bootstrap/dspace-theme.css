@@ -313,3 +313,7 @@ footer .container {
 .top-news {
     padding-top: 0px;
 }
+
+.popover.fade.in {
+	min-width:250px;
+}

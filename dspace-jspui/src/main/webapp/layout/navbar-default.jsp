@@ -154,7 +154,7 @@
            <li id="home-top-menu" class="pull-<%= isRtl ? "right":"left"%>   <%= currentPage.endsWith("/home.jsp")? 
         		   "active" : "" %>"><a href="<%= request.getContextPath() %>/"><fmt:message key="jsp.layout.navbar-default.home"/></a></li>
 		  <% if(showCommList){ %>
-		   <li id="communitylist-top-menu" class="<%= currentPage.endsWith("/community-list")? 
+		   <li id="communitylist-top-menu1" class="<%= currentPage.endsWith("/community-list")?
         		   "active" : "" %>"><a href="<%= request.getContextPath() %>/community-list"><fmt:message key="jsp.layout.navbar-default.communities-collections"/></a></li>
         		 <% }%> 
            <% for (String mlink : mlinks) { %>
