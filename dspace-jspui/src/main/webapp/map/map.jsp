@@ -35,12 +35,13 @@
       if (${ jsDataObjectName }.length == 0) return;
       var leafletmap = L.map("${targetDiv}").setView([${ jsDataObjectName }[0][0], ${ jsDataObjectName }[0][1]], 4);
 
+
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
           '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
           'Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
         maxZoom: 18,
-        minZoom: 2,
+        minZoom: 4,
         id: 'lib-zzd.cig7yktpl0489unlx2e5ielz9',
         accessToken: 'pk.eyJ1IjoibGliLXp6ZCIsImEiOiJjaWc3eWt2MWEwNDZ6dXprb2Z6dzk5cTJrIn0.MGKAAmkhNF35HHG-yEjh5Q'
       }).addTo(leafletmap);
@@ -50,7 +51,7 @@
       }
   }
 
-  initialize_${ jsDataObjectName }();
+  initialize_${ jsDataObjectName } ();
   -->
   </script>
 </c:if>

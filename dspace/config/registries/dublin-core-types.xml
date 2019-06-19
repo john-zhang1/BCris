@@ -632,35 +632,35 @@
         <element>identifier</element>
         <qualifier>pmid</qualifier>
         <scope_note></scope_note>
-    </dc-type>    
+    </dc-type>
 
 	<dc-type>
         <schema>dc</schema>
         <element>identifier</element>
         <qualifier>arxiv</qualifier>
         <scope_note></scope_note>
-    </dc-type>    
+    </dc-type>
     
 	<dc-type>
         <schema>dc</schema>
         <element>identifier</element>
         <qualifier>scopus</qualifier>
         <scope_note></scope_note>
-    </dc-type>    
+    </dc-type>
 
 	<dc-type>
         <schema>dc</schema>
         <element>identifier</element>
         <qualifier>isi</qualifier>
         <scope_note></scope_note>
-    </dc-type>    
+    </dc-type>
 
 	<dc-type>
         <schema>dc</schema>
         <element>identifier</element>
         <qualifier>ark</qualifier>
         <scope_note></scope_note>
-    </dc-type>    
+    </dc-type>
 
 	<dc-type>
         <schema>dc</schema>
@@ -674,5 +674,47 @@
         <element>contributor</element>
         <qualifier>orcid</qualifier>
         <scope_note></scope_note>
-    </dc-type>        
+    </dc-type>
+
+	<dc-type>
+      <schema>dc</schema>
+      <element>rights</element>
+      <qualifier>requestable</qualifier>
+      <scope_note></scope_note>
+  </dc-type>
+
+	<dc-type>
+      <schema>dc</schema>
+      <element>type</element>
+      <qualifier>material</qualifier>
+      <scope_note></scope_note>
+  </dc-type>
+
+	<dc-type>
+      <schema>dc</schema>
+      <element>subject</element>
+      <qualifier>keywords</qualifier>
+      <scope_note></scope_note>
+  </dc-type>
+
+	<dc-type>
+      <schema>dc</schema>
+      <element>contributor</element>
+      <qualifier>sponsor</qualifier>
+      <scope_note></scope_note>
+  </dc-type>
+
+	<dc-type>
+      <schema>dc</schema>
+      <element>description</element>
+      <qualifier>peerreview</qualifier>
+      <scope_note></scope_note>
+  </dc-type>
+
+	<dc-type>
+      <schema>dc</schema>
+      <element>description</element>
+      <qualifier>peerreviewnotes</qualifier>
+      <scope_note></scope_note>
+  </dc-type>
 </dspace-dc-types>

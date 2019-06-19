@@ -80,14 +80,9 @@
                     <div class="row hidden-xs">
                         <%= topNews %>
                     </div>
-                    <div class="row hidden-xs">
-                        <div class="col-sm">
-                            <div class="well well-sm">
-                                <h3>Communities & Collections</h3>
-                                <p class="lead">List of communities and the collections of students' master’s thesis, doctoral dissertation or faculty publications.
-                                <p><a class="btn btn-default" href="<%= request.getContextPath() %>/community-list" role="button">View details »</a></p>
-                            </div>
-                        </div>
+
+                    <div class="row" style="overflow:hidden">
+                        <%@include file="map/map1.jsp" %>
                     </div>
                 </div>
             </div>
