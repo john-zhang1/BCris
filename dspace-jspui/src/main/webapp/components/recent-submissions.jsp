@@ -18,33 +18,6 @@ if (submissions != null && submissions.count() > 0)
           </h3>
        </div>   
 	   <div class="panel-body">
-	<%
-    if(feedEnabled)
-    {
-    	%>
-    	<div class="row">
-	   	<div class="col-md-12">
-	   	<div class="pull-right small">
-    	
-    	<%
-	    	String[] fmts = feedData.substring(feedData.indexOf(':')+1).split(",");
-	    	String icon = null;
-	    	int width = 0;
-	    	for (int j = 0; j < fmts.length; j++)
-	    	{
-	%>
-		<c:set var="fmtkey">jsp.recentsub.rss.<%= fmts[j] %></c:set>
-	    <a href="<%= request.getContextPath() %>/feed/<%= fmts[j] %>/site"><i alt="RSS Feeds" class="fa fa-rss"></i> 
-	    <sup class="small"><fmt:message key="${fmtkey}" /></sup></a>
-	<%
-	    	}
-	    	%>
-	</div>
-	   	</div>
-	   </div>
-	<%
-	    }
-%>
 	<div class="list-groups">
 	<%	
 		for (IGlobalSearchResult obj : submissions.getRecentSubmissions()) {

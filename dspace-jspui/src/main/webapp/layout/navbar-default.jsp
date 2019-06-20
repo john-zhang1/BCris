@@ -96,7 +96,7 @@
            <span class="icon-bar"></span>
          </button>
        </div>
-       <nav class="collapse navbar-collapse bs-navbar-collapse navbar-custom navbar-toggleable-sm bg-inverse">
+       <nav class="collapse navbar-collapse bs-navbar-collapse navbar-default navbar-toggleable-sm bg-inverse">
         <ul id="top-menu" class="nav navbar-nav navbar-<%= isRtl ? "right" : "left"%>">
             <li class="pull-<%= isRtl ? "right" : "left"%>">
                 <a class="navbar-brand" href="<%= request.getContextPath()%>/">
@@ -106,7 +106,7 @@
         </ul>
         <div class="nav top-menu-library-div navbar-<%= isRtl ? "left" : "right"%>">
             <ul class="nav navbar-nav navbar-<%= isRtl ? "left" : "right"%>">
-                <li id="library-top-menu" class="hidden-xs hidden-sm "><a href="#">Library</a></li>
+                <li id="library-top-menu" class="hidden-xs hidden-sm "><a href="http://www.wku.edu.cn/en/library">Library</a></li>
                 <%
                     if (extraNavbarData != null) {
                 %>
@@ -148,8 +148,8 @@
                 </li>
             </ul>
         </div>
-      </nav>
-       <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+       </nav>
+       <nav class="collapse navbar-collapse navbar-wire bs-navbar-collapse" role="navigation">
          <ul id="top-menu" class="nav navbar-nav navbar-<%= isRtl ? "right":"left"%>">
            <li id="home-top-menu" class="pull-<%= isRtl ? "right":"left"%>   <%= currentPage.endsWith("/home.jsp")? 
         		   "active" : "" %>"><a href="<%= request.getContextPath() %>/"><fmt:message key="jsp.layout.navbar-default.home"/></a></li>
@@ -220,4 +220,37 @@
    }
  %>
  --%>
-    </nav>
+
+  <div class="nav navbar-nav navbar-<%= isRtl ? "left" : "right" %>">
+    <ul class="nav navbar-nav navbar-<%= isRtl ? "left" : "right" %>">
+      <li id="search-top-menu" class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><b
+            class="caret"></b></a>
+        <div class="dropdown-menu">
+
+          <%-- Search Box --%>
+          <form id="formsearch-top-menu" method="get" action="<%= request.getContextPath() %>/global-search"
+            class="navbar-form navbar-<%= isRtl ? "left" : "right" %>" scope="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="<fmt:message key="jsp.layout.navbar-default.search" />" name="query" id="tequery" size="25"/>
+            </div>
+            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+            <%--               <br/><a href="<%= request.getContextPath() %>/advanced-search">
+            <fmt:message key="jsp.layout.navbar-default.advanced" /></a>
+            <%
+			if (ConfigurationManager.getBooleanProperty("webui.controlledvocabulary.enable"))
+			{
+%>
+            <br /><a href="<%= request.getContextPath() %>/subject-search">
+              <fmt:message key="jsp.layout.navbar-default.subjectsearch" /></a>
+            <%
+            }
+%> --%>
+          </form>
+
+        </div>
+      </li>
+    </ul>
+  </div>
+
+       </nav>
