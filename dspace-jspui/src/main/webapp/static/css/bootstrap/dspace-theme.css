@@ -463,6 +463,12 @@ a[href^="#group-left-info-popover-content"] {
     color: #81007f
 }
 
+a[href^="#group-right-info-popover-content"]:hover,
+a[href^="#group-center-info-popover-content"]:hover,
+a[href^="#group-left-info-popover-content"]:hover {
+    color: #ae5ea3
+}
+
 a[href^="#group-right-info-popover-content"] > .text-center > h4,
 a[href^="#group-center-info-popover-content"] > .text-center > h4,
 a[href^="#group-left-info-popover-content"] > .text-center > h4 {
