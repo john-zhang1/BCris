@@ -145,13 +145,14 @@
     <%-- HACK: leftmargin, topmargin: for non-CSS compliant Microsoft IE browser --%>
     <%-- HACK: marginwidth, marginheight: for non-CSS compliant Netscape browser --%>
     <body class="undernavigation">
+    <div class="container">
 <a class="sr-only" href="#content">Skip navigation</a>
-<header class="navbar navbar-inverse navbar-square">    
+<header class="container-fluid row navbar navbar-square">
     <%
     if (!navbar.equals("off"))
     {
 %>
-            <div class="container">
+            <div>
                 <dspace:include page="<%= navbar %>" />
             </div>
 <%
@@ -159,7 +160,7 @@
     else
     {
     	%>
-        <div class="container">
+        <div>
             <dspace:include page="/layout/navbar-minimal.jsp" />
         </div>
 <%    	
@@ -167,7 +168,7 @@
 %>
 </header>
 
-<main id="content" role="main">
+<main id="content" role="main" class="row">
                 <%-- Location bar --%>
 <%
     if (locbar)

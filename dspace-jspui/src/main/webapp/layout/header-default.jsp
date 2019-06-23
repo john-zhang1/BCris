@@ -199,17 +199,17 @@ jQuery(document).ready(function ($) {
     <%-- HACK: marginwidth, marginheight: for non-CSS compliant Netscape browser --%>
     <body class="undernavigation" dir="<%= LocaleUIHelper.ifLtr(request, "ltr", "rtl")%>">
         <a class="sr-only" href="#content">Skip navigation</a>
-        <header class="navbar navbar-square">
+        <header class="container navbar navbar-default">
             <%
                 if (!navbar.equals("off")) {
             %>
-            <div class="container">
+            <div class="container-fluid row">
                 <dspace:include page="<%= navbar%>" />
             </div>
             <%
             } else {
             %>
-            <div class="container">
+            <div>
                 <dspace:include page="/layout/navbar-minimal.jsp" />
             </div>
             <%

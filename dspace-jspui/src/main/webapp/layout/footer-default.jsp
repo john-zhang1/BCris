@@ -9,7 +9,7 @@
 --%>
 <%--
   - Footer for home page
---%>
+  --%>
 
 <%@page import="org.dspace.core.ConfigurationManager"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
@@ -25,47 +25,113 @@
 <%@ page import="org.dspace.app.webui.util.LocaleUIHelper" %>
 
 <%
-    String footerNews = NewsManager.readNewsFile(LocaleSupport.getLocalizedMessage(pageContext, "news-footer.html"));
+	String footerNews = NewsManager.readNewsFile(LocaleSupport.getLocalizedMessage(pageContext, "news-footer.html"));
     String sidebar = (String) request.getAttribute("dspace.layout.sidebar");
-    String[] mlinks = new String[0];
-    String mlinksConf = ConfigurationManager.getProperty("cris", "navbar.cris-entities");
-    if (StringUtils.isNotBlank(mlinksConf)) {
-        mlinks = StringUtils.split(mlinksConf, ",");
-    }
+	String[] mlinks = new String[0];
+	String mlinksConf = ConfigurationManager.getProperty("cris","navbar.cris-entities");
+	if (StringUtils.isNotBlank(mlinksConf)) {
+		mlinks = StringUtils.split(mlinksConf, ",");
+	}
 
-    boolean showCommList = ConfigurationManager.getBooleanProperty("community-list.show.all", true);
-    boolean isRtl = StringUtils.isNotBlank(LocaleUIHelper.ifLtr(request, "", "rtl"));
+	boolean showCommList = ConfigurationManager.getBooleanProperty("community-list.show.all",true);
+	boolean isRtl = StringUtils.isNotBlank(LocaleUIHelper.ifLtr(request, "","rtl"));
 %>
 
-<%-- Right-hand side bar if appropriate --%>
+            <%-- Right-hand side bar if appropriate --%>
 <%
-    if (sidebar != null) {
+    if (sidebar != null)
+    {
 %>
-</div>
-<div class="col-md-3">
-    <%= sidebar%>
-</div>
-</div>
+	</div>
+	<div class="col-md-3">
+                    <%= sidebar %>
+    </div>
+    </div>
 <%
     }
 %>
 </div>
 <br/>
 </main>
-<%-- Page footer --%>
-<footer class="navbar navbar-inverse navbar-bottom navbar-square">
-    <div class="container-fluid extra-footer row">
-        <div id="footer_feedback" class="col-sm-4 pull-<%= isRtl ? "right":"left" %>">
-           <a href="<%= request.getContextPath() %>/feedback"><fmt:message key="jsp.layout.footer-default.feedback"/></a>
-      </div>
-         <div id="designedby" class="col-sm-8 text-<%= isRtl ? "left": "right" %>">
-           <fmt:message key="jsp.layout.footer-default.text"/> - 
-           <fmt:message key="jsp.layout.footer-default.version-by"/> 
-           <a href="http://www.4science.it/en/dspace-and-dspace-cris-services/">
-               <img src="<%= request.getContextPath() %>/image/logo-4science-small.png"
-                          alt="Logo 4SCIENCE" height="32px"/></a>
-      </div>
-  </div>
-</footer>
-</body>
+            <%-- Page footer --%>
+            <footer class="container navbar navbar-inverse navbar-bottom">
+             <div class="row">
+
+                <div class="col-md-3 col-sm-6">
+                    <a href="http://www.wku.edu.cn/en/library/" target="_blank">Wenzhou Kean University Library</a>
+                    <p>The Library actively supports the
+                            University’s mission by providing integrated and timely access to high
+                            quality scholarly resources, an inspiring environment for intellectual
+                            growth and discovery, with responsive and outreaching services...
+                            <a href="http://www.wku.edu.cn/en/library/" target="_blank">[read more <i class="fa fa-external-link"></i>]</a></p>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h6 class="panel-title"><fmt:message key="jsp.layout.footer-default.explore"/></h6>
+                        </div>
+                        <div class="panel-body">
+                        <ul>
+                <% 	if(showCommList){ %>
+                <li><a href="<%= request.getContextPath() %>/community-list"><fmt:message key="jsp.layout.navbar-default.communities-collections"/></a></li>
+                <%	} 
+                    for (String mlink : mlinks) { 
+                %>
+                <c:set var="fmtkey">
+                jsp.layout.navbar-default.cris.<%= mlink.trim() %>
+                </c:set>
+                <li><a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>"><fmt:message key="${fmtkey}"/></a></li>
+                    <% } %>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">Useful Links</h6>
+                        </div>
+                        <div class="panel-body">
+                        <ul><li></li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">Copyright</h6>
+                        </div>
+                        <div class="panel-body">
+                        <ul><li></li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%-- <div class="col-md-9 col-sm-6">
+                <%= footerNews %>
+            </div> --%>
+
+			<div class="extra-footer row">
+      			<div id="footer_feedback" class="col-md-6 col-md-offset-3 col-sm-7 text-center">
+                    <a href="#">Contact us <i class="fa fa-envelope-o"></i></a> |
+                    <a target="_blank" href="#">Privacy Policy <i class="fa fa-external-link"></i></a> |
+                    <a href="#">Copyright &amp; Restrictions</a>
+                </div>
+	           	<div id="designedby" class="col-md-3 col-sm-5">
+                    <div class="pull-left">
+                        <fmt:message key="jsp.layout.footer-default.text"/>
+                        <fmt:message key="jsp.layout.footer-default.theme"/>
+                        <a href="#">
+                            <fmt:message key="jsp.layout.footer-default.zhangmeng"/>
+                        </a>
+                    </div>
+				</div>
+			</div>
+	    </footer>
+    </body>
 </html>

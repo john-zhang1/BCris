@@ -54,6 +54,36 @@
 
     boolean statsCleanerEnabled = ConfigurationManager.getBooleanProperty("usage-statistics", "webui.statistics.showCleaner");
     boolean isRtl = StringUtils.isNotBlank(LocaleUIHelper.ifLtr(request, "", "rtl"));
+
+    boolean activeContent = false;
+    boolean activeModule = false;
+    boolean activeAccess = false;
+    boolean activeSettings = false;
+
+    if ((currentPage.endsWith("/tools/edit-communities") ? true : false) || (currentPage.endsWith("/tools/edit-item") ? true : false)
+    || (currentPage.endsWith("/tools/duplicate") ? true : false) || (currentPage.endsWith("/dspace-admin/workflow") ? true : false)
+    || (currentPage.endsWith("/dspace-admin/supervise") ? true : false) || (currentPage.endsWith("/dspace-admin/curate") ? true : false)
+    || (currentPage.endsWith("/dspace-admin/withdrawn") ? true : false) || (currentPage.endsWith("/dspace-admin/privateitems") ? true : false)
+    || (currentPage.endsWith("/dspace-admin/metadataimport") ? true : false) || (currentPage.endsWith("/dspace-admin/batchimport") ? true : false) 
+    || (currentPage.endsWith("/dspace-admin/authority") ? true : false) || (currentPage.endsWith("/dspace-admin/doi") ? true : false) 
+    || (currentPage.endsWith("/dspace-admin/stats-cleaner") ? true : false)) {
+        activeContent = true;
+    }
+
+    if ((currentPage.endsWith("/admin/administrator.jsp") ? true : false)){
+        activeModule = true;
+    }
+
+    if ((currentPage.endsWith("/dspace-admin/edit-epeople") ? true : false) || (currentPage.endsWith("/tools/group-edit") ? true : false)
+    || (currentPage.endsWith("/tools/authorize") ? true : false)) {
+        activeAccess = true;
+    }
+
+    if ((currentPage.endsWith("/dspace-admin/metadata-schema-registry") ? true : false) || (currentPage.endsWith("/dspace-admin/format-registry") ? true : false)
+    || (currentPage.endsWith("/dspace-admin/news-edit") ? true : false) || (currentPage.endsWith("/dspace-admin/license-edit") ? true : false)) {
+        activeSettings = true;
+    }
+
 %>
 
 <div class="navbar-header">
@@ -63,7 +93,7 @@
         <span class="icon-bar"></span>
     </button>
 </div>
-<nav class="collapse navbar-collapse bs-navbar-collapse navbar-custom navbar-toggleable-sm bg-inverse">
+<nav class="collapse navbar-collapse bs-navbar-collapse navbar-default navbar-toggleable-sm bg-inverse">
     <ul id="top-menu" class="nav navbar-nav navbar-<%= isRtl ? "right" : "left"%>">
         <li class="pull-<%= isRtl ? "right" : "left"%>">
             <a class="navbar-brand" href="<%= request.getContextPath()%>/">
@@ -74,7 +104,7 @@
     <div class="nav top-menu-library-div navbar-<%= isRtl ? "left" : "right"%>">
         <ul class="nav navbar-nav navbar-<%= isRtl ? "left" : "right"%>">
             <li id="library-top-menu" class="hidden-xs hidden-sm "><a href="#">Library</a></li>
-            <li class="hidden-xs hidden-sm <%= (currentPage.endsWith("/help") ? "active" : "")%>"><dspace:popup page="<%= LocaleSupport.getLocalizedMessage(pageContext, \"help.site-admin\") %>"><fmt:message key="jsp.layout.navbar-admin.help"/></dspace:popup></li>
+            <li class="hidden-xs hidden-sm"><dspace:popup page="<%= LocaleSupport.getLocalizedMessage(pageContext, \"help.site-admin\") %>"><fmt:message key="jsp.layout.navbar-admin.help"/></dspace:popup></li>
 
             <li id="userloggedin-top-menu" class="dropdown">
 
@@ -98,11 +128,11 @@
 </nav>
 
 
-<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+<nav class="collapse navbar-collapse navbar-wire bs-navbar-collapse" role="navigation">
     <ul class="nav navbar-nav">
         <li class="hidden-xs hidden-sm"><a href="<%= request.getContextPath()%>/"><span class="glyphicon glyphicon-home"></span> <fmt:message key="jsp.layout.navbar-default.home"/></a></li>
 
-        <li class="dropdown">
+        <li class="dropdown <%= activeContent ? "active" : "" %>">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="jsp.layout.navbar-admin.contents"/> <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="<%= request.getContextPath()%>/tools/edit-communities"><fmt:message key="jsp.layout.navbar-admin.communities-collections"/></a></li>
@@ -128,9 +158,9 @@
         <%
             if (crisModuleEnabled == true) {
         %>
-        <li><a href="<%= request.getContextPath()%>/cris/administrator/index.htm"><fmt:message key="jsp.layout.navbar-admin.cris"/></a></li>
+        <li class="<%= activeModule ? "active" : "" %>"><a href="<%= request.getContextPath()%>/cris/administrator/index.htm"><fmt:message key="jsp.layout.navbar-admin.cris"/></a></li>
             <% }%>
-        <li class="dropdown">
+        <li class="dropdown <%= activeAccess ? "active" : "" %>">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="jsp.layout.navbar-admin.accesscontrol"/> <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="<%= request.getContextPath()%>/dspace-admin/edit-epeople"><fmt:message key="jsp.layout.navbar-admin.epeople"/></a></li>
@@ -138,8 +168,8 @@
                 <li><a href="<%= request.getContextPath()%>/tools/authorize"><fmt:message key="jsp.layout.navbar-admin.authorization"/></a></li>
             </ul>
         </li>
-        <li><a href="<%= request.getContextPath()%>/cris/stats/site.html?handle=<%=handlePrefix%>/0"><fmt:message key="jsp.layout.navbar-admin.statistics"/></a></li>
-        <li class="dropdown">
+        <li class="<%= currentPage.contains("/cris/stats/site.html")? "active" : "" %>"><a href="<%= request.getContextPath()%>/cris/stats/site.html?handle=<%=handlePrefix%>/0"><fmt:message key="jsp.layout.navbar-admin.statistics"/></a></li>
+        <li class="dropdown <%= activeSettings ? "active" : "" %>"">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="jsp.layout.navbar-admin.settings"/> <b class="caret"></b></a>
             <ul class="dropdown-menu">
 

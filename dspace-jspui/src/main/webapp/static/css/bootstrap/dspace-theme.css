@@ -9,7 +9,7 @@
  .brand h4 {color: #999999}
  #communitylist-top-menu a, #userloggedin-top-menu a {padding-top:0.3em;padding-bottom:0.3em;}
  #user-top-menu, #userloggedin-top-menu {margin-right: 15px;}
- footer {padding-top: 1em;}
+ footer {padding-top: 2.5em;}
  footer.navbar-inverse {color: white;}
  footer .extra-footer{background-color: black; color:white;}
  #designedby img {margin-right: 5px;}
@@ -271,6 +271,7 @@
  }
          
  #content{
+     margin-top: -21px;
      padding-bottom: 0px;
  }
  
@@ -331,8 +332,8 @@
  
  /* Custom navbar */
  .navbar-wire {
-     background-color: #81007f;
-     border-color: #960019
+     background-color: #021845;
+     border-color: #021850
  }
  
  .navbar-wire .navbar-brand {
@@ -359,8 +360,8 @@
  
  .navbar-wire .navbar-nav > .active > a, .navbar-wire .navbar-nav > .active > a:hover,
  .navbar-wire .navbar-nav > .active > a:focus {
-     color: #fff;
-     background-color: #a15196
+     color: #000;
+     background-color: #eee
  }
  
  .navbar-wire .navbar-nav > .disabled > a, .navbar-wire .navbar-nav > .disabled > a:hover,
@@ -372,7 +373,9 @@
  .navbar-wire .navbar-toggle {
      border-color: #ddd
  }
- 
+
+ .navbar-wire > .nav > li:hover{background:rgba(255,255,255,0.6);}
+
  .navbar-wire .navbar-toggle:hover, .navbar-wire .navbar-toggle:focus {
      background-color: #ddd
  }
@@ -393,7 +396,7 @@
  .navbar-wire .navbar-nav > .open > a, .navbar-wire .navbar-nav > .open > a:hover,
  .navbar-wire .navbar-nav > .open > a:focus {
      color: #fff;
-     background-color: #81007f
+     background-color: #021845
  }
  
  .navbar-wire .navbar-nav > .open > a .caret, .navbar-wire .navbar-nav > .open > a:hover .caret,
@@ -420,7 +423,7 @@
      .navbar-wire .navbar-nav .open .dropdown-menu > .active > a, .navbar-wire .navbar-nav .open .dropdown-menu > .active > a:hover,
      .navbar-wire .navbar-nav .open .dropdown-menu > .active > a:focus {
          color: #555;
-         background-color: #81007f
+         background-color: #021845
      }
  
      .navbar-wire .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-wire .navbar-nav .open .dropdown-menu > .disabled > a:hover,
@@ -438,11 +441,17 @@
      color: #800000
  }
  
- .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-     background-color: #ae5ea3 !important;
-     background-image: -webkit-gradient(linear, left 0, left 100%, from(#ae5ea3), to(#ae5ea3));
-     border-color: #ae5ea3
- }
+ .btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: #021845 !important;
+    background-image: -webkit-gradient(linear, left 0, left 100%, from(#021845), to(#021845));
+    border-color: #021845
+}
+
+.btn-primary:hover {
+    background-color: #a94442;
+    background-image: -webkit-gradient(linear, left 0, left 100%, from(#a94442), to(#a94442));
+    border-color: #a94442
+}
 
  a {
 	color: #000;
@@ -450,23 +459,22 @@
  }
 
  a:hover, a:focus {
-     color: #a15196;
+     color: #a94442;
      text-decoration: none;
  }
  
- .badge {background-color: #a15196;}
- .badge:hover {background-color:#ae5ea3;}
+ .badge {background-color: #a94442;}
 
 a[href^="#group-right-info-popover-content"],
 a[href^="#group-center-info-popover-content"],
 a[href^="#group-left-info-popover-content"] {
-    color: #81007f
+    color: #021845
 }
 
 a[href^="#group-right-info-popover-content"]:hover,
 a[href^="#group-center-info-popover-content"]:hover,
 a[href^="#group-left-info-popover-content"]:hover {
-    color: #ae5ea3
+    color: #a94442
 }
 
 a[href^="#group-right-info-popover-content"] > .text-center > h4,
@@ -476,3 +484,33 @@ a[href^="#group-left-info-popover-content"] > .text-center > h4 {
 }
 
 small.label.label-success {background-color: #000}
+
+body {
+    background: #c3cfd6;
+    background-size: 100% 100%;
+}
+
+footer.navbar {
+    background: transparent;
+    margin-top: -21px;
+    background-color: #284253;
+    border-color: #080808;
+    color: #fff
+}
+.panel {
+    background: transparent;
+	border:none;
+}
+.panel-title {color: #fff}
+
+footer a {color: #95af3e}
+
+footer div.panel-body > ul {padding-left: 0px;}
+
+footer div.extra-footer {color: #c3cfd6; background-color: #a02238;}
+
+#designedby {padding: 5px;}
+
+#footer_feedback {padding-top: 5px;}
+
+footer div.extra-footer a {color: #fff;}

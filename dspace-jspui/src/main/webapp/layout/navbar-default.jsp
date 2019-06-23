@@ -114,7 +114,7 @@
                 <%
                     }
                 %>
-                <li id="help-top-menu" class="hidden-xs hidden-sm <%= (currentPage.endsWith("/help") ? "active" : "")%>"><dspace:popup page="<%= LocaleSupport.getLocalizedMessage(pageContext, \"help.index\") %>"><fmt:message key="jsp.layout.navbar-default.help"/></dspace:popup></li>
+                <li id="help-top-menu" class="hidden-xs hidden-sm"><dspace:popup page="<%= LocaleSupport.getLocalizedMessage(pageContext, \"help.index\") %>"><fmt:message key="jsp.layout.navbar-default.help"/></dspace:popup></li>
                 <%
                     if (user != null) {
                 %>
@@ -166,6 +166,8 @@
            </c:set>
            <li id="<%= mlink.trim() %>-top-menu" class="hidden-xs hidden-sm <c:if test="${exploremlink == location}">active</c:if>"><a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>"><fmt:message key="${fmtkey}"/></a></li>
            <% } %>
+           <li id="home-about-menu" class="hidden-xs hidden-sm <%= currentPage.endsWith("/about.jsp")? 
+            "active" : "" %>"><a href="<%= request.getContextPath() %>/#"><fmt:message key="jsp.layout.navbar-default.explore.about"/></a></li>
            <li class="dropdown hidden-md hidden-lg">
              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="jsp.layout.navbar-default.explore"/> <b class="caret"></b></a>
              <ul class="dropdown-menu">
@@ -178,7 +180,9 @@
            </c:set>
            <li class="<c:if test="${exploremlink == location}">active</c:if>"><a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>"><fmt:message key="${fmtkey}"/></a></li>
            <% } %>
-           </ul>
+           <li class="<%= currentPage.endsWith("/about.jsp")? 
+            "active" : "" %>"><a href="<%= request.getContextPath() %>/#"><fmt:message key="jsp.layout.navbar-default.explore.about"/></a></li>
+        </ul>
            </li>
  <%
  if (extraNavbarData != null)
