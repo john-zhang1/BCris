@@ -75,8 +75,8 @@
                         <ul>
                 <% 	if(showCommList){ %>
                 <li><a href="<%= request.getContextPath() %>/community-list"><fmt:message key="jsp.layout.navbar-default.communities-collections"/></a></li>
-                <%	} 
-                    for (String mlink : mlinks) { 
+                <%	}
+                    for (String mlink : mlinks) {
                 %>
                 <c:set var="fmtkey">
                 jsp.layout.navbar-default.cris.<%= mlink.trim() %>

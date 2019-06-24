@@ -501,7 +501,7 @@ footer.navbar {
     background: transparent;
 	border:none;
 }
-.panel-title {color: #fff}
+.panel-title {color: #000}
 
 footer a {color: #95af3e}
 
@@ -514,3 +514,5 @@ footer div.extra-footer {color: #c3cfd6; background-color: #a02238;}
 #footer_feedback {padding-top: 5px;}
 
 footer div.extra-footer a {color: #fff;}
+
+footer .panel-title {color: #fff}
