@@ -100,7 +100,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6 brand pull-left">
+        <div class="col-sm-12 brand pull-left">
             <div class="container" style="height: 300px;">
                 <div class="row">
                     <div class="row" style="overflow:hidden">
