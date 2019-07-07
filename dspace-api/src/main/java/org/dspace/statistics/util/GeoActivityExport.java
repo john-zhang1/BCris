@@ -11,11 +11,13 @@ import org.dspace.core.Context;
 
 import java.io.*;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.text.SimpleDateFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class GeoActivityExport {
     private final SimpleDateFormat dateFormatIn = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private static Queue<ActionRecord> actionRecords = new LinkedList<ActionRecord>();
+    private static ConfigurationService config = new DSpace().getConfigurationService();
     public static final int MAX_EVENTS = 250;
     
     
@@ -46,91 +49,79 @@ public class GeoActivityExport {
     {
     }
 
-    public int convert(String in)
+    public void convert(String in) throws FileNotFoundException
     {
-        int counter = 0;
-
-        BufferedReader input;
-        try {
-            if (null == in || in.isEmpty() || "-".equals(in))
-            {
-                input = new BufferedReader(new InputStreamReader(System.in));
-                in = "standard input";
-            }
-            else
-                input = new BufferedReader(new FileReader(in));
-        } catch (IOException ie) {
-            log.error("File access problem", ie);
-            return 0;
-        }
-
-        // Setup the regular expressions for the log file
+        BufferedReader input = new BufferedReader(new FileReader(in));
         LogAnalyser.setRegex(in);
 
-        synchronized (actionRecords) {
-            // Open the file and read it line by line
-            try {
-                String line;
-                LogLine lline;
-                String ip = null;
-                String lastIP = "";
-                Long lastTimeStamp = 0L;
+        // Open the file and read it line by line
+        try {
+            String line;
+            LogLine lline;
+            String ip = null;
+            String lastIP = "";
+            Long lastTimeStamp = 0L;
 
-                while ((line = input.readLine()) != null)
+            while ((line = input.readLine()) != null)
+            {
+                lline = LogAnalyser.getLogLine(line);
+                ActionRecord actionRecord = null;
+
+                if ((lline == null) || (!lline.isLevel("INFO")))
                 {
-                    lline = LogAnalyser.getLogLine(line);
-                    ActionRecord actionRecord = null;
+                    continue;
+                }
 
-                    if ((lline == null) || (!lline.isLevel("INFO")))
-                    {
+                // Get the IP address of the user
+                Matcher matcher = ipaddrPattern.matcher(line);
+                if (matcher.find())
+                {
+                    ip = matcher.group(1);
+
+                    Date date = dateFormatIn.parse(line.substring(0, line.indexOf(',')), new ParsePosition(0));
+                    long unixTime = (long)date.getTime()/1000;
+
+                    if((lastTimeStamp == unixTime) && (lastIP == ip)) {
                         continue;
-                    }
-
-                    // Get the IP address of the user
-                    Matcher matcher = ipaddrPattern.matcher(line);
-                    if (matcher.find())
-                    {
-                        ip = matcher.group(1);
-                        System.out.println("IP is: " + ip);
-
-                        Date date = dateFormatIn.parse(line.substring(0, line.indexOf(',')), new ParsePosition(0));
-                        long unixTime = (long)date.getTime()/1000;
-
-                        if((lastTimeStamp == unixTime) && (lastIP == ip)) {
-                            continue;
-                        } else {
-                            actionRecord = new ActionRecord(unixTime, ip);
-                            actionRecords.add(actionRecord);
-                            lastIP = ip;
-                            lastTimeStamp = unixTime;                            
-                        }
-                    }
-
-                    while (actionRecords.size() > MAX_EVENTS)
-                    {
-                        actionRecords.poll();
+                    } else {
+                        actionRecord = new ActionRecord(unixTime, ip);
+                        actionRecords.add(actionRecord);
+                        lastIP = ip;
+                        lastTimeStamp = unixTime;
                     }
                 }
 
-                System.out.println(actionRecords.size());
-                for (ActionRecord ac : actionRecords){
-                    System.out.println("ip=" + ac.getIP() + ", time=" + Long.toString(ac.getTimeStamp()));
+                while (actionRecords.size() > MAX_EVENTS)
+                {
+                    actionRecords.poll();
                 }
             }
-            catch (IOException e)
-            {
-                log.error("File access problem", e);
-            }
-            finally
-            {
-                try { input.close();  } catch (IOException e) { log.error(e.getMessage(), e); }
+
+            System.out.println(actionRecords.size());
+            for (ActionRecord ac : actionRecords){
+                System.out.println("ip=" + ac.getIP() + ", time=" + Long.toString(ac.getTimeStamp()));
             }
         }
-        
-        List<ActionRecord> recordList= getRecords();
+        catch (IOException e)
+        {
+            log.error("File access problem", e);
+        }
+        finally
+        {
+            try { input.close();  } catch (IOException e) { log.error(e.getMessage(), e); }
+        }
+    }
+
+    private void writeGeoData() throws FileNotFoundException {
+        List<String> files =  getFileNames();
+
+        for(String name : files) {
+            convert(name);
+        }
 
         try {
-            getGeoList(recordList);
+            List<ActionRecord> records = getRecords();
+            getGeoList(records);
             String fileName = "geos.json";
             File baseDir = ensureGeosDir();
             String filePath = baseDir.getAbsolutePath() + "/" + fileName;
@@ -139,10 +130,9 @@ public class GeoActivityExport {
             java.util.logging.Logger.getLogger(GeoActivityExport.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return counter;
     }
 
-    public static List<ActionRecord> getRecords()
+    public List<ActionRecord> getRecords()
     {
     	List<ActionRecord> list = new ArrayList<>();
     	synchronized (actionRecords) {
@@ -151,7 +141,7 @@ public class GeoActivityExport {
     	return list;
     }
 
-    public static void main(String[] args) throws SQLException
+    public static void main(String[] args) throws SQLException, FileNotFoundException
     {
         CommandLineParser parser = new PosixParser();
 
@@ -186,7 +176,7 @@ public class GeoActivityExport {
             System.exit(1);
         }
 
-        geoExporter.convert(line.getOptionValue('i'));
+        geoExporter.writeGeoData();
 
         context.restoreAuthSystemState();
         context.abort();
@@ -198,9 +188,11 @@ public class GeoActivityExport {
 
         // Get unique IP addresses
         Map<String, String> ipAddresses = new TreeMap<>();
+        long currentTime = System.currentTimeMillis();
         for(ActionRecord record : records){
             String key = record.getIP();
-            if (ipAddresses.get(key) == null)
+
+            if ((ipAddresses.get(key) == null) && isWithinOneDay(currentTime, record.getTimeStamp()))
             {
                 ipAddresses.put(key, Long.toString(record.getTimeStamp()));
             }
@@ -280,11 +272,38 @@ public class GeoActivityExport {
         return gson.toJson(geos);
     }
 
+    private Date yesterday() {
+        final Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        return cal.getTime();
+    }
+    private String getDateString(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(date);
+    }
+
+    private Date today() {
+	final Calendar cal = Calendar.getInstance();
+        return cal.getTime();
+    }
+
+    // Get two days' file names (today and yesterday)
+    private List<String> getFileNames() {
+        List<String> names = new ArrayList<>();
+        String yesterday = getDateString(yesterday());
+        String today = getDateString(today());
+        String dir = config.getProperty("log.dir");
+        String baseFile = "dspace.log";
+        String yesterdayFile = dir + File.separator + baseFile + "." + yesterday;
+        String todayFile = dir + File.separator + baseFile + "." + today;
+        names.add(yesterdayFile);
+        names.add(todayFile);
+        return names;
+    }
 
     protected File ensureGeosDir()
     {
-        ConfigurationService config = new DSpace().getConfigurationService();
-        String dir = config.getProperty("geo.ip.dir");
+        String dir = config.getProperty("geo.json.dir");
         File baseDir = new File(dir);
         if (!baseDir.exists() && !baseDir.mkdirs())
         {
@@ -310,7 +329,12 @@ public class GeoActivityExport {
 
     }
 
-    public static class GeoMapData {
+    private boolean isWithinOneDay(long currentTime, long timeStamp) {
+        long time = timeStamp*1000;
+        return (currentTime - time) < Long.valueOf(24 * 60 * 60 * 1000);
+    }
+
+    public class GeoMapData {
         private String latitude;
         private String longitude;
         private String time;
@@ -358,7 +382,7 @@ public class GeoActivityExport {
     }
 
 
-    public static class ActionRecord {
+    public class ActionRecord {
 
         private long timeStamp;
         private String ip;
