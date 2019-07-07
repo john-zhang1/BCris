@@ -116,7 +116,11 @@ public class GeoActivityExport {
         List<String> files =  getFileNames();
 
         for(String name : files) {
-            convert(name);
+            try {
+                convert(name);
+            } catch(Exception e) {
+                System.err.println("File " + name + " encountered error.");
+            }
         }
 
         try {
