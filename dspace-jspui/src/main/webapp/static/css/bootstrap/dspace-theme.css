@@ -18,9 +18,8 @@
  div.panel.panel-primary ul.list-group li.list-group-item.active .badge {background-color: #428bca;}
  ol.breadcrumb li {color: white; font-style: italic;}
  ol.breadcrumb li a {color: white; font-weight: bold; font-style: normal;}
- body.undernavigation {overflow-x: hidden;
- // padding-top: 65px;
- }
+ body.undernavigation {overflow-x: hidden;}
+
  .navbar-square {border-radius: 0px;}
  #content {padding-bottom:60px;}
  #designedby {padding-top: 5px; padding-bottom:5px;}
