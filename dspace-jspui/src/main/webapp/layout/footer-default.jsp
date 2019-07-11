@@ -118,9 +118,8 @@
 
 			<div class="extra-footer row">
       			<div id="footer_feedback" class="col-md-6 col-md-offset-3 col-sm-7 text-center">
-                    <a href="#">Contact us <i class="fa fa-envelope-o"></i></a> |
-                    <a target="_blank" href="#">Privacy Policy <i class="fa fa-external-link"></i></a> |
-                    <a href="#">Copyright &amp; Restrictions</a>
+                    <a href="mailto:wire@wku.edu.cn">Contact us <i class="fa fa-envelope-o"></i></a> |
+                    <a target="_blank" href="#">Terms of Use <i class="fa fa-external-link"></i></a>
                 </div>
 	           	<div id="designedby" class="col-md-3 col-sm-5">
                     <div class="pull-left">
