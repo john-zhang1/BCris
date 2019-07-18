@@ -130,8 +130,6 @@
                         <% }%>
                     <ul class="dropdown-menu">
                         <li><a href="<%= request.getContextPath()%>/mydspace"><fmt:message key="jsp.layout.navbar-default.users"/></a></li>
-                        <li><a href="<%= request.getContextPath()%>/subscribe"><fmt:message key="jsp.layout.navbar-default.receive"/></a></li>
-                        <li><a href="<%= request.getContextPath()%>/profile"><fmt:message key="jsp.layout.navbar-default.edit"/></a></li>
     
                         <%
                             if (isAdmin) {
@@ -238,7 +236,7 @@
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="<fmt:message key="jsp.layout.navbar-default.search" />" name="query" id="tequery" size="25"/>
             </div>
-            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+            <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
             <%--               <br/><a href="<%= request.getContextPath() %>/advanced-search">
             <fmt:message key="jsp.layout.navbar-default.advanced" /></a>
             <%

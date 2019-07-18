@@ -103,7 +103,7 @@
 <div class="input-group">
     <input type="text" class="form-control" name="query" placeholder="Search WIRE@WKU...">
     <span class="input-group-btn">
-        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-search"></i></button>
     </span>    
     <div class="input-group-btn search-panel">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
