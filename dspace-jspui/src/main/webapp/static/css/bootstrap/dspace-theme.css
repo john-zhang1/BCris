@@ -444,13 +444,14 @@
     background-color: #021845 !important;
     background-image: -webkit-gradient(linear, left 0, left 100%, from(#021845), to(#021845));
     border-color: #021845;
-    color: #000;
+    color: #fff;
 }
 
 .btn-primary:hover, .btn-info:hover {
     background-color: #fed501;
     background-image: -webkit-gradient(linear, left 0, left 100%, from(#fed501), to(#fed501));
-    border-color: #fed501
+    border-color: #fed501;
+    color: #000;
 }
 
  a {
