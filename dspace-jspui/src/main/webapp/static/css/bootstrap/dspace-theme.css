@@ -464,7 +464,7 @@
      text-decoration: none;
  }
  
- .badge {background-color: #fed501;color:#000;}
+ .badge {background: rgba(254,213,1,0.7); color:#000;}
 
 a[href^="#group-right-info-popover-content"],
 a[href^="#group-center-info-popover-content"],
@@ -511,7 +511,7 @@ footer a {color: #fed501}
 
 footer div.panel-body > ul {padding-left: 0px;}
 
-footer div.extra-footer {color: #000; background-color: #fed501;}
+footer div.extra-footer {color: #000; background: rgba(254,213,1,0.7);}
 
 #designedby {padding: 5px;}
 
