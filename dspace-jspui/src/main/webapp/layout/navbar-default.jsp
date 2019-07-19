@@ -165,7 +165,7 @@
            <li id="<%= mlink.trim() %>-top-menu" class="hidden-xs hidden-sm <c:if test="${exploremlink == location}">active</c:if>"><a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>"><fmt:message key="${fmtkey}"/></a></li>
            <% } %>
            <li id="home-about-menu" class="hidden-xs hidden-sm <%= currentPage.endsWith("/about.jsp")? 
-            "active" : "" %>"><a href="<%= request.getContextPath() %>/#"><fmt:message key="jsp.layout.navbar-default.explore.about"/></a></li>
+            "active" : "" %>"><a href="<%= request.getContextPath() %>/#"><fmt:message key="jsp.layout.navbar-default.cris.theses"/></a></li>
            <li class="dropdown hidden-md hidden-lg">
              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="jsp.layout.navbar-default.explore"/> <b class="caret"></b></a>
              <ul class="dropdown-menu">
@@ -179,7 +179,7 @@
            <li class="<c:if test="${exploremlink == location}">active</c:if>"><a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>"><fmt:message key="${fmtkey}"/></a></li>
            <% } %>
            <li class="<%= currentPage.endsWith("/about.jsp")? 
-            "active" : "" %>"><a href="<%= request.getContextPath() %>/#"><fmt:message key="jsp.layout.navbar-default.explore.about"/></a></li>
+            "active" : "" %>"><a href="<%= request.getContextPath() %>/#"><fmt:message key="jsp.layout.navbar-default.cris.theses"/></a></li>
         </ul>
            </li>
  <%
@@ -236,7 +236,7 @@
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="<fmt:message key="jsp.layout.navbar-default.search" />" name="query" id="tequery" size="25"/>
             </div>
-            <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
+            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
             <%--               <br/><a href="<%= request.getContextPath() %>/advanced-search">
             <fmt:message key="jsp.layout.navbar-default.advanced" /></a>
             <%
