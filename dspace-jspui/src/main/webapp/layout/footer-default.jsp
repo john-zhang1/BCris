@@ -58,7 +58,7 @@
              <div class="row">
 
                 <div class="col-md-3 col-sm-6">
-                    <a href="http://www.wku.edu.cn/en/library/" target="_blank">Wenzhou Kean University Library</a>
+                    <a href="http://www.wku.edu.cn/en/library/" target="_blank">Wenzhou-Kean University Library</a>
                     <div>The Library actively supports the
                             University’s mission by providing integrated and timely access to high
                             quality scholarly resources, an inspiring environment for intellectual
