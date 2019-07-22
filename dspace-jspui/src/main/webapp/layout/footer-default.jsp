@@ -121,20 +121,20 @@
             </div> --%>
 
             <div class="extra-footer row">
-                <div id="footer_feedback" class="col-md-6 col-md-offset-2 col-sm-6 text-center">
+                <div id="footer_feedback" class="col-md-12 col-sm-12 text-center">
                     <a href="mailto:wire@wku.edu.cn">Contact us <i class="fa fa-envelope-o"></i></a> |
                     <a target="_blank" href="http://www.wku.edu.cn/en/library/service/wire/terms-of-use/">Terms of Use <i class="fa fa-external-link"></i></a> |
                     <span><fmt:message key="jsp.layout.footer-default.copy-right"/></span>
                 </div>
-                <div id="designedby" class="col-md-4 col-sm-4 text-center">
-                    <div class="pull-left">
-                        <fmt:message key="jsp.layout.footer-default.text"/>
-                        <fmt:message key="jsp.layout.footer-default.theme"/>
-                        <a href="#">
-                            <fmt:message key="jsp.layout.footer-default.zhangmeng"/>
-                        </a>
-                    </div>
-				</div>
+			</div>
+            <div class="extra-footer design-bar row">
+                <div id="designedby" class="col-md-12 col-sm-12 col-md-offset-8">
+                    <fmt:message key="jsp.layout.footer-default.text"/>
+                    <fmt:message key="jsp.layout.footer-default.theme"/>
+                    <a href="#">
+                        <fmt:message key="jsp.layout.footer-default.zhangmeng"/>
+                    </a>
+                </div>
 			</div>
 	    </footer>
     </body>

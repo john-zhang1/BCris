@@ -326,12 +326,12 @@
      padding: 10px 0px;
      background: transparent;
      color: black;
-     border-bottom: 2px #000 solid;
+     border-bottom: 2px #fff solid;
  }
  
  /* Custom navbar */
  .navbar-wire {
-     background-color: #021845;
+     background-color: #4C5662;
      border-color: #021850
  }
  
@@ -395,7 +395,7 @@
  .navbar-wire .navbar-nav > .open > a, .navbar-wire .navbar-nav > .open > a:hover,
  .navbar-wire .navbar-nav > .open > a:focus {
      color: #fff;
-     background-color: #021845
+     background-color: #4C5662
  }
  
  .navbar-wire .navbar-nav > .open > a .caret, .navbar-wire .navbar-nav > .open > a:hover .caret,
@@ -422,7 +422,7 @@
      .navbar-wire .navbar-nav .open .dropdown-menu > .active > a, .navbar-wire .navbar-nav .open .dropdown-menu > .active > a:hover,
      .navbar-wire .navbar-nav .open .dropdown-menu > .active > a:focus {
          color: #555;
-         background-color: #021845
+         background-color: #4C5662
      }
  
      .navbar-wire .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-wire .navbar-nav .open .dropdown-menu > .disabled > a:hover,
@@ -441,9 +441,9 @@
  }
  
  .btn-primary, .btn-primary:active, .btn-primary:visited {
-    background-color: #021845 !important;
-    background-image: -webkit-gradient(linear, left 0, left 100%, from(#021845), to(#021845));
-    border-color: #021845;
+    background-color: #4C5662 !important;
+    background-image: -webkit-gradient(linear, left 0, left 100%, from(#4C5662), to(#4C5662));
+    border-color: #4C5662;
     color: #fff;
 }
 
@@ -455,7 +455,7 @@
 }
 
  a {
-	color: #021845;
+	color: #4C5662;
 	text-decoration: none;
  }
 
@@ -469,7 +469,7 @@
 a[href^="#group-right-info-popover-content"],
 a[href^="#group-center-info-popover-content"],
 a[href^="#group-left-info-popover-content"] {
-    color: #021845
+    color: #4C5662
 }
 
 a[href^="#group-right-info-popover-content"]>.col-md-4.text-center:hover,
@@ -513,13 +513,13 @@ footer div.panel-body > ul {padding-left: 0px;}
 
 footer div.extra-footer {color: #000; background: rgba(254,213,1,0.7);}
 
-#designedby {padding: 5px;}
+#designedby {padding: 0px; font-size:12px; padding-left: 65px;}
 
 #footer_feedback {padding-top: 5px;}
 
 footer div.extra-footer a {color: #000;}
 
-footer .panel-title {color: #000}
+footer .panel-title {color: #fff}
 
 .carousel-inner .item img {
     height:250px;
@@ -535,10 +535,12 @@ footer .panel-title {color: #000}
 }
 
 .dropdown-menu > li > a:hover {
-    background-color: #021845;
+    background-color: #4C5662;
     background-image: none;
 }
 
-.undefinedstaff {color:#021845}
+.undefinedstaff {color:#4C5662}
 
 #footer_copyright {padding: 5px;}
+
+.extra-footer.design-bar.row {background:rgba(238,238,238,0.9);}
