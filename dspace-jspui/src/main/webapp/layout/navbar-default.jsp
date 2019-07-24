@@ -130,8 +130,6 @@
                         <% }%>
                     <ul class="dropdown-menu">
                         <li><a href="<%= request.getContextPath()%>/mydspace"><fmt:message key="jsp.layout.navbar-default.users"/></a></li>
-                        <li><a href="<%= request.getContextPath()%>/subscribe"><fmt:message key="jsp.layout.navbar-default.receive"/></a></li>
-                        <li><a href="<%= request.getContextPath()%>/profile"><fmt:message key="jsp.layout.navbar-default.edit"/></a></li>
     
                         <%
                             if (isAdmin) {
@@ -167,7 +165,7 @@
            <li id="<%= mlink.trim() %>-top-menu" class="hidden-xs hidden-sm <c:if test="${exploremlink == location}">active</c:if>"><a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>"><fmt:message key="${fmtkey}"/></a></li>
            <% } %>
            <li id="home-about-menu" class="hidden-xs hidden-sm <%= currentPage.endsWith("/about.jsp")? 
-            "active" : "" %>"><a href="<%= request.getContextPath() %>/#"><fmt:message key="jsp.layout.navbar-default.explore.about"/></a></li>
+            "active" : "" %>"><a href="<%= request.getContextPath() %>/#"><fmt:message key="jsp.layout.navbar-default.cris.theses"/></a></li>
            <li class="dropdown hidden-md hidden-lg">
              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="jsp.layout.navbar-default.explore"/> <b class="caret"></b></a>
              <ul class="dropdown-menu">
@@ -181,7 +179,7 @@
            <li class="<c:if test="${exploremlink == location}">active</c:if>"><a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>"><fmt:message key="${fmtkey}"/></a></li>
            <% } %>
            <li class="<%= currentPage.endsWith("/about.jsp")? 
-            "active" : "" %>"><a href="<%= request.getContextPath() %>/#"><fmt:message key="jsp.layout.navbar-default.explore.about"/></a></li>
+            "active" : "" %>"><a href="<%= request.getContextPath() %>/#"><fmt:message key="jsp.layout.navbar-default.cris.theses"/></a></li>
         </ul>
            </li>
  <%

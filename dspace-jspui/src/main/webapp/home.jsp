@@ -70,6 +70,13 @@
 %>
 
 <dspace:layout locbar="nolink" titlekey="jsp.home.title" feedData="<%= feedData %>">
+    <p/>
+    <div class="row">
+        <div class="col-sm-12 brand pull-<%= isRtl ?"right" :"left" %>">
+            <dspace:include page="/layout/home-carousel.jsp" />
+        </div>
+    </div>
+
     <div class="row">
 
         <div class="col-md-12 sm-12 pull-<%= isRtl? "right":"left" %>">
@@ -99,17 +106,18 @@
             <%-- <%@ include file="components/most-cited.jsp" %> --%>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12 brand pull-left">
-            <div class="container" style="height: 300px;">
-                <div class="row">
-                    <div class="row" style="overflow:hidden">
-                        <%@ include file="map/map-live.jsp" %>
+        <div class="row">
+            <div class="col-sm-12 brand pull-left">
+                <div class="container" style="height: 300px;">
+                    <div class="row">
+                        <div class="row" style="overflow:hidden">
+                            <%@ include file="map/map-live.jsp" %>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
     <%
     if (communities != null && communities.length != 0)
     {

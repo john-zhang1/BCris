@@ -58,12 +58,13 @@
              <div class="row">
 
                 <div class="col-md-3 col-sm-6">
-                    <a href="http://www.wku.edu.cn/en/library/" target="_blank">Wenzhou Kean University Library</a>
-                    <p>The Library actively supports the
+                    <a href="http://www.wku.edu.cn/en/library/" target="_blank">Wenzhou-Kean University Library</a>
+                    <div>The Library actively supports the
                             University’s mission by providing integrated and timely access to high
                             quality scholarly resources, an inspiring environment for intellectual
                             growth and discovery, with responsive and outreaching services...
-                            <a href="http://www.wku.edu.cn/en/library/" target="_blank">[read more <i class="fa fa-external-link"></i>]</a></p>
+                            <a href="http://www.wku.edu.cn/en/library/" target="_blank">[read more <i class="fa fa-external-link"></i>]</a>
+                    </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6">
@@ -94,8 +95,12 @@
                             <h6 class="panel-title">Useful Links</h6>
                         </div>
                         <div class="panel-body">
-                        <ul><li></li>
-                        </ul>
+                        <ul>
+                                <li><a href="#">About WIRE</a></li>
+                                <li><a target="_blank" href="http://www.wku.edu.cn/en/library/about/news-events/">Library News & Events</a></li>
+                                <li><a href="#">Library Digital Learning</a></li>
+                                <li><a href="#">Library Digital Research</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -103,11 +108,10 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h6 class="panel-title">Copyright</h6>
+                            <h6 class="panel-title">Submit an Item</h6>
                         </div>
                         <div class="panel-body">
-                        <ul><li></li>
-                        </ul>
+                            <div>Wenzhou-Kean University faculty, staff, and students can request to submit a digital item to WIRE. Please contact your library liaisons via <a target="_blank" href="http://www.wku.edu.cn/en/library/service/liaison/">Library Liaisons</a></div><br/>
                         </div>
                     </div>
                 </div>
@@ -116,20 +120,21 @@
                 <%= footerNews %>
             </div> --%>
 
-			<div class="extra-footer row">
-      			<div id="footer_feedback" class="col-md-4 col-md-offset-3 col-sm-7 text-center">
+            <div class="extra-footer row">
+                <div id="footer_feedback" class="col-md-12 col-sm-12 text-center">
                     <a href="mailto:wire@wku.edu.cn">Contact us <i class="fa fa-envelope-o"></i></a> |
-                    <a target="_blank" href="<%= request.getContextPath() %>/static/html/terms-of-use.html">Terms of Use <i class="fa fa-external-link"></i></a>
+                    <a target="_blank" href="http://www.wku.edu.cn/en/library/service/wire/terms-of-use/">Terms of Use <i class="fa fa-external-link"></i></a> |
+                    <span><fmt:message key="jsp.layout.footer-default.copy-right"/></span>
                 </div>
-	           	<div id="designedby" class="col-md-4 col-sm-5 text-center">
-                    <div class="pull-left">
-                        <fmt:message key="jsp.layout.footer-default.text"/>
-                        <fmt:message key="jsp.layout.footer-default.theme"/>
-                        <a href="#">
-                            <fmt:message key="jsp.layout.footer-default.zhangmeng"/>
-                        </a>
-                    </div>
-				</div>
+			</div>
+            <div class="extra-footer design-bar row">
+                <div id="designedby" class="col-md-12 col-sm-12 col-md-offset-8">
+                    <fmt:message key="jsp.layout.footer-default.text"/>
+                    <fmt:message key="jsp.layout.footer-default.theme"/>
+                    <a href="#">
+                        <fmt:message key="jsp.layout.footer-default.zhangmeng"/>
+                    </a>
+                </div>
 			</div>
 	    </footer>
     </body>
