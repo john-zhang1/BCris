@@ -16,6 +16,7 @@
   <form-map>
     <name-map collection-handle="default" form-name="traditional" />
     <name-map collection-handle="123456789/1161" form-name="theses" />
+    <name-map collection-handle="123456789/1590" form-name="openaccess" />
     <!-- 
  	we provide examples of form tailored for articles, books, 
    	conference_materials, dataset and a catch all others form-name 
@@ -304,17 +305,6 @@
 
         <field>
           <dc-schema>dc</dc-schema>
-          <dc-element>identifier</dc-element>
-          <dc-qualifier>studentID</dc-qualifier>
-          <repeatable>false</repeatable>
-          <label>Student ID</label>
-          <input-type>onebox</input-type>
-          <hint>Enter the student ID of the author</hint>
-          <required>You must enter an student ID</required>
-        </field>
-
-        <field>
-          <dc-schema>dc</dc-schema>
           <dc-element>discipline</dc-element>
           <repeatable>false</repeatable>
           <label>Discipline</label>
@@ -480,6 +470,178 @@
           <hint> Enter any other description or comments in this box. </hint>
           <required></required>
         </field>
+      </page>
+    </form>
+
+    <form name="openaccess">
+      <page number="1">
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>title</dc-element>
+          <dc-qualifier></dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Title</label>
+          <input-type>onebox</input-type>
+          <hint>Enter the main title of the item.</hint>
+          <required>You must enter a main title for this item.</required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>date</dc-element>
+          <dc-qualifier>issued</dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Date of Publication</label>
+          <input-type>date</input-type>
+          <hint>You can leave out the day and/or month if they aren't applicable.</hint>
+          <required>You must enter at least the year.</required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>contributor</dc-element>
+          <dc-qualifier>author</dc-qualifier>
+          <repeatable>true</repeatable>
+          <label>Author</label>
+          <input-type>name</input-type>
+          <hint>Enter the author(s) of this work. Do not include degrees as part of the name.</hint>
+          <required>You must enter a creator</required>
+        </field>
+
+        <field>
+          <dc-schema>wku</dc-schema>
+          <dc-element>group</dc-element>
+          <dc-qualifier></dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Department/College</label>
+          <input-type value-pairs-name="wku_group">dropdown</input-type>
+          <hint></hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>type</dc-element>
+          <dc-qualifier></dc-qualifier>
+          <repeatable>true</repeatable>
+          <label>Type</label>
+          <input-type value-pairs-name="common_types">dropdown</input-type>
+          <hint>Select the type(s) of content of the item. To select more than one value in the list, you may have to hold down the "CTRL" or "Shift" key.</hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier>peerreview</dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Peer Reviewed</label>
+          <input-type value-pairs-name="peerreview_check">list</input-type>
+          <hint>Was this work peer reviewed? </hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier>peerreviewnotes</dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Peer Review Notes</label>
+          <input-type>textarea</input-type>
+          <hint>Enter a brief description of the nature of peer review for this work.</hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>identifier</dc-element>
+          <dc-qualifier>doi</dc-qualifier>
+          <repeatable>true</repeatable>
+          <label>DOI</label>
+          <input-type>onebox</input-type>
+          <hint>DOI</hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>identifier</dc-element>
+          <dc-qualifier>citation</dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Citation</label>
+          <input-type>onebox</input-type>
+          <hint>Enter the standard citation for this item.</hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>ispartofseries</dc-qualifier>
+          <repeatable>true</repeatable>
+          <label>Series/Report No.</label>
+          <input-type>series</input-type>
+          <hint>Enter the series and number assigned to this item by your community.</hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>subject</dc-element>
+          <dc-qualifier></dc-qualifier>
+          <!-- An input-type of twobox MUST be marked as repeatable -->
+          <repeatable>true</repeatable>
+          <label>Subject Keywords</label>
+          <input-type>onebox</input-type>
+          <hint>Enter appropriate subject keywords or phrases. </hint>
+          <required></required>
+          <vocabulary>srsc</vocabulary>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier>abstract</dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Abstract</label>
+          <input-type>textarea</input-type>
+          <hint>Enter the abstract of the item. </hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier>sponsorship</dc-qualifier>
+          <repeatable>true</repeatable>
+          <label>Sponsors</label>
+          <input-type>onebox</input-type>
+          <hint> Enter the name of any sponsors. </hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier></dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Description</label>
+          <input-type>textarea</input-type>
+          <hint> Record any additional notes pertaining to the resource. </hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>language</dc-element>
+          <dc-qualifier>iso</dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Language</label>
+          <input-type value-pairs-name="common_iso_languages">dropdown</input-type>
+          <hint>Select the language of the main content of the item.  If the language does not appear in the list, please select 'Other'.  If the content does not really have a language (for example, if it is a dataset or an image) please select 'N/A'.</hint>
+          <required></required>
+        </field>
+
       </page>
     </form>
 
@@ -1859,7 +2021,7 @@ it, please enter the types and the actual numbers or codes.</hint>
 
     <value-pairs value-pairs-name="thesis_degree" dc-term="degree">
       <pair>
-        <displayed-value> </displayed-value>
+        <displayed-value></displayed-value>
         <stored-value></stored-value>
       </pair>
       <pair>
@@ -1870,7 +2032,7 @@ it, please enter the types and the actual numbers or codes.</hint>
 
     <value-pairs value-pairs-name="wku_disciplines" dc-term="degree">
       <pair>
-        <displayed-value> </displayed-value>
+        <displayed-value></displayed-value>
         <stored-value></stored-value>
       </pair>
       <pair>
@@ -1881,7 +2043,7 @@ it, please enter the types and the actual numbers or codes.</hint>
 
     <value-pairs value-pairs-name="wku_group" dc-term="group">
       <pair>
-        <displayed-value> </displayed-value>
+        <displayed-value></displayed-value>
         <stored-value></stored-value>
       </pair>
       <pair>
@@ -1900,8 +2062,22 @@ it, please enter the types and the actual numbers or codes.</hint>
         <displayed-value>College of Business &#38; Public Management</displayed-value>
         <stored-value>College of Business and Public Management</stored-value>
       </pair>
+      <pair>
+        <displayed-value>Library</displayed-value>
+        <stored-value>Library</stored-value>
+      </pair>
     </value-pairs>
 
+   <value-pairs value-pairs-name="peerreview_check" dc-term="description.peerreview">
+     <pair>
+       <displayed-value>Yes</displayed-value>
+       <stored-value>Yes</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>No</displayed-value>
+       <stored-value>No</stored-value>
+     </pair>
+   </value-pairs>
 
   </form-value-pairs>
 
