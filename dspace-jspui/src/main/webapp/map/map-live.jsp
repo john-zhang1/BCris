@@ -26,8 +26,8 @@
         var timerInterval = 5 * 1000;
         var previousLayer = '';
 
-        var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        var layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ',
             maxZoom: 18,
             minZoom: 2,
             id: 'lib-zzd.cig7yktpl0489unlx2e5ielz9',
