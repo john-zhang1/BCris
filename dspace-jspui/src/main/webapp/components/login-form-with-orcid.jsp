@@ -37,7 +37,7 @@
         </div>
       </form>
       </div>
-      <div class="col-md-6">
+      <%--<div class="col-md-6">
       <h3 class="text-success"><fmt:message key="jsp.components.login-form.orcid-heading" /></h3>
       <p><fmt:message key="jsp.components.login-form.orcid-description"/></p>
       <p class="text-center">
@@ -46,7 +46,7 @@
       	<fmt:message key="jsp.components.login-form.orcid-login"/>
       	<img src="<%= request.getContextPath() %>/image/orcid_64x64.png" title="ORCID Authentication" />
       </button></a></p>
-      </div>
+      </div>--%>
       </div>
       <script type="text/javascript">
 		document.loginform.login_email.focus();

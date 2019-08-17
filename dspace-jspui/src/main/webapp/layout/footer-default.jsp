@@ -59,11 +59,8 @@
 
                 <div class="col-md-3 col-sm-6">
                     <a href="http://www.wku.edu.cn/en/library/" target="_blank">Wenzhou-Kean University Library</a>
-                    <div>The Library actively supports the
-                            University’s mission by providing integrated and timely access to high
-                            quality scholarly resources, an inspiring environment for intellectual
-                            growth and discovery, with responsive and outreaching services...
-                            <a href="http://www.wku.edu.cn/en/library/" target="_blank">[read more <i class="fa fa-external-link"></i>]</a>
+                    <div><fmt:message key="jsp.layout.footer-default.library-mission-description"/>
+                            <a href="http://www.wku.edu.cn/en/library/about/library-mission-statement/" target="_blank">[read more <i class="fa fa-external-link"></i>]</a>
                     </div>
                 </div>
 
@@ -96,10 +93,10 @@
                         </div>
                         <div class="panel-body">
                         <ul>
-                                <li><a href="#">About WIRE</a></li>
+                                <li><a href="http://www.wku.edu.cn/en/library/service/wire/">About WIRE</a></li>
                                 <li><a target="_blank" href="http://www.wku.edu.cn/en/library/about/news-events/">Library News & Events</a></li>
-                                <li><a href="#">Library Digital Learning</a></li>
-                                <li><a href="#">Library Digital Research</a></li>
+                                <li><a href="http://www.wku.edu.cn/en/library/service/digital-learning">Library Digital Learning</a></li>
+                                <li><a href="http://www.wku.edu.cn/en/library/service/digital-research">Library Digital Research</a></li>
                             </ul>
                         </div>
                     </div>
