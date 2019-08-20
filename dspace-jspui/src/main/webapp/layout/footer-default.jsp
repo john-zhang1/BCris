@@ -94,6 +94,7 @@
                         <div class="panel-body">
                         <ul>
                                 <li><a href="http://www.wku.edu.cn/en/library/service/wire/">About WIRE</a></li>
+                                <li><a target="_blank" href="http://www.wku.edu.cn/en/library/service/wire/terms-of-use/">Terms of Use </li></a></li>
                                 <li><a target="_blank" href="http://www.wku.edu.cn/en/library/about/news-events/">Library News & Events</a></li>
                                 <li><a href="http://www.wku.edu.cn/en/library/service/digital-learning">Library Digital Learning</a></li>
                                 <li><a href="http://www.wku.edu.cn/en/library/service/digital-research">Library Digital Research</a></li>
@@ -119,8 +120,6 @@
 
             <div class="extra-footer row">
                 <div id="footer_feedback" class="col-md-12 col-sm-12 text-center">
-                    <a href="mailto:wire@wku.edu.cn">Contact us <i class="fa fa-envelope-o"></i></a> |
-                    <a target="_blank" href="http://www.wku.edu.cn/en/library/service/wire/terms-of-use/">Terms of Use <i class="fa fa-external-link"></i></a> |
                     <span><fmt:message key="jsp.layout.footer-default.copy-right"/></span>
                 </div>
 			</div>

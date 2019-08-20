@@ -107,14 +107,7 @@
         <div class="nav top-menu-library-div navbar-<%= isRtl ? "left" : "right"%>">
             <ul class="nav navbar-nav navbar-<%= isRtl ? "left" : "right"%>">
                 <li id="library-top-menu" class="hidden-xs hidden-sm "><a href="http://www.wku.edu.cn/en/library">Library</a></li>
-                <%
-                    if (extraNavbarData != null) {
-                %>
-                <%= extraNavbarData%>
-                <%
-                    }
-                %>
-                <li id="help-top-menu" class="hidden-xs hidden-sm"><dspace:popup page="<%= LocaleSupport.getLocalizedMessage(pageContext, \"help.index\") %>"><fmt:message key="jsp.layout.navbar-default.help"/></dspace:popup></li>
+                <li><a href="mailto:wire@wku.edu.cn">Contact us <i class="fa fa-envelope-o"></i></a></li>
                 <%
                     if (user != null) {
                 %>
