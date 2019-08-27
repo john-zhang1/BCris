@@ -158,7 +158,7 @@
            <li id="<%= mlink.trim() %>-top-menu" class="hidden-xs hidden-sm <c:if test="${exploremlink == location}">active</c:if>"><a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>"><fmt:message key="${fmtkey}"/></a></li>
            <% } %>
            <li id="home-about-menu" class="hidden-xs hidden-sm <%= currentPage.endsWith("/about.jsp")? 
-            "active" : "" %>"><a href="<%= request.getContextPath() %>/handle/123456789/1338"><fmt:message key="jsp.layout.navbar-default.cris.theses"/></a></li>
+            "active" : "" %>"><a href="<%= request.getContextPath() %>/handle/20.500.12540/3"><fmt:message key="jsp.layout.navbar-default.cris.theses"/></a></li>
            <li class="dropdown hidden-md hidden-lg">
              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="jsp.layout.navbar-default.explore"/> <b class="caret"></b></a>
              <ul class="dropdown-menu">
