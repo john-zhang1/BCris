@@ -54,8 +54,8 @@
 <br/>
 </main>
             <%-- Page footer --%>
-            <footer class="container navbar navbar-inverse navbar-bottom">
-             <div class="row">
+        <footer class="container navbar navbar-inverse navbar-bottom">
+            <div class="row">
 
                 <div class="col-md-3 col-sm-6">
                     <a href="http://www.wku.edu.cn/en/library/" target="_blank">Wenzhou-Kean University Library</a>
@@ -120,19 +120,15 @@
 
             <div class="extra-footer row">
                 <!-- <div id="footer_feedback" class="col-md-12 col-sm-12 text-center"> -->
-                <div id="footer_feedback" class="col-md-6 col-md-offset-2 col-sm-6 text-center">
-                    <span><fmt:message key="jsp.layout.footer-default.copy-right"/></span>
+                <div id="footer_feedback" class="col-xs-4 text-center col-md-offset-4">
+                <p><fmt:message key="jsp.layout.footer-default.copy-right"/></p>
                 </div>
-
-                <div id="designedby" class="col-md-4 col-sm-4 text-center">
-                    <div class="pull-left">
-                        <fmt:message key="jsp.layout.footer-default.text"/>
-                        <fmt:message key="jsp.layout.footer-default.theme"/>
-                        <a href="#">
-                            <fmt:message key="jsp.layout.footer-default.zhangmeng"/>
-                        </a>
-                    </div>
+                <div id="designedby" class="col-xs-4 text-right">
+                Built with <a target="_blank" href="https://wiki.duraspace.org/display/DSPACECRIS">DSpace-CRIS</a>
+                Theme by sinoCRIS with
+                <a href="#"><fmt:message key="jsp.layout.footer-default.zhangmeng"/></a>
                 </div>
-	        </footer>
+            </div>
+        </footer>
     </body>
 </html>

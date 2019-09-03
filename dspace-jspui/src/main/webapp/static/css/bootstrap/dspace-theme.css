@@ -291,6 +291,7 @@
      right:auto;
  }
  .fullheight {min-height: 35em;}
+ .container.fullheight {padding-bottom: 20px;}
  
  .metadata-divider {
      margin-top:5px;
@@ -513,7 +514,7 @@ footer div.panel-body > ul {padding-left: 0px;}
 
 footer div.extra-footer {color: #000; background: rgba(254,213,1,0.7);}
 
-#designedby {padding: 5px; font-size:12px; padding-left: 65px;}
+#designedby {padding: 7px; font-size:12px; padding-left: 65px;}
 
 #footer_feedback {padding-top: 5px;}
 
@@ -544,3 +545,5 @@ footer .panel-title {color: #fff}
 #footer_copyright {padding: 5px;}
 
 .extra-footer.design-bar.row {background:rgba(238,238,238,0.9);}
+
+body.undernavigation > b { font-weight: 400; }

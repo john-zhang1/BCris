@@ -108,7 +108,7 @@
     </div>
         <div class="row">
             <div class="col-sm-12 brand pull-left">
-                <div class="container" style="height: 300px;">
+                <div class="container">
                     <div class="row">
                         <div class="row" style="overflow:hidden">
                             <%@ include file="map/map-live.jsp" %>

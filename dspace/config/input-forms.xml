@@ -473,7 +473,7 @@
       </page>
     </form>
 
-    <form name="openaccess">
+  <form name="openaccess">
       <page number="1">
         <field>
           <dc-schema>dc</dc-schema>
@@ -491,9 +491,11 @@
           <dc-element>date</dc-element>
           <dc-qualifier>issued</dc-qualifier>
           <repeatable>false</repeatable>
-          <label>Date of Publication</label>
+          <label>Date of Issue</label>
           <input-type>date</input-type>
-          <hint>You can leave out the day and/or month if they aren't applicable.</hint>
+          <hint>Please give the date of previous publication or public distribution.
+                        You can leave out the day and/or month if they aren't
+                        applicable.</hint>
           <required>You must enter at least the year.</required>
         </field>
 
@@ -527,28 +529,6 @@
           <label>Type</label>
           <input-type value-pairs-name="common_types">dropdown</input-type>
           <hint>Select the type(s) of content of the item. To select more than one value in the list, you may have to hold down the "CTRL" or "Shift" key.</hint>
-          <required></required>
-        </field>
-
-        <field>
-          <dc-schema>dc</dc-schema>
-          <dc-element>description</dc-element>
-          <dc-qualifier>peerreview</dc-qualifier>
-          <repeatable>false</repeatable>
-          <label>Peer Reviewed</label>
-          <input-type value-pairs-name="peerreview_check">list</input-type>
-          <hint>Was this work peer reviewed? </hint>
-          <required></required>
-        </field>
-
-        <field>
-          <dc-schema>dc</dc-schema>
-          <dc-element>description</dc-element>
-          <dc-qualifier>peerreviewnotes</dc-qualifier>
-          <repeatable>false</repeatable>
-          <label>Peer Review Notes</label>
-          <input-type>textarea</input-type>
-          <hint>Enter a brief description of the nature of peer review for this work.</hint>
           <required></required>
         </field>
 
@@ -641,7 +621,6 @@
           <hint>Select the language of the main content of the item.  If the language does not appear in the list, please select 'Other'.  If the content does not really have a language (for example, if it is a dataset or an image) please select 'N/A'.</hint>
           <required></required>
         </field>
-
       </page>
     </form>
 
@@ -2032,7 +2011,7 @@ it, please enter the types and the actual numbers or codes.</hint>
 
     <value-pairs value-pairs-name="wku_disciplines" dc-term="degree">
       <pair>
-        <displayed-value></displayed-value>
+        <displayed-value> </displayed-value>
         <stored-value></stored-value>
       </pair>
       <pair>
@@ -2043,7 +2022,7 @@ it, please enter the types and the actual numbers or codes.</hint>
 
     <value-pairs value-pairs-name="wku_group" dc-term="group">
       <pair>
-        <displayed-value></displayed-value>
+        <displayed-value> </displayed-value>
         <stored-value></stored-value>
       </pair>
       <pair>
