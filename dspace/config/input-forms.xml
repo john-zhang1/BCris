@@ -262,7 +262,7 @@
           <dc-element>title</dc-element>
           <dc-qualifier>alternative</dc-qualifier>
           <repeatable>true</repeatable>
-          <label>Other Titles</label>
+          <label>Other Title</label>
           <input-type>onebox</input-type>
           <hint>If the item has any alternative titles, please enter them here.</hint>
           <required></required>
@@ -304,11 +304,22 @@
         </field>
 
         <field>
+          <dc-schema>wku</dc-schema>
+          <dc-element>identifier</dc-element>
+          <dc-qualifier>studentID</dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Student ID</label>
+          <input-type>onebox</input-type>
+          <hint>Enter the student ID of the main author of this item.</hint>
+          <required></required>
+        </field>
+
+        <field>
           <dc-schema>dc</dc-schema>
           <dc-element>discipline</dc-element>
           <repeatable>false</repeatable>
           <label>Discipline</label>
-          <input-type value-pairs-name="wku_disciplines">dropdown</input-type>
+          <input-type value-pairs-name="wku_discipline">dropdown</input-type>
           <hint></hint>
           <required>You must select a discipline</required>
         </field>
@@ -488,6 +499,17 @@
 
         <field>
           <dc-schema>dc</dc-schema>
+          <dc-element>title</dc-element>
+          <dc-qualifier>alternative</dc-qualifier>
+          <repeatable>true</repeatable>
+          <label>Other Title</label>
+          <input-type>onebox</input-type>
+          <hint>If the item has any alternative titles, please enter them here.</hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
           <dc-element>date</dc-element>
           <dc-qualifier>issued</dc-qualifier>
           <repeatable>false</repeatable>
@@ -508,6 +530,17 @@
           <input-type>name</input-type>
           <hint>Enter the author(s) of this work. Do not include degrees as part of the name.</hint>
           <required>You must enter a creator</required>
+        </field>
+
+        <field>
+          <dc-schema>wku</dc-schema>
+          <dc-element>identifier</dc-element>
+          <dc-qualifier>facultyID</dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Faculty ID</label>
+          <input-type>onebox</input-type>
+          <hint>Enter the faculty ID of the main author of this item.</hint>
+          <required></required>
         </field>
 
         <field>
@@ -535,11 +568,12 @@
         <field>
           <dc-schema>dc</dc-schema>
           <dc-element>identifier</dc-element>
-          <dc-qualifier>doi</dc-qualifier>
+          <dc-qualifier></dc-qualifier>
+          <!-- An input-type of qualdrop_value MUST be marked as repeatable -->
           <repeatable>true</repeatable>
-          <label>DOI</label>
-          <input-type>onebox</input-type>
-          <hint>DOI</hint>
+          <label>Identifiers</label>
+          <input-type value-pairs-name="common_article_identifiers">qualdrop_value</input-type>
+          <hint>If the item has any identification numbers or codes associated with it, please enter the types and the actual numbers or codes.</hint>
           <required></required>
         </field>
 
@@ -2000,7 +2034,7 @@ it, please enter the types and the actual numbers or codes.</hint>
 
     <value-pairs value-pairs-name="thesis_degree" dc-term="degree">
       <pair>
-        <displayed-value></displayed-value>
+        <displayed-value> </displayed-value>
         <stored-value></stored-value>
       </pair>
       <pair>
@@ -2009,14 +2043,26 @@ it, please enter the types and the actual numbers or codes.</hint>
       </pair>
     </value-pairs>
 
-    <value-pairs value-pairs-name="wku_disciplines" dc-term="degree">
+    <value-pairs value-pairs-name="wku_discipline" dc-term="discipline">
       <pair>
         <displayed-value> </displayed-value>
         <stored-value></stored-value>
       </pair>
       <pair>
+        <displayed-value>Accounting</displayed-value>
+        <stored-value>Accounting</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Finance</displayed-value>
+        <stored-value>Finance</stored-value>
+      </pair>
+      <pair>
         <displayed-value>Global Business</displayed-value>
         <stored-value>Global Business</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Marketing</displayed-value>
+        <stored-value>Marketing</stored-value>
       </pair>
     </value-pairs>
 
@@ -2026,24 +2072,24 @@ it, please enter the types and the actual numbers or codes.</hint>
         <stored-value></stored-value>
       </pair>
       <pair>
-        <displayed-value>College of Liberal Arts</displayed-value>
-        <stored-value>College of Liberal Arts</stored-value>
-      </pair>
-      <pair>
         <displayed-value>College of Architecture &#38; Design</displayed-value>
         <stored-value>College of Architecture and Design</stored-value>
-      </pair>
-      <pair>
-        <displayed-value>College of Science and Technology</displayed-value>
-        <stored-value>College of Science and Technology</stored-value>
       </pair>
       <pair>
         <displayed-value>College of Business &#38; Public Management</displayed-value>
         <stored-value>College of Business and Public Management</stored-value>
       </pair>
       <pair>
-        <displayed-value>Library</displayed-value>
-        <stored-value>Library</stored-value>
+        <displayed-value>College of Liberal Arts</displayed-value>
+        <stored-value>College of Liberal Arts</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>College of Science and Technology</displayed-value>
+        <stored-value>College of Science and Technology</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>University Library</displayed-value>
+        <stored-value>University Library</stored-value>
       </pair>
     </value-pairs>
 

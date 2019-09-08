@@ -71,7 +71,7 @@
 
 <dspace:layout locbar="nolink" titlekey="jsp.home.title" feedData="<%= feedData %>">
     <p/>
-    <div class="row">
+    <div class="row hidden-xs hidden-sm">
         <div class="col-sm-12 brand pull-<%= isRtl ?"right" :"left" %>">
             <dspace:include page="/layout/home-carousel.jsp" />
         </div>

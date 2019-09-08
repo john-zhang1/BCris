@@ -23,7 +23,7 @@
  .navbar-square {border-radius: 0px;}
  #content {padding-bottom:60px;}
  #designedby {padding-top: 5px; padding-bottom:5px;}
- #footer_feedback {padding-top: 12px;}
+ #footer_feedback {padding-top: 5px;}
  #footer_feedback > a {margin-left:5px;}
  input[type="file"] {display: block;height: auto;}
  div.panel-primary div.panel-heading a {color: white;}
@@ -500,7 +500,7 @@ footer.navbar {
     color: #fff;
 }
 
-footer.navbar p {color: #000;}
+footer.navbar p {color: #000; margin: 0 0 0px;}
 
 .panel {
     background: transparent;
@@ -515,8 +515,6 @@ footer div.panel-body > ul {padding-left: 0px;}
 footer div.extra-footer {color: #000; background: rgba(254,213,1,0.7);}
 
 #designedby {padding: 7px; font-size:12px; padding-left: 65px;}
-
-#footer_feedback {padding-top: 5px;}
 
 footer div.extra-footer a {color: #000;}
 
