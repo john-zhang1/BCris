@@ -106,7 +106,7 @@
         </ul>
         <div class="nav top-menu-library-div navbar-<%= isRtl ? "left" : "right"%>">
             <ul class="nav navbar-nav navbar-<%= isRtl ? "left" : "right"%>">
-                <li id="library-top-menu" class="hidden-xs hidden-sm "><a href="http://www.wku.edu.cn/en/library">Library</a></li>
+                <li id="library-top-menu" class="hidden-xs hidden-sm "><a target="_blank" href="http://www.wku.edu.cn/en/library">Library</a></li>
                 <li><a href="mailto:wire@wku.edu.cn">Contact us <i class="fa fa-envelope-o"></i></a></li>
                 <%
                     if (user != null) {

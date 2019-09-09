@@ -532,7 +532,7 @@
           <required>You must enter a creator</required>
         </field>
 
-        <field>
+        <!-- <field>
           <dc-schema>wku</dc-schema>
           <dc-element>identifier</dc-element>
           <dc-qualifier>facultyID</dc-qualifier>
@@ -541,7 +541,7 @@
           <input-type>onebox</input-type>
           <hint>Enter the faculty ID of the main author of this item.</hint>
           <required></required>
-        </field>
+        </field> -->
 
         <field>
           <dc-schema>wku</dc-schema>

@@ -26,7 +26,7 @@
         var timerInterval = 5 * 1000;
         var previousLayer = '';
 
-        var layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?access_token={accessToken}', {
+        var layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ',
             maxZoom: 18,
             minZoom: 2,
@@ -34,7 +34,7 @@
             accessToken: 'pk.eyJ1IjoibGliLXp6ZCIsImEiOiJjaWc3eWt2MWEwNDZ6dXprb2Z6dzk5cTJrIn0.MGKAAmkhNF35HHG-yEjh5Q'
         }).addTo(map);
         // WKU location
-        L.marker([27.916388,120.653688]).addTo(map);
+        // L.marker([27.916388,120.653688]).addTo(map);
 
         function Point(lat, lng, val) {
             this.latitude = lat;
@@ -51,7 +51,7 @@
             }, timerInterval);
         }
 
-        animateMap();
+        // animateMap();
 
         function step(){
             markersLayer.eachLayer(function(layer) {
