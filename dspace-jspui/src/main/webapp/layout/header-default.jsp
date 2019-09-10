@@ -81,6 +81,7 @@
         <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/leaflet/MarkerCluster.css" type="text/css" />
         <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/leaflet/MarkerCluster.Default.css" type="text/css" />
         <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/leaflet/screen.css" type="text/css" />
+        <link rel="stylesheet"href="<%= request.getContextPath()%>/static/css/css/flag-icon.css" type="text/css" />
         <%
             if (!"NONE".equals(feedRef)) {
                 for (int i = 0; i < parts.size(); i += 3) {
