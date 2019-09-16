@@ -145,7 +145,7 @@ public class HandleManager
     	String handlePrefix = ConfigurationManager.getProperty("handle.canonical.prefix");
     	if (handlePrefix == null || handlePrefix.length() == 0)
     	{
-    		handlePrefix = "http://hdl.handle.net/";
+    		handlePrefix = "https://hdl.handle.net/";
     	}
 
     	return handlePrefix + handle;
