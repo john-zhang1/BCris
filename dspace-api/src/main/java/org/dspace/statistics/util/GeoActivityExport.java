@@ -189,6 +189,9 @@ public class GeoActivityExport {
     public void getGeoList(List<ActionRecord> records) throws IOException {
         float longitude = 0f;
         float latitude = 0f;
+        String city = null;
+        String countryCode = null;
+        String countryName = null;
 
         // Get unique IP addresses
         Map<String, String> ipAddresses = new TreeMap<>();
@@ -220,6 +223,12 @@ public class GeoActivityExport {
                 items = addItems("latitude", Float.toString(latitude), items);
                 longitude = location.longitude;
                 items = addItems("longitude", Float.toString(longitude), items);
+                city = location.city;
+                items = addItems("city", city, items);
+                countryCode = location.countryCode;
+                items = addItems("countryCode", countryCode, items);
+                countryName = location.countryName;
+                items = addItems("countryName", countryName, items);
                 addMap(key, items);
             } catch(Exception e) {
 
@@ -261,7 +270,10 @@ public class GeoActivityExport {
             String lng = ipGeoList.get(key).get("longitude");
             String time = ipGeoList.get(key).get("time");
             String ip = ipGeoList.get(key).get("ip");
-            GeoMapData geoMapData = new GeoMapData(lat, lng, time, ip);
+            String city = ipGeoList.get(key).get("city");
+            String countryCode = ipGeoList.get(key).get("countryCode");
+            String countryName = ipGeoList.get(key).get("countryName");
+            GeoMapData geoMapData = new GeoMapData(lat, lng, time, ip, city, countryCode, countryName);
             addGeoMapData(geoMapData);
         }
     }
@@ -343,12 +355,18 @@ public class GeoActivityExport {
         private String longitude;
         private String time;
         private String ip;
+        private String city;
+        private String countryCode;
+        private String countryName;
 
-        public GeoMapData(String latitude, String longitude, String time, String ip) {
+        public GeoMapData(String latitude, String longitude, String time, String ip, String city, String countryCode, String countryName) {
             this.latitude = latitude;
             this.longitude = longitude;
             this.time = time;
             this.ip = ip;
+            this.city = city;
+            this.countryCode = countryCode;
+            this.countryName = countryName;
         }
 
         public String getLatitude() {
@@ -381,6 +399,22 @@ public class GeoActivityExport {
 
         public void setIP(String ip) {
             this.ip = ip;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getCountryName() {
+            return countryName;
+        }
+
+        public void setCountryName(String countryName) {
+            this.countryName = countryName;
         }
 
     }
