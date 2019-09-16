@@ -601,6 +601,28 @@
 
         <field>
           <dc-schema>dc</dc-schema>
+          <dc-element>publisher</dc-element>
+          <dc-qualifier></dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Publisher</label>
+          <input-type>onebox</input-type>
+          <hint>Enter the name of the publisher of the previously issued instance of this item.</hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>publication</dc-qualifier>
+          <repeatable>true</repeatable>
+          <label>Publication</label>
+          <input-type>onebox</input-type>
+          <hint>Link the dataset to one or more existent publications in the repository that make use of it or, put here the publication citation</hint>
+          <required></required>
+        </field>
+
+        <field>
+          <dc-schema>dc</dc-schema>
           <dc-element>subject</dc-element>
           <dc-qualifier></dc-qualifier>
           <!-- An input-type of twobox MUST be marked as repeatable -->
