@@ -6,15 +6,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-
-
-<!-- <div class="panel-body hidden-xs">
-    <div id="leafletmap" class="col-md-9" style="height:235px;"></div>
-    <div class="">
-        <div class="container" id="readmap" style="overflow-y:auto;height:235px;"></div>
-    </div>
-</div> -->
-
 <div class="container">
     <div id="readheader"><h4>View and Download in last 24 Hours</h4></div>
     <div class="panel panel-default hidden-xs">
@@ -24,7 +15,6 @@
         </div>
     </div>
 </div>
-
 
 <script type="text/javascript">
     var jsonpath = "<%= request.getContextPath() %>/static/json/geos.json";
