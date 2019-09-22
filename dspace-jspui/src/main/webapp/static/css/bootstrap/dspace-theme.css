@@ -545,3 +545,20 @@ footer .panel-title {color: #fff}
 .extra-footer.design-bar.row {background:rgba(238,238,238,0.9);}
 
 body.undernavigation > b { font-weight: 400; }
+
+.img-thumbnail {
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
+    padding: 7px;
+    line-height: 1.428571429;
+    background-color: #fff;
+    border: 0px solid #ddd;
+    border-radius: 0px;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out
+}
+
+#readheader {
+    padding-left: 20px;
+}

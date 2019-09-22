@@ -8,12 +8,23 @@
 
 
 
-<div class="panel-body hidden-xs">
+<!-- <div class="panel-body hidden-xs">
     <div id="leafletmap" class="col-md-9" style="height:235px;"></div>
     <div class="">
         <div class="container" id="readmap" style="overflow-y:auto;height:235px;"></div>
     </div>
+</div> -->
+
+<div class="container">
+    <div id="readheader"><h4>View and Download in last 24 Hours</h4></div>
+    <div class="panel panel-default hidden-xs">
+        <div class="panel-body">
+                <div id="leafletmap" class="col-md-9" style="height:235px;"></div>
+                <div class="container" id="readmap" style="overflow-y:auto;height:235px;"></div>
+        </div>
+    </div>
 </div>
+
 
 <script type="text/javascript">
     var jsonpath = "<%= request.getContextPath() %>/static/json/geos.json";
@@ -50,7 +61,6 @@
                 map.removeLayer(previousLayer);
             }
             $.getJSON(jsonpath, function (data) {
-                alert("data:"+data.length);
                 createMarkers(data);
             });
         }, timerInterval);
@@ -135,29 +145,29 @@
 
         var readship1 =
             "<div>" +
-                "<div class='col-md-4' style='margin-right:-70px; width: 30%;'>" +
+                "<div class='col-md-4' style='margin-left:-20px;margin-right:-65px; width: 30%;'>" +
                     "<div class='flag-wrapper'>" +
                         "<div class='img-thumbnail flag flag-icon-background flag-icon-"+ countryCode.toLowerCase() + "'></div>" +
                     "</div>" +
                 "</div>" +
                 "<div class='col-md-8' style='font-size: 12px;'>" +
-                    "<span style=' padding-left:10px; white-space:nowrap'>" + info1 + "</span>" +
+                    "<span style='white-space:nowrap'>" + info1 + "</span>" +
                 "</div>" +
                 "</div><br />";
 
         var readship2 =
             "<div>" +
-                "<div class='col-md-4' style='margin-right:-70px; width: 30%;'>" +
+                "<div class='col-md-4' style='margin-left:-20px;margin-right:-65px; width: 30%;'>" +
                     "<div class='flag-wrapper'>" +
                         "<div class='img-thumbnail flag flag-icon-background flag-icon-"+ countryCode.toLowerCase() + "'></div>" +
                     "</div>" +
                 "</div>" +
                 "<div class='col-md-8' style='font-size: 12px;'>" +
-                    "<span style=' padding-left:10px; white-space:nowrap'>" + info1 + "</span>" +
+                    "<span style='white-space:nowrap'>" + info1 + "</span>" +
                 "</div>" +
                 "</div><br />" +
                 "<div class='col-md-8' style='font-size: 12px;'>" +
-                    "<span style=' padding-left:10px; white-space:nowrap'>" + info2 + "</span>" +
+                    "<span style='white-space:nowrap'>" + info2 + "</span>" +
                 "</div>" +
             "</div><br />";
 
