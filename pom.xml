@@ -4,7 +4,7 @@
    <groupId>org.dspace</groupId>
    <artifactId>dspace-parent</artifactId>
    <packaging>pom</packaging>
-   <version>CRIS-5.8.0</version>
+   <version>Acris</version>
    <name>Wire</name>
    <url>https://github.com/Cineca/DSpace</url>
    <description>

@@ -17,19 +17,18 @@
 
 <script type="text/javascript">
     var jsonpath = "<%= request.getContextPath() %>/static/json/geos.json";
-    var geoData;
-
+    var geoData, prevGeoData;
     $.getJSON(jsonpath, function (data) {
-        geoData = data;
+        createMarkers(data);
     });
+
+    $.ajaxSetup({ cache: false});
 
     var map = L.map('leafletmap').setView([27.9, 18.4], 2);
     var markersLayer;
     var timer;
-    var timerInterval = 250 * 1000;
-    var timerInterval_init = 1 * 1000;
+    var timerInterval = 360 * 1000;
     var previousLayer = '';
-    var init_start = false;
 
     var layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ',
@@ -38,8 +37,6 @@
         id: 'lib-zzd.cig7yktpl0489unlx2e5ielz9',
         accessToken: 'pk.eyJ1IjoibGliLXp6ZCIsImEiOiJjaWc3eWt2MWEwNDZ6dXprb2Z6dzk5cTJrIn0.MGKAAmkhNF35HHG-yEjh5Q'
     }).addTo(map);
-    // WKU location
-    // L.marker([27.916388,120.653688]).addTo(map);
 
     function Point(lat, lng, val) {
         this.latitude = lat;
@@ -47,27 +44,18 @@
         this.val = val;
     }
 
-    function foo() {
-        if (!init_start) {
-            timer = setInterval(function () {
-                if (previousLayer !== '') {
-                    map.removeLayer(previousLayer);
-                }
-                createMarkers(geoData);
-            }, timerInterval_init);
-            init_start = true;
-        }
-    }
     function animateMap() {
         timer = setInterval(function () {
             if (previousLayer !== '') {
                 map.removeLayer(previousLayer);
             }
-            createMarkers(geoData);
+            $.getJSON(jsonpath, function (data) {
+                alert("data:"+data.length);
+                createMarkers(data);
+            });
         }, timerInterval);
     }
 
-    //foo();
     animateMap();
 
     function step() {
@@ -77,22 +65,18 @@
     }
 
     function createMarkers(geoData) {
-
         var r = 5;
-
         var markerStyle = {
             radius: r,
             fillColor: "#39F",
         };
-
-
         var markersArray = [];
-
         $("#readmap").empty();
 
         for (i in geoData) {
             var feature = {};
             feature.properties = geoData[i];
+            var ip = feature.properties.ip;
             var lat = Number(feature.properties.latitude);
             var lng = Number(feature.properties.longitude);
             var city = feature.properties.city;
@@ -102,12 +86,25 @@
                 countryCode = 'CN';
                 countryName = countryName + ', China';
             }
-            var marker = L.circleMarker([lat, lng], markerStyle);
-            marker.feature = feature;
-            marker.bindPopup(city + ', ' + countryName);
-            markersArray.push(marker);
-            $("#readmap").append(readarea(countryCode, city, countryName));
+            // For wrong setting IP "5.1.1.34"
+            if(ip != '5.1.1.34'){
+                var marker = L.circleMarker([lat, lng], markerStyle);
+                marker.feature = feature;
+                marker.bindPopup(city + ', ' + countryName);
+                markersArray.push(marker);
+
+                if(prevGeoData != null) {
+                    if(isIn(ip, prevGeoData)) {
+                        $("#readmap").append(readarea(countryCode, city, countryName));
+                    }
+                }
+            }
         };
+
+        //clone geoData
+        if(geoData != null){
+            prevGeoData = JSON.parse(JSON.stringify(geoData));
+        }
 
         //create a markers layer with all of the circle markers
         markersLayer = L.featureGroup(markersArray);
@@ -120,6 +117,7 @@
         //     onEachFeature(layer);
         // });
     }
+
 
     function onEachFeature(layer) {
         // var area = layer.feature.properties.value * scaleFactor;
@@ -137,28 +135,28 @@
 
         var readship1 =
             "<div>" +
-                "<div class='col-md-4' style='margin-right:-70px;'>" +
+                "<div class='col-md-4' style='margin-right:-70px; width: 30%;'>" +
                     "<div class='flag-wrapper'>" +
                         "<div class='img-thumbnail flag flag-icon-background flag-icon-"+ countryCode.toLowerCase() + "'></div>" +
                     "</div>" +
                 "</div>" +
-                "<div class='col-md-8'>" +
+                "<div class='col-md-8' style='font-size: 12px;'>" +
                     "<span style=' padding-left:10px; white-space:nowrap'>" + info1 + "</span>" +
                 "</div>" +
                 "</div><br />";
 
         var readship2 =
             "<div>" +
-                "<div class='col-md-4' style='margin-right:-70px;'>" +
+                "<div class='col-md-4' style='margin-right:-70px; width: 30%;'>" +
                     "<div class='flag-wrapper'>" +
                         "<div class='img-thumbnail flag flag-icon-background flag-icon-"+ countryCode.toLowerCase() + "'></div>" +
                     "</div>" +
                 "</div>" +
-                "<div class='col-md-8'>" +
+                "<div class='col-md-8' style='font-size: 12px;'>" +
                     "<span style=' padding-left:10px; white-space:nowrap'>" + info1 + "</span>" +
                 "</div>" +
                 "</div><br />" +
-                "<div class='col-md-8'>" +
+                "<div class='col-md-8' style='font-size: 12px;'>" +
                     "<span style=' padding-left:10px; white-space:nowrap'>" + info2 + "</span>" +
                 "</div>" +
             "</div><br />";
@@ -172,7 +170,7 @@
 
     var splitstring = function(city, countryName) {
         if(city=='undefined' || city==null)
-            city = 'undefined, defined undefined tut';
+            city = 'undefined';
         var loc = city + ", " + countryName;
         var len = loc.length;
         var info, substring = "", prestring = "", arr = [], separator = " ", limit = 35, i = 0;
@@ -195,4 +193,17 @@
         }
         return arr;
     }
+
+    var isIn = function(ip, iplist) {
+        for (i in iplist) {
+            var feature = {};
+            feature.properties = iplist[i];
+            var ipaddr = feature.properties.ip;
+            if (ip == ipaddr){
+                return true;
+            }
+        };
+        return false;
+    }
+
 </script>
