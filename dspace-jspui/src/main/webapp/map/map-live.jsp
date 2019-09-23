@@ -28,8 +28,9 @@
     var map = L.map('leafletmap').setView([27.9, 18.4], 2);
     var markersLayer;
     var timer;
-    var timerInterval = 360 * 1000;
-    var previousLayer = '';
+    var timerInterval = 120 * 1000;
+    var markerGroup;
+    var markersArray = [];
 
     var layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ',
@@ -47,8 +48,8 @@
 
     function animateMap() {
         timer = setInterval(function () {
-            if (previousLayer !== '') {
-                map.removeLayer(previousLayer);
+            if (markerGroup !== null) {
+                clearMarkers();
             }
             $.getJSON(jsonpath, function (data) {
                 createMarkers(data);
@@ -70,8 +71,9 @@
             radius: r,
             fillColor: "#39F",
         };
-        var markersArray = [];
+
         $("#readmap").empty();
+        markersArray.length = 0;
 
         for (i in geoData) {
             var feature = {};
@@ -86,7 +88,7 @@
                 countryCode = 'CN';
                 countryName = countryName + ', China';
             }
-            // For wrong setting IP "5.1.1.34"
+            // For IP "5.1.1.34"
             if(ip != '5.1.1.34'){
                 var marker = L.circleMarker([lat, lng], markerStyle);
                 marker.feature = feature;
@@ -94,25 +96,22 @@
                 markersArray.push(marker);
 
                 if(prevGeoData != null) {
-                    if(isIn(ip, prevGeoData)) {
+                    if(!isIn(ip, prevGeoData)) {
                         $("#readmap").append(readarea(countryCode, city, countryName));
                     }
                 }
             }
         };
 
-        //clone geoData
+        //clone geoData and markGroup
         if(geoData != null){
             prevGeoData = JSON.parse(JSON.stringify(geoData));
         }
 
         //create a markers layer with all of the circle markers
-        markersLayer = L.featureGroup(markersArray);
-        previousLayer = markersLayer;
+        markerGroup =  L.featureGroup(markersArray).addTo(map);
 
-        //add the markers layer to the map
-        markersLayer.addTo(map);
-
+        // markersLayer = L.featureGroup(markersArray);
         // markersLayer.eachLayer(function(layer){
         //     onEachFeature(layer);
         // });
@@ -206,4 +205,9 @@
         return false;
     }
 
+    var clearMarkers = function() {
+        for (var i in markersArray) {
+            markerGroup.removeLayer(markersArray[i]);
+        }
+    }
 </script>
