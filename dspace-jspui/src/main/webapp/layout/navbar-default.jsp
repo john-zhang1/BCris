@@ -100,10 +100,14 @@
         <ul id="top-menu" class="nav navbar-nav navbar-<%= isRtl ? "right" : "left"%>">
             <li class="pull-<%= isRtl ? "right" : "left"%>">
                 <a class="navbar-brand" href="<%= request.getContextPath()%>/">
-                    <img height="90" src="<%= request.getContextPath()%>/image/logo.PNG" alt="Wire logo" />
+                    <img height="45" src="<%= request.getContextPath()%>/image/logo.PNG" alt="Wire logo" />
                 </a>
             </li>
-        </ul>
+            <li id="navbar-brand-title" class="pull-left" style="padding-top: 5px;">
+                <h5>WIRE - Wenzhou-Kean University</h5>
+                <h5>Intellectual Research Environment</h5>
+            </li>
+          </ul>
         <div class="nav top-menu-library-div navbar-<%= isRtl ? "left" : "right"%>">
             <ul class="nav navbar-nav navbar-<%= isRtl ? "left" : "right"%>">
                 <li id="library-top-menu" class="hidden-xs hidden-sm "><a target="_blank" href="http://www.wku.edu.cn/en/library">Library</a></li>

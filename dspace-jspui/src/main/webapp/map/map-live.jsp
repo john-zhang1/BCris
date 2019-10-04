@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <div class="container">
-    <div id="readheader"><h4>View and Download in last 24 Hours</h4></div>
+    <!-- <div id="readheader"><h4>View and Download in last 24 Hours</h4></div> -->
     <div class="panel panel-default hidden-xs">
         <div class="panel-body">
                 <div id="leafletmap" class="col-md-9" style="height:235px;"></div>
@@ -94,10 +94,10 @@
                 marker.feature = feature;
                 marker.bindPopup(city + ', ' + countryName);
                 markersArray.push(marker);
-
+                $("#readmap").append(readarea(countryCode, city, countryName));
                 if(prevGeoData != null) {
                     if(!isIn(ip, prevGeoData)) {
-                        $("#readmap").append(readarea(countryCode, city, countryName));
+                        // $("#readmap").append(readarea(countryCode, city, countryName));
                     }
                 }
             }
