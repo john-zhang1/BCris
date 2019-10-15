@@ -9,9 +9,15 @@
 --%>
 <%--  Leaflet maps  --%>
 <c:set var="pieType">location</c:set>
+<c:set var="pieType2">city</c:set>
+<c:set var="pieType3">countryCode</c:set>
+
+
 <c:set var="targetDiv" scope="page">div_${data.jspKey}_${statType}_${objectName}_${pieType}</c:set>
 
 <c:set var="jsDataObjectName" scope="page"> data_${statType}_${objectName}_${pieType}_${pieType}</c:set>
+<c:set var="jsCityDataObjectName" scope="page"> data_${statType}_${objectName}_${pieType2}_${pieType2}</c:set>
+<c:set var="jsCountryCodeDataObjectName" scope="page"> data_${statType}_${objectName}_${pieType3}_${pieType3}</c:set>
 <c:if test="${fn:length(data.resultBean.dataBeans[statType][objectName][pieType].dataTable) gt 0}">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -27,15 +33,25 @@
   <script type="text/javascript">
 <!--
     var ${ jsDataObjectName } = new Array(${ fn: length(data.resultBean.dataBeans[statType][objectName][pieType].dataTable) });
+    var ${ jsCityDataObjectName } = new Array(${ fn: length(data.resultBean.dataBeans[statType][objectName][pieType2].dataTable) });
+    var ${ jsCountryCodeDataObjectName } = new Array(${ fn: length(data.resultBean.dataBeans[statType][objectName][pieType3].dataTable) });
     <c:forEach items="${data.resultBean.dataBeans[statType][objectName][pieType].dataTable}" var="row" varStatus="status">
       ${jsDataObjectName}[${status.count - 1}]= ['<c:out value="${row.latitude}"/>','<c:out value="${row.longitude}"/>','<c:out value="${row.value}"/>',<c:out value="${row.percentage}"/>];
+    </c:forEach >
+
+    <c:forEach items="${data.resultBean.dataBeans[statType][objectName][pieType2].dataTable}" var="row" varStatus="status2">
+      ${jsCityDataObjectName}[${status2.count - 1}]= ['<c:out value="${row.label}"/>','<c:out value="${row.value}"/>',<c:out value="${row.percentage}"/>];
+    </c:forEach >
+
+    <c:forEach items="${data.resultBean.dataBeans[statType][objectName][pieType3].dataTable}" var="row" varStatus="status3">
+      ${jsCountryCodeDataObjectName}[${status3.count - 1}]= ['<c:out value="${row.label}"/>','<c:out value="${row.value}"/>',<c:out value="${row.percentage}"/>];
     </c:forEach >
 
     function initialize_${ jsDataObjectName }() {
       if (${ jsDataObjectName }.length == 0) return;
       var leafletmap = L.map("${targetDiv}").setView([${ jsDataObjectName }[0][0], ${ jsDataObjectName }[0][1]], 4);
 
-      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
           '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
           'Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
@@ -46,7 +62,13 @@
       }).addTo(leafletmap);
 
       for (var i = 0; i < ${ jsDataObjectName }.length; i++) {
-        marker = new L.marker([${ jsDataObjectName }[i][0], ${ jsDataObjectName }[i][1]]).addTo(leafletmap);
+        if(${jsCityDataObjectName }[i][0] != "Unknown") {
+          marker = new L.marker([${ jsDataObjectName }[i][0], ${ jsDataObjectName }[i][1]]).addTo(leafletmap)
+          .bindPopup(${jsCityDataObjectName }[i][0] + ', ' + ${jsCountryCodeDataObjectName }[i][0] );
+        }
+        console.log(${jsDataObjectName});
+        console.log(${jsCityDataObjectName});
+        console.log(${jsCountryCodeDataObjectName});
       }
   }
 
