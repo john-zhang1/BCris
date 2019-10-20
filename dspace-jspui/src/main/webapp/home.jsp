@@ -109,10 +109,8 @@
         <div class="row">
             <div class="col-sm-12 brand pull-left">
                 <div class="container">
-                    <div class="row">
-                        <div class="row" style="overflow:hidden">
-                            <%@ include file="map/map-live.jsp" %>
-                        </div>
+                    <div class="row" style="overflow:hidden">
+                        <%@ include file="components/stats-action.jsp" %>
                     </div>
                 </div>
             </div>
