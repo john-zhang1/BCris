@@ -94,6 +94,7 @@
     var dotIconPath = "<%= request.getContextPath()%>/static/css/leaflet/images/doticon.png";
     var downloadFilePath = "<%= request.getContextPath()%>/static/json/downloads.json";
     var itemFilePath = "<%= request.getContextPath()%>/static/json/items.json";
+    var viewItemFilePath = "<%= request.getContextPath()%>/static/json/item-view-total.json";
     var geoData, queue = null;
     var savedHead = 0, headStatus = false;
     var timer;
@@ -124,13 +125,19 @@
     $.getJSON(itemFilePath, function (data) {
         var totalNumOfItems = data.response.numFound;
         setTotalItemVal(totalNumOfItems);
+    });viewItemFilePath
+
+    $.getJSON(viewItemFilePath, function (data) {
+        var totalNumOfViews = data.response.numFound;
+        setTotalViewVal(totalNumOfViews);
     });
+
 
     $.getJSON(jsonpath, function (data) {
         queue = loadQueue(data);
         oneDaylength = data.length;
         setTotalPastDayVal(data.length);
-        setTotalViewVal(data.length);
+        
         $("#readerinfo").append(outputReadInfo(queue.storage[queue.head]));
         bounceMarker();
         currentValue++;
