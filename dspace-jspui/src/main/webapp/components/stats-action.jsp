@@ -66,20 +66,20 @@
             <table class="table table-striped" style="font-size: 11px;">
                 <tbody>
                     <tr>
-                        <td>Recent Downloads in the past day</td>
+                        <td>Recent views</td>
                         <td><strong><span id="currentVal">0</span> of <span id="totalPastDayVal">0</span></strong></td>
                     </tr>
                     <tr>
-                        <td>Downloads in the past year</td>
-                        <td><strong>1000</strong></td>
+                        <td>Total Views</td>
+                        <td><strong><span id="totalViewVal">0</span></strong></td>
                     </tr>
                     <tr>
                         <td>Total Downloads</td>
-                        <td><strong>2000</strong></td>
+                        <td><strong><span id="totalDownloadVal">0</span></strong></td>
                     </tr>
                     <tr>
                         <td>Total Items</td>
-                        <td><strong>3000</strong></td>
+                        <td><strong><span id="totalItemVal">0</span></strong></td>
                     </tr>
                 </tbody>
             </table>
@@ -92,6 +92,8 @@
     var jsonpath = "<%= request.getContextPath()%>/static/json/geos.json";
     var haloIconPath = "<%= request.getContextPath()%>/static/css/leaflet/images/haloicon.png";
     var dotIconPath = "<%= request.getContextPath()%>/static/css/leaflet/images/doticon.png";
+    var downloadFilePath = "<%= request.getContextPath()%>/static/json/downloads.json";
+    var itemFilePath = "<%= request.getContextPath()%>/static/json/items.json";
     var geoData, queue = null;
     var savedHead = 0, headStatus = false;
     var timer;
@@ -114,10 +116,21 @@
 
     L.Icon.Default.prototype.options.shadowSize = [0, 0];
 
+    $.getJSON(downloadFilePath, function (data) {
+        var totalNumOfDownloads = data.response.numFound;
+        setTotalDownloadVal(totalNumOfDownloads);
+    });
+
+    $.getJSON(itemFilePath, function (data) {
+        var totalNumOfItems = data.response.numFound;
+        setTotalItemVal(totalNumOfItems);
+    });
+
     $.getJSON(jsonpath, function (data) {
         queue = loadQueue(data);
         oneDaylength = data.length;
-        setTotalPastDayVal(oneDaylength);
+        setTotalPastDayVal(data.length);
+        setTotalViewVal(data.length);
         $("#readerinfo").append(outputReadInfo(queue.storage[queue.head]));
         bounceMarker();
         currentValue++;
@@ -138,6 +151,18 @@
 
     function setTotalPastDayVal(totalVal) {
         $("#totalPastDayVal").text(totalVal);
+    }
+
+    function setTotalDownloadVal(totalVal) {
+        $("#totalDownloadVal").text(totalVal);
+    }
+
+    function setTotalItemVal(totalVal) {
+        $("#totalItemVal").text(totalVal);
+    }
+
+    function setTotalViewVal(totalVal) {
+        $("#totalViewVal").text(totalVal);
     }
 
     function setReaderInfo(info) {
@@ -299,11 +324,11 @@
                 "</span>" +
                 "<span>" + info.city + ", " + info.countryName + "</span>" +
                 "</span>" +
-                "<a href='" + info.url +"' target='_blank' title='Opens in new window.'>" +
+                "<a href='" + info.itemUrls[0] +"' target='_blank' title='Opens in new window.'>" +
                 "<span class='rdr__infoCard-article'>" +
-                "<span class='rdr__infoCard-title'>" + info.title + "</span>" +
+                "<span class='rdr__infoCard-title'>" + info.itemTitles[0] + "</span>" +
                 "<span class='rdr__infoCard-authors' >" + info.authors + "</span>" +
-                "<span class='rdr__infoCard-head'>" + info.collection + "</span>" +
+                "<span class='rdr__infoCard-head'>" + info.collectionTitles + "</span>" +
                 "</span>" +
                 "</a>" +
                 "</span>";
