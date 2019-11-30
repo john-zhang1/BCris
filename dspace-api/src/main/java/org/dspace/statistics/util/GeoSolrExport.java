@@ -67,8 +67,13 @@ public class GeoSolrExport {
             }
             gmd.setCity(city);
             gmd.setIp(view.getIp());
-            gmd.setCountryCode(view.getCountryCode());
+            String cc = view.getCountryCode();
             String countryName = LocationUtils.getCountryName(view.getCountryCode(), Locale.getDefault());
+            if(cc.equalsIgnoreCase("tw")) {
+                cc = "CN";
+                countryName = countryName + ", China";
+            }
+            gmd.setCountryCode(cc);
             gmd.setCountryName(countryName);
             gmd.setLatitude(view.getLatitude());
             gmd.setLongitude(view.getLongitude());
