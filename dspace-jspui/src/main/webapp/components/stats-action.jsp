@@ -125,19 +125,17 @@
     $.getJSON(itemFilePath, function (data) {
         var totalNumOfItems = data.response.numFound;
         setTotalItemVal(totalNumOfItems);
-    });viewItemFilePath
+    });
 
     $.getJSON(viewItemFilePath, function (data) {
         var totalNumOfViews = data.response.numFound;
         setTotalViewVal(totalNumOfViews);
     });
 
-
     $.getJSON(jsonpath, function (data) {
         queue = loadQueue(data);
         oneDaylength = data.length;
         setTotalPastDayVal(data.length);
-        
         $("#readerinfo").append(outputReadInfo(queue.storage[queue.head]));
         bounceMarker();
         currentValue++;
