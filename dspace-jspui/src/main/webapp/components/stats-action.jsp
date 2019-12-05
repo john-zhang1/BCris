@@ -66,12 +66,31 @@
             <table class="table table-striped" style="font-size: 11px;">
                 <tbody>
                     <tr>
-                        <td>Recent views</td>
+                        <td>Item views in past month</td>
                         <td><strong><span id="currentVal">0</span> of <span id="totalPastDayVal">0</span></strong></td>
                     </tr>
                     <tr>
                         <td>Total Views</td>
                         <td><strong><span id="totalViewVal">0</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>Monthly Views</td><td></td>
+                    </tr>
+                    <tr>
+                        <td id="fourthMonth" style="text-align: center;"></td>
+                        <td><strong><span id="fourthMonthVal">0</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td id="thirdMonth" style="text-align: center;"></td>
+                        <td><strong><span id="thirdMonthVal">0</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td id="secondMonth" style="text-align: center;"></td>
+                        <td><strong><span id="secondMonthVal">0</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td id="firstMonth" style="text-align: center;"></td>
+                        <td><strong><span id="firstMonthVal">0</span></strong></td>
                     </tr>
                     <tr>
                         <td>Total Downloads</td>
@@ -95,6 +114,7 @@
     var downloadFilePath = "<%= request.getContextPath()%>/static/json/downloads.json";
     var itemFilePath = "<%= request.getContextPath()%>/static/json/items.json";
     var viewItemFilePath = "<%= request.getContextPath()%>/static/json/item-view-total.json";
+    var viewItemMonthlyFilePath = "<%= request.getContextPath()%>/static/json/item-view-monthly.json";
     var geoData, queue = null;
     var savedHead = 0, headStatus = false;
     var timer;
@@ -130,6 +150,11 @@
     $.getJSON(viewItemFilePath, function (data) {
         var totalNumOfViews = data.response.numFound;
         setTotalViewVal(totalNumOfViews);
+    });
+
+    $.getJSON(viewItemMonthlyFilePath, function (data) {
+        var monthlyViews = data.facet_counts.facet_ranges.time.counts;
+        setMonthlyViewVal(monthlyViews);
     });
 
     $.getJSON(jsonpath, function (data) {
@@ -168,6 +193,17 @@
 
     function setTotalViewVal(totalVal) {
         $("#totalViewVal").text(totalVal);
+    }
+
+    function setMonthlyViewVal(Val) {
+        $("#firstMonth").text(getMonth(Val[0]));
+        $("#firstMonthVal").text(Val[1]);
+        $("#secondMonth").text(getMonth(Val[2]));
+        $("#secondMonthVal").text(Val[3]);
+        $("#thirdMonth").text(getMonth(Val[4]));
+        $("#thirdMonthVal").text(Val[5]);
+        $("#fourthMonth").text(getMonth(Val[6]));
+        $("#fourthMonthVal").text(Val[7]);
     }
 
     function setReaderInfo(info) {
@@ -317,6 +353,11 @@
                 $("#playswitch").addClass('fa-pause').removeClass('fa-play');
             }
         }
+    }
+
+    function getMonth(datetime) {
+        var arr = datetime.split("-");
+        return arr[0] + "-" + arr[1];
     }
 
     function outputReadInfo(info) {
