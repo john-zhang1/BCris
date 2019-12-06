@@ -107,7 +107,7 @@
         </div>
     </div>
         <div class="row">
-            <div class="col-sm-12 brand pull-left">
+            <div class="col-sm-12 brand">
                 <div class="container">
                     <div class="row" style="overflow:hidden">
                         <%@ include file="components/stats-action.jsp" %>

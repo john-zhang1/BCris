@@ -54,11 +54,9 @@
     </div>
     <div class="row">
         <div class="col-md-9">
-            <div class="hidden-xs">
-                <div class="panel panel-default hidden-xs">
-                    <div class="panel-body">
-                        <div id="leafletmap" style="height:300px;"></div>
-                    </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="leafletmap" style="height:300px;"></div>
                 </div>
             </div>
         </div>
