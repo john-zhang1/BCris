@@ -73,6 +73,12 @@ public class GeoSolrExport {
                 cc = "CN";
                 countryName = countryName + ", China";
             }
+            if(cc.equalsIgnoreCase("hk")) {
+                countryName = countryName + ", China";
+            }
+            if(cc.equalsIgnoreCase("mo")) {
+                countryName = countryName + ", China";
+            }
             gmd.setCountryCode(cc);
             gmd.setCountryName(countryName);
             gmd.setLatitude(view.getLatitude());
