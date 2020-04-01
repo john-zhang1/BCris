@@ -31,7 +31,8 @@
   </div>
 
   <script type="text/javascript">
-<!--
+
+    var dotIconPath = "<%= request.getContextPath()%>/static/css/leaflet/images/doticon.png";
     var ${ jsDataObjectName } = new Array(${ fn: length(data.resultBean.dataBeans[statType][objectName][pieType].dataTable) });
     var ${ jsCityDataObjectName } = new Array(${ fn: length(data.resultBean.dataBeans[statType][objectName][pieType2].dataTable) });
     var ${ jsCountryCodeDataObjectName } = new Array(${ fn: length(data.resultBean.dataBeans[statType][objectName][pieType3].dataTable) });
@@ -46,6 +47,11 @@
     <c:forEach items="${data.resultBean.dataBeans[statType][objectName][pieType3].dataTable}" var="row" varStatus="status3">
       ${jsCountryCodeDataObjectName}[${status3.count - 1}]= ['<c:out value="${row.label}"/>','<c:out value="${row.value}"/>',<c:out value="${row.percentage}"/>];
     </c:forEach >
+
+    var dotIcon = new L.icon({
+        iconUrl: dotIconPath,
+        iconSize: [10, 10]
+    });
 
     function initialize_${ jsDataObjectName }() {
       if (${ jsDataObjectName }.length == 0) return;
@@ -63,7 +69,10 @@
 
       for (var i = 0; i < ${ jsDataObjectName }.length; i++) {
         if(${jsCityDataObjectName }[i][0] != "Unknown") {
-          marker = new L.marker([${ jsDataObjectName }[i][0], ${ jsDataObjectName }[i][1]]).addTo(leafletmap)
+          marker = new L.marker([${ jsDataObjectName }[i][0], ${ jsDataObjectName }[i][1]],
+          {
+            icon: dotIcon,
+          }).addTo(leafletmap)
           .bindPopup(${jsCityDataObjectName }[i][0] + ', ' + ${jsCountryCodeDataObjectName }[i][0] );
         }
         console.log(${jsDataObjectName});
@@ -73,6 +82,6 @@
   }
 
   initialize_${ jsDataObjectName }();
-  -->
+
   </script>
 </c:if>

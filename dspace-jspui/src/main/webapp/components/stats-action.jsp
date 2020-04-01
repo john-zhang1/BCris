@@ -41,7 +41,7 @@
                     <div class="rdr__infoPanel">
                         <div id="readerinfo" data-index="4" class="rdr__infoCard"></div>
                     </div>
-                    <div class="rdr__controls">
+                    <div class="rdr__controls hidden-xs">
                         <ul class="control_icons">
                             <li class="rdr__js-prev" title="Previous"><i class="fa-chevron-left" onclick="prevMarker()"></i></li>
                             <li class="rdr__js-liveToggle rdr__isActive" title="Pause"><i id="playswitch" class="fa-pause" onclick="togglePlayPause()" style="display:block;"></i></li>
