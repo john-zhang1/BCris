@@ -23,6 +23,7 @@
 			<c:when test="${data.resultBean.dataBeans[statType]['time']['total'].dataTable[0][0] > 0}">
 
 				<c:set var="objectName">geo</c:set>	
+				<c:set var="mapObjectName">map</c:set>	
 				<%@include file="../modules/map/map.jsp" %>
 
 <div id="statstabs">
