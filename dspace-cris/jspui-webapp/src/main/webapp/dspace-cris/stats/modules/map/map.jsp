@@ -14,7 +14,7 @@
 <c:set var="targetDiv" scope="page">div_${data.jspKey}_${statType}_${objectName}_${pieType}</c:set>
 
 <c:set var="jsDataObjectName" scope="page"> data_${statType}_${objectName}_${pieType}_${pieType}</c:set>
-<c:set var="jsMapDataObjectName" scope="page"> data_${statType}_${mapObjectName}_${pieType2}_${pieType2}</c:set>
+<c:set var="jsMapDataObjectName" scope="page"> data_${statType}_${objectName}_${pieType2}_${pieType2}</c:set>
 
 <c:if test="${fn:length(data.resultBean.dataBeans[statType][objectName][pieType].dataTable) gt 0}">
   <div class="panel panel-default">
@@ -32,12 +32,12 @@
 <!--
     var dotIconPath = "<%= request.getContextPath()%>/static/css/leaflet/images/doticon.png";
     var ${jsDataObjectName} = new Array(${fn:length(data.resultBean.dataBeans[statType][objectName][pieType].dataTable)});
-    var ${jsMapDataObjectName} = new Array(${fn:length(data.resultBean.dataBeans[statType][mapObjectName][pieType2].dataTable)});
+    var ${jsMapDataObjectName} = new Array(${fn:length(data.resultBean.dataBeans[statType][objectName][pieType2].dataTable)});
     <c:forEach items="${data.resultBean.dataBeans[statType][objectName][pieType].dataTable}" var="row" varStatus="status">
       ${jsDataObjectName}[${status.count - 1}]= ['<c:out value="${row.latitude}"/>','<c:out value="${row.longitude}"/>','<c:out value="${row.value}"/>',<c:out value="${row.percentage}"/>];
     </c:forEach>
 
-    <c:forEach items="${data.resultBean.dataBeans[statType][mapObjectName][pieType2].dataTable}" var="row" varStatus="status2">
+    <c:forEach items="${data.resultBean.dataBeans[statType][objectName][pieType2].dataTable}" var="row" varStatus="status2">
       ${jsMapDataObjectName}[${status2.count - 1}]= ['<c:out value="${row.latitude}"/>','<c:out value="${row.longitude}"/>','<c:out value="${row.city}"/>','<c:out value="${row.countryCode}"/>'];
     </c:forEach>
 
@@ -66,6 +66,8 @@
           }).addTo(leafletmap)
           .bindPopup(${jsMapDataObjectName}[i][2] + ', ' + ${jsMapDataObjectName}[i][3] );
      }
+     console.log(${jsDataObjectName});
+     console.log(${jsMapDataObjectName});
  }
 
   initialize_${jsMapDataObjectName}();

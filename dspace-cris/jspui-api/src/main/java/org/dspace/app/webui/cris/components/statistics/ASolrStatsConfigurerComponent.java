@@ -186,7 +186,7 @@ public abstract class ASolrStatsConfigurerComponent<T extends DSpaceObject>
             Map<String, String> points = new HashMap<String, String>();
 
             for (SolrDocument doc : documents) {
-                if(doc.size() == 4) {
+                if(doc.size() >= 3) {
                     String latitude = String.valueOf(doc.get("latitude"));
                     String longitude = String.valueOf(doc.get("longitude"));
                     String city = (String) doc.get("city");
@@ -195,8 +195,13 @@ public abstract class ASolrStatsConfigurerComponent<T extends DSpaceObject>
                     String key = latitude + "," + longitude;
                     if(points.get(key) == null) {
                         points.put(key, key);
-                        MapPointFullBean mapPointBean = new MapPointFullBean(latitude, longitude, city, countryCode);
-                        fullData.add(mapPointBean);
+                        if(city == null) {
+                            city = "Unknown";
+                        }
+                        if(countryCode != null) {
+                            MapPointFullBean mapPointBean = new MapPointFullBean(latitude, longitude, city, countryCode);
+                            fullData.add(mapPointBean);
+                        }
                     }
                 }
             }
@@ -365,6 +370,8 @@ public abstract class ASolrStatsConfigurerComponent<T extends DSpaceObject>
     {
         statisticDatasBeans.addValue(TOP, key2, _LOCATION,
                 generateMapView(TOP, key2, _LOCATION, null));
+        statisticDatasBeans.addValue(TOP, key2, _MAP_LOCATION,
+                generateFullMapView(TOP, key2, _MAP_LOCATION));
     }
 
     protected void buildTopGeoBasedResult(String key2)
@@ -486,19 +493,14 @@ public abstract class ASolrStatsConfigurerComponent<T extends DSpaceObject>
         buildSelectedObjectTimeBasedResults(key1);
         buildSelectedObjectGeoBasedResults(key1);
         buildSelectedObjectMapBasedResults(key1);
-        buildSelectedObjectFullMapBasedResults(key1);
     }
 
     protected void buildSelectedObjectMapBasedResults(String key1)
     {
         statisticDatasBeans.addValue(key1, GEO_VIEW, _LOCATION,
                 generateMapView(key1, GEO_VIEW, _LOCATION, null));
-    }
-
-    protected void buildSelectedObjectFullMapBasedResults(String key1)
-    {
-        statisticDatasBeans.addValue(key1, MAP_VIEW, _MAP_LOCATION,
-                generateFullMapView(key1, MAP_VIEW, _MAP_LOCATION));
+        statisticDatasBeans.addValue(key1, GEO_VIEW, _MAP_LOCATION,
+                generateFullMapView(key1, GEO_VIEW, _MAP_LOCATION));
     }
 
     protected void buildSelectedObjectGeoBasedResults(String key1)
