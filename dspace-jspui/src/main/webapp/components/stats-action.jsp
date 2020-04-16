@@ -129,7 +129,6 @@
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ',
         maxZoom: 18,
         minZoom: 2,
-        id: 'lib-zzd.cig7yktpl0489unlx2e5ielz9',
         accessToken: 'pk.eyJ1IjoibGliLXp6ZCIsImEiOiJjaWc3eWt2MWEwNDZ6dXprb2Z6dzk5cTJrIn0.MGKAAmkhNF35HHG-yEjh5Q'
     }).addTo(map);
 
@@ -283,7 +282,14 @@
         L.marker([queue.storage[queue.head].latitude, queue.storage[queue.head].longitude],
                 {
                     icon: dotIcon,
-                }).addTo(map);
+                }).addTo(map)
+                .bindPopup( queue.storage[queue.head].city + ', ' + queue.storage[queue.head].countryCode )
+                .on('mouseover', function (e) {
+                    this.openPopup();
+                })
+                .on('mouseout', function (e) {
+                    this.closePopup();
+                });
     }
 
     function backwardMarker() {
