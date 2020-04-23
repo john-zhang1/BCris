@@ -60,6 +60,16 @@
      }).addTo(leafletmap);
 
       for (var i = 0; i < ${jsMapDataObjectName}.length; i++) {
+          if(${jsMapDataObjectName}[i][3].toLowerCase()=='tw') {
+            ${jsMapDataObjectName}[i][3] = 'CN';
+          }
+          if(${jsMapDataObjectName}[i][3].toLowerCase()=='hk') {
+            ${jsMapDataObjectName}[i][3] = 'CN';
+          }
+          if(${jsMapDataObjectName}[i][3].toLowerCase()=='mo') {
+            ${jsMapDataObjectName}[i][3] = 'CN';
+          }
+
           marker = new L.marker([${jsMapDataObjectName}[i][0], ${jsMapDataObjectName}[i][1]],
           {
             icon: dotIcon,
