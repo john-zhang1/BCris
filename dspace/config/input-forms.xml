@@ -15,7 +15,7 @@
 
   <form-map>
     <name-map collection-handle="default" form-name="traditional" />
-    <name-map collection-handle="20.500.12540/3" form-name="theses" />
+    <name-map collection-handle="20.500.12540/20" form-name="theses" />
     <name-map collection-handle="20.500.12540/5" form-name="openaccess" />
     <!-- 
  	we provide examples of form tailored for articles, books, 
