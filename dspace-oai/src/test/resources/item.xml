@@ -100,7 +100,7 @@
     </element>
     <element name="repository">
         <field name="name">DSpace at My University</field>
-        <field name="mail">dspace-help@myu.edu</field>
+        <field name="mail">wire@wku.edu.cn</field>
     </element>
     <element name="license">
         <field name="bin">

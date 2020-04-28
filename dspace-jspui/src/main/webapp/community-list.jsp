@@ -58,7 +58,7 @@
         Bitstream logo = c.getLogo();
         if (showLogos && logo != null)
         {
-        	out.println("<a class=\"pull-left col-md-2\" href=\"" + request.getContextPath() + "/handle/" 
+        	out.println("<a class=\"pull-left\" href=\"" + request.getContextPath() + "/handle/"
         		+ c.getHandle() + "\"><img class=\"media-object img-responsive\" src=\"" + 
         		request.getContextPath() + "/retrieve/" + logo.getID() + "\" alt=\"community logo\"></a>");
         }
@@ -86,14 +86,14 @@
                 Bitstream logoCol = cols[j].getLogo();
                 if (showLogos && logoCol != null)
                 {
-                	out.println("<a class=\"pull-left col-md-2\" href=\"" + request.getContextPath() + "/handle/" 
+                	out.println("<a class=\"pull-left\" href=\"" + request.getContextPath() + "/handle/"
                 		+ cols[j].getHandle() + "\"><img class=\"media-object img-responsive\" src=\"" + 
                 		request.getContextPath() + "/retrieve/" + logoCol.getID() + "\" alt=\"collection logo\"></a>");
                 }
                 out.println("<div class=\"media-body\"><h4 class=\"media-heading\"><a href=\"" + request.getContextPath() + "/handle/" + cols[j].getHandle() + "\">" + cols[j].getMetadata("name") +"</a>");
 				if(ConfigurationManager.getBooleanProperty("webui.strengths.show"))
                 {
-                    out.println(" [" + ic.getCount(cols[j]) + "]");
+                    out.println(" <span class=\"badge\">" + ic.getCount(cols[j]) + "</span>");
                 }
 				out.println("</h4>");
 				if (StringUtils.isNotBlank(cols[j].getMetadata("short_description")))

@@ -365,6 +365,13 @@
     }
 
     function outputReadInfo(info) {
+        var authorArray = info.authors;
+        var authors = "";
+        for(var i=0;i<authorArray.length;i++) {
+            authors += authorArray[i] + "; ";
+        }
+        authors = authors.replace(/;\s*$/, "");
+
         var readerinfo =
                 "<span class='rdr__infoCard-download'>" +
                 "<span class='rdr__infoCard-downloadLocation'>" +
@@ -377,7 +384,7 @@
                 "<a href='" + info.itemUrls[0] +"' target='_blank' title='Opens in new window.'>" +
                 "<span class='rdr__infoCard-article'>" +
                 "<span class='rdr__infoCard-title'>" + info.itemTitles[0] + "</span>" +
-                "<span class='rdr__infoCard-authors' >" + info.authors + "</span>" +
+                "<span class='rdr__infoCard-authors' >" + authors + "</span>" +
                 "<span class='rdr__infoCard-head'>" + info.collectionTitles + "</span>" +
                 "</span>" +
                 "</a>" +
