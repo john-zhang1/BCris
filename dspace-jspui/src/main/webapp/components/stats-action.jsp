@@ -30,7 +30,7 @@
 <%@page import="org.dspace.app.webui.util.LocaleUIHelper"%>
 
 <script src="<%= request.getContextPath()%>/static/js/leaflet/CircularQueue.js"></script>
-<script src="http://maximeh.github.io/leaflet.bouncemarker/bouncemarker.js"></script>
+<script src="https://maximeh.github.io/leaflet.bouncemarker/bouncemarker.js"></script>
 <link href="<%= request.getContextPath()%>/static/css/leaflet/readship.css" rel="stylesheet">
 
 <div class="container">
