@@ -346,13 +346,13 @@ j(document).ready(function() {
         }
         else
         {
-            if (admin_button) {
+            <%-- if (admin_button) { --%>
 %>
                 <a class="btn btn-default" href="<%=locationLink %>?mode=full">
                     <fmt:message key="jsp.display-item.text2"/>
                 </a>
 <%
-            }
+            <%-- } --%>
         }
     }
 
