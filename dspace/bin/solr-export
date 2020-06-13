@@ -20,4 +20,4 @@ curl "http://localhost:8080/solr/search/select?indent=on&rows=2147483647&q=searc
 # Total bitstream downloads
 curl -g "http://localhost:8080/solr/statistics/select?indent=on&rows=0&q=type:0+AND+isBot:false&wt=json&omitHeader=true&fq=bundleName:ORIGINAL" -o /dspace/webapps/jspui/static/json/downloads.json
 # Item views by month
-curl -g "http://localhost:8080/solr/statistics/select?indent=on&rows=0&facet.range=time&facet=true&facet.range.start=NOW-3MONTH/MONTH&facet.range.end=NOW&facet.range.gap=%2B1MONTH&q=type:2+AND+isBot:false&fq=latitude:[*+TO+*]&wt=json&omitHeader=true" -o /dspace/webapps/jspui/static/json/item-view-monthly.json
+curl -g "http://localhost:8080/solr/statistics/select?indent=on&rows=0&facet.range=time&facet=true&facet.range.start=NOW-11MONTH/MONTH&facet.range.end=NOW&facet.range.gap=%2B1MONTH&q=type:2+AND+isBot:false&fq=latitude:[*+TO+*]&wt=json&omitHeader=true" -o /dspace/webapps/jspui/static/json/item-view-monthly.json

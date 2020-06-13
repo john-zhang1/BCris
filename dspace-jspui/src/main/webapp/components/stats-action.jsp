@@ -51,12 +51,15 @@
                 </div>        
             </div>
         </div>
+        <div class="col-md-3" style="text-align: center;margin-top: 10px;">
+            <div><span>Reader Activity</span></div><div><span> View and Downloads Statistics</span></div>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div id="leafletmap" style="height:500px;"></div>
+                    <div id="leafletmap" style="height:528px;"></div>
                 </div>
             </div>
         </div>
@@ -75,6 +78,38 @@
                         <td>Monthly Views</td><td></td>
                     </tr>
                     <tr>
+                        <td id="twelfthMonth" style="text-align: center;"></td>
+                        <td><strong><span id="twelfthMonthVal">0</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td id="eleventhMonth" style="text-align: center;"></td>
+                        <td><strong><span id="eleventhMonthVal">0</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td id="tenthMonth" style="text-align: center;"></td>
+                        <td><strong><span id="tenthMonthVal">0</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td id="ninthMonth" style="text-align: center;"></td>
+                        <td><strong><span id="ninthMonthVal">0</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td id="eighthMonth" style="text-align: center;"></td>
+                        <td><strong><span id="eighthMonthVal">0</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td id="seventhMonth" style="text-align: center;"></td>
+                        <td><strong><span id="seventhMonthVal">0</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td id="sixthMonth" style="text-align: center;"></td>
+                        <td><strong><span id="sixthMonthVal">0</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td id="fifthMonth" style="text-align: center;"></td>
+                        <td><strong><span id="fifthMonthVal">0</span></strong></td>
+                    </tr>
+                    <tr>
                         <td id="fourthMonth" style="text-align: center;"></td>
                         <td><strong><span id="fourthMonthVal">0</span></strong></td>
                     </tr>
@@ -90,6 +125,7 @@
                         <td id="firstMonth" style="text-align: center;"></td>
                         <td><strong><span id="firstMonthVal">0</span></strong></td>
                     </tr>
+
                     <tr>
                         <td>Total Downloads</td>
                         <td><strong><span id="totalDownloadVal">0</span></strong></td>
@@ -201,6 +237,22 @@
         $("#thirdMonthVal").text(Val[5]);
         $("#fourthMonth").text(getMonth(Val[6]));
         $("#fourthMonthVal").text(Val[7]);
+        $("#fifthMonth").text(getMonth(Val[8]));
+        $("#fifthMonthVal").text(Val[9]);
+        $("#sixthMonth").text(getMonth(Val[10]));
+        $("#sixthMonthVal").text(Val[11]);
+        $("#seventhMonth").text(getMonth(Val[12]));
+        $("#seventhMonthVal").text(Val[13]);
+        $("#eighthMonth").text(getMonth(Val[14]));
+        $("#eighthMonthVal").text(Val[15]);
+        $("#ninthMonth").text(getMonth(Val[16]));
+        $("#ninthMonthVal").text(Val[17]);
+        $("#tenthMonth").text(getMonth(Val[18]));
+        $("#tenthMonthVal").text(Val[19]);
+        $("#eleventhMonth").text(getMonth(Val[20]));
+        $("#eleventhMonthVal").text(Val[21]);
+        $("#twelfthMonth").text(getMonth(Val[22]));
+        $("#twelfthMonthVal").text(Val[23]);
     }
 
     function setReaderInfo(info) {
@@ -253,7 +305,7 @@
                 {
                     icon: haloIcon,
                     bounceOnAdd: true,
-                    bounceOnAddOptions: {duration: 500, height: 100, loop: 2},
+                    bounceOnAddOptions: {duration: 500, height: 200, loop: 2},
                     bounceOnAddCallback: function () {
                         console.log("done");
                     }
