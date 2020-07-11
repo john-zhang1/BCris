@@ -162,7 +162,20 @@
            <c:set var="fmtkey">
            jsp.layout.navbar-default.cris.<%= mlink.trim() %>
            </c:set>
-           <li id="<%= mlink.trim() %>-top-menu" class="hidden-xs hidden-sm <c:if test="${exploremlink == location}">active</c:if>"><a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>"><fmt:message key="${fmtkey}"/></a></li>
+            <li id="<%= mlink.trim() %>-top-menu" class="hidden-xs hidden-sm <c:if test="${exploremlink == location}">active</c:if>">
+              <c:choose>
+                <c:when test="${mlink.trim() == researcherprofiles}">
+                  <a href="<%= request.getContextPath() %>/simple-search?query=&location=researcherprofiles">
+                </c:when>
+                <c:when test="${mlink.trim() == orgunits}">
+                  <a href="<%= request.getContextPath() %>/simple-search?query=&location=orgunits">
+                </c:when>
+                <c:otherwise>
+                  <a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>">
+                </c:otherwise>
+              </c:choose>
+              <fmt:message key="${fmtkey}" /></a>
+            </li>
            <% } %>
            <li id="home-about-menu" class="hidden-xs hidden-sm <%= currentPage.endsWith("/about.jsp")? 
             "active" : "" %>"><a href="<%= request.getContextPath() %>/handle/20.500.12540/20"><fmt:message key="jsp.layout.navbar-default.cris.theses"/></a></li>
