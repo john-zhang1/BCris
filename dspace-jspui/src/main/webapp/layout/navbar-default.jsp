@@ -164,10 +164,10 @@
            </c:set>
             <li id="<%= mlink.trim() %>-top-menu" class="hidden-xs hidden-sm <c:if test="${exploremlink == location}">active</c:if>">
               <c:choose>
-                <c:when test="${mlink.trim() == researcherprofiles}">
+                <c:when test="${exploremlink == 'researcherprofiles'}">
                   <a href="<%= request.getContextPath() %>/simple-search?query=&location=researcherprofiles">
                 </c:when>
-                <c:when test="${mlink.trim() == orgunits}">
+                <c:when test="${exploremlink == 'orgunits'}">
                   <a href="<%= request.getContextPath() %>/simple-search?query=&location=orgunits">
                 </c:when>
                 <c:otherwise>
