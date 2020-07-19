@@ -237,10 +237,17 @@
 		<span class="col-md-9">		
 <%	
 			for (String provider : identifiers2providers.get(identifier))
-			{			
+			{
+                            if(identifier.equals("doi")) {
 %>
-			<img class="img-thumbnail" src="<%= request.getContextPath() %>/image/submission-lookup-small-<%= provider %>.jpg" />
-<% 
+        			<img class="img-thumbnail" src="<%= request.getContextPath() %>/image/submission-lookup-small-doi.png" />
+<%
+                                break;
+                            } else {
+%>
+        			<img class="img-thumbnail" src="<%= request.getContextPath() %>/image/submission-lookup-small-<%= provider %>.jpg" />
+<%
+                            }
 			}
 %>
 		</span>	 
