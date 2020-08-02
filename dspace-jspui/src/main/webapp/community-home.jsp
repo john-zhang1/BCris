@@ -101,7 +101,7 @@
 <%
             }
 %>
-		<small><fmt:message key="jsp.community-home.heading1"/></small>
+		<%--<small><fmt:message key="jsp.community-home.heading1"/></small>--%>
         <a class="statisticsLink btn btn-info" href="<%= request.getContextPath() %>/cris/stats/community.html?handle=<%= community.getHandle() %>&type=selected"><fmt:message key="jsp.community-home.display-statistics"/></a>
 		</h2>
 	</div>
