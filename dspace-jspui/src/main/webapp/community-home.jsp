@@ -97,7 +97,7 @@
             if(ConfigurationManager.getBooleanProperty("webui.strengths.show"))
             {
 %>
-                : [<%= ic.getCount(community) %>]
+                <span class="badge"><%= ic.getCount(community) %></span>
 <%
             }
 %>
@@ -215,7 +215,7 @@
                 if (ConfigurationManager.getBooleanProperty("webui.strengths.show"))
                 {
 %>
-                    [<%= ic.getCount(subcommunities[j]) %>]
+                    <span class="badge"><%= ic.getCount(subcommunities[j]) %></span>
 <%
                 }
 			if(isAdmin || !ConfigurationManager.getBooleanProperty("solr-statistics","authorization.admin")) { %>
@@ -286,7 +286,7 @@
             if(ConfigurationManager.getBooleanProperty("webui.strengths.show"))
             {
 %>
-                [<%= ic.getCount(collections[i]) %>]
+                <span class="badge"><%= ic.getCount(collections[i]) %></span>
 <%
             }
 			if(isAdmin || !ConfigurationManager.getBooleanProperty("solr-statistics","authorization.admin")) { %>
