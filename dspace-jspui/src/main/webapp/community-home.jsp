@@ -141,10 +141,10 @@
 	{
 		String key = "browse.menu." + bis[i].getName();
 %>
-	<form method="get" action="<%= request.getContextPath() %>/handle/<%= community.getHandle() %>/browse">
+	<form method="get" class="btn-group" action="<%= request.getContextPath() %>/handle/<%= community.getHandle() %>/browse">
 		<input type="hidden" name="type" value="<%= bis[i].getName() %>"/>
 		<%-- <input type="hidden" name="community" value="<%= community.getHandle() %>" /> --%>
-		<input class="btn btn-default col-md-3" type="submit" name="submit_browse" value="<fmt:message key="<%= key %>"/>"/>
+		<input class="btn btn-default" type="submit" name="submit_browse" value="<fmt:message key="<%= key %>"/>"/>
 	</form>
 <%	
 	}
