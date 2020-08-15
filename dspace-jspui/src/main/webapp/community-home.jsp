@@ -118,19 +118,6 @@
 </div>
 <p class="copyrightText"><%= copyright %></p>
 
-	<div class="row">
-	<div class="col-md-4">
-	<%@ include file="components/recent-submissions.jsp" %>
-		    </div>
-	<div class="col-md-4">
-	<%@ include file="components/most-viewed.jsp" %>
-	<%-- @ include file="components/most-downloaded.jsp" --%>
-		</div>
-	<div class="col-md-4">
-    	<%= sidebar %>
-	</div>
-</div>	
-
 <%-- Browse --%>
 <div class="panel panel-primary">
 	<div class="panel-heading"><fmt:message key="jsp.general.browse"/></div>
@@ -152,6 +139,19 @@
 			
 	</div>
 </div>
+
+	<div class="row">
+	<div class="col-md-4">
+	<%@ include file="components/recent-submissions.jsp" %>
+		    </div>
+	<div class="col-md-4">
+	<%@ include file="components/most-viewed.jsp" %>
+	<%-- @ include file="components/most-downloaded.jsp" --%>
+		</div>
+	<div class="col-md-4">
+    	<%= sidebar %>
+	</div>
+</div>	
 
 <div class="row">
 
