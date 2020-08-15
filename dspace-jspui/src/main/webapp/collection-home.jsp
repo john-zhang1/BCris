@@ -160,49 +160,6 @@
 			<input class="btn btn-success col-md-12" type="submit" name="submit" value="<fmt:message key="jsp.collection-home.submit.button"/>" />
           </form>
 <%  } %>
-        <form class="well" method="get" action="">
-<%  if (loggedIn && subscribed)
-    { %>
-                <small><fmt:message key="jsp.collection-home.subscribed"/> <a href="<%= request.getContextPath() %>/subscribe"><fmt:message key="jsp.collection-home.info"/></a></small>
-           		<input class="btn btn-sm btn-warning" type="submit" name="submit_unsubscribe" value="<fmt:message key="jsp.collection-home.unsub"/>" />
-<%  } else { %>
-                <small>
-            		  <fmt:message key="jsp.collection-home.subscribe.msg"/>
-                </small>
-				<input class="btn btn-sm btn-info" type="submit" name="submit_subscribe" value="<fmt:message key="jsp.collection-home.subscribe"/>" />
-<%  }
-    if(feedEnabled)
-    { %>
-    <span class="pull-right">
-    <%
-    	String[] fmts = feedData.substring(5).split(",");
-    	String icon = null;
-    	int width = 0;
-    	for (int j = 0; j < fmts.length; j++)
-    	{
-    		if ("rss_1.0".equals(fmts[j]))
-    		{
-    		   icon = "rss1.gif";
-    		   width = 80;
-    		}
-    		else if ("rss_2.0".equals(fmts[j]))
-    		{
-    		   icon = "rss2.gif";
-    		   width = 80;
-    		}
-    		else
-    	    {
-    	       icon = "rss.gif";
-    	       width = 36;
-    	    }
-%>
-    <a href="<%= request.getContextPath() %>/feed/<%= fmts[j] %>/<%= collection.getHandle() %>"><img src="<%= request.getContextPath() %>/image/<%= icon %>" alt="RSS Feed" width="<%= width %>" height="15" style="margin: 3px 0 3px" /></a>
-<%
-    	} %>
-    	</span><%
-    }
-%>
-        </form>
 
 <div class="row">
 	<%@ include file="discovery/static-tagcloud-facet.jsp" %>

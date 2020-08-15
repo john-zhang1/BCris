@@ -117,18 +117,6 @@
 <% } %>
 </div>
 <p class="copyrightText"><%= copyright %></p>
- <form class="well" method="get" action="">
-<%  if (loggedIn && subscribed)
-    { %>
-                <small><fmt:message key="jsp.collection-home.subscribed"/> <a href="<%= request.getContextPath() %>/subscribe"><fmt:message key="jsp.collection-home.info"/></a></small>
-           		<input class="btn btn-sm btn-warning" type="submit" name="submit_unsubscribe" value="<fmt:message key="jsp.collection-home.unsub"/>" />
-<%  } else { %>
-                <small>
-            		  <fmt:message key="jsp.collection-home.subscribe.msg"/>
-                </small>
-				<input class="btn btn-sm btn-info" type="submit" name="submit_subscribe" value="<fmt:message key="jsp.collection-home.subscribe"/>" />
-<%  } %>
-</form>
 
 	<div class="row">
 	<div class="col-md-4">
