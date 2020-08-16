@@ -86,7 +86,11 @@
  }
  .label-required:after { content:" *"; }
  .browse_range { text-align: center; }
- .prev-next-links { text-align: center; }
+ .prev-next-links {
+     text-align: center;
+     margin-top: 8px;
+     margin-bottom: 5px;
+}
  
  div.tagcloud {
      width:100%;

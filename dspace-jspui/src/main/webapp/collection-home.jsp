@@ -208,14 +208,14 @@
       if (bi.hasPrevPage())
       {
 %>
-      <a href="<%= prev %>"><fmt:message key="browse.full.prev"/></a>&nbsp;
+      <a class="btn btn-primary" href="<%= prev %>" role="button"><fmt:message key="browse.full.prev"/></a>
 <%
       }
 
       if (bi.hasNextPage())
       {
 %>
-      &nbsp;<a href="<%= next %>"><fmt:message key="browse.full.next"/></a>
+      <a class="btn btn-primary" href="<%= next %>" role="button"><fmt:message key="browse.full.next"/></a>
 <%
       }
 %>
@@ -254,14 +254,14 @@
       if (bi.hasPrevPage())
       {
 %>
-      <a href="<%= prev %>"><fmt:message key="browse.full.prev"/></a>&nbsp;
+      <a class="btn btn-primary" href="<%= prev %>" role="button"><fmt:message key="browse.full.prev"/></a>
 <%
       }
 
       if (bi.hasNextPage())
       {
 %>
-      &nbsp;<a href="<%= next %>"><fmt:message key="browse.full.next"/></a>
+      <a class="btn btn-primary" href="<%= next %>" role="button"><fmt:message key="browse.full.next"/></a>
 <%
       }
 %>
