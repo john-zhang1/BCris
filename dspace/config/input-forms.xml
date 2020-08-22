@@ -1,0 +1,1117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE input-forms>
+
+<input-forms>
+  <form-map>
+    <name-map collection-handle="default" form-name="publication" />
+    <name-map collection-handle="123456789/2" form-name="publication" />
+    <name-map collection-handle="123456789/3" form-name="product" />
+    <name-map collection-handle="123456789/4" form-name="patent" />
+  </form-map>
+  <form-definitions>
+    <form name="publication">
+      <page number="1">
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>title</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Title</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required>You must specify a title for the publication</required>
+          <hint>The title of the publication</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>title</dc-element>
+          <dc-qualifier>alternative</dc-qualifier>
+          <parent />
+          <label>Other Titles</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>If the item has any alternative titles, please enter them here.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>date</dc-element>
+          <dc-qualifier>issued</dc-qualifier>
+          <parent />
+          <label>Date of Issue</label>
+          <input-type>date</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>Please give the date of previous publication or public distribution. You can leave out the day and/or month if they aren't applicable.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>contributor</dc-element>
+          <dc-qualifier>affiliation</dc-qualifier>
+          <parent>dc_contributor_author</parent>
+          <label>Affiliation</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Enter the affiliation of the author as stated on the publication</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>contributor</dc-element>
+          <dc-qualifier>author</dc-qualifier>
+          <parent />
+          <label>Author</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>The authors of this publication</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>contributor</dc-element>
+          <dc-qualifier>editoraffiliation</dc-qualifier>
+          <parent>dc_contributor_editor</parent>
+          <label>Affiliation</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Enter the affiliation of the editor as stated on the publication</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>contributor</dc-element>
+          <dc-qualifier>editor</dc-qualifier>
+          <parent />
+          <label>Editor</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>The editors of this publication</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>identifier</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Identifiers</label>
+          <input-type value-pairs-name="publication_identifiers">qualdrop_value</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>If the item has any identification numbers or codes associated with
+it, please enter the types and the actual numbers or codes. Please only add here identifiers that apply directly to the described item not identifiers related to the publication channel</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>type</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Type</label>
+          <input-type value-pairs-name="publication_types">dropdown</input-type>
+          <repeatable>false</repeatable>
+          <required>You must select a publication type</required>
+          <hint>Select the type(s) of content of the publication</hint>
+        </field>
+      </page>
+      <page number="2">
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>language</dc-element>
+          <dc-qualifier>iso</dc-qualifier>
+          <parent />
+          <label>Language</label>
+          <input-type value-pairs-name="iso_languages">dropdown</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>Select the language of the main content of the publication.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>subject</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Subject Keywords</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Enter appropriate subject keywords or phrases.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier>abstract</dc-qualifier>
+          <parent />
+          <label>Abstract</label>
+          <input-type>textarea</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Enter the abstract of the item.</hint>
+        </field>
+      </page>
+      <page number="3">
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>publisher</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Publisher</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>The publishers of this publication</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>publication</dc-qualifier>
+          <parent />
+          <label>Part Of</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The publication where this publication is included. E.g. a book chapter lists here the book, a contribution to a conference lists here the conference proceeding.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>isbn</dc-qualifier>
+          <parent />
+          <label>ISBN (of the container)</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The ISBN of the book/report if it was not found in the system</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>doi</dc-qualifier>
+          <parent />
+          <label>DOI (of the container)</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The DOI of the book/report if it was not found in the system</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>ispartof</dc-qualifier>
+          <parent />
+          <label>Journal or Serie</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The journal or Serie where this publication has been published</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>issn</dc-qualifier>
+          <parent />
+          <label>ISSN</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The journal or Serie ISSN if it was not found in the system</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>coverage</dc-element>
+          <dc-qualifier>publication</dc-qualifier>
+          <parent />
+          <label>Review of</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The publication object of the review</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>coverage</dc-element>
+          <dc-qualifier>isbn</dc-qualifier>
+          <parent />
+          <label>ISBN (of the reviewed item)</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The ISBN of the reviewed item if it was not found in the system</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>coverage</dc-element>
+          <dc-qualifier>doi</dc-qualifier>
+          <parent />
+          <label>DOI (of the reviewed item)</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The DOI of the reviewed item if it was not found in the system</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier>volume</dc-qualifier>
+          <parent />
+          <label>Volume</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>If applicable, the volume of the publishing channel where this publication appeared</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier>issue</dc-qualifier>
+          <parent />
+          <label>Issue</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>If applicable, the issue of the publishing channel where this publication appeared</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier>startpage</dc-qualifier>
+          <parent />
+          <label>Start Page</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>If applicable, the page where this publication starts</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier>endpage</dc-qualifier>
+          <parent />
+          <label>End Page</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>If applicable, the page where this publication ends</hint>
+        </field>
+      </page>
+      <page number="4">
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>grantno</dc-qualifier>
+          <parent>dc_relation</parent>
+          <label>Grant Number / Funding identifier</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint />
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Project</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Enter the name of project, if any, that has supported this publication</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>conference</dc-qualifier>
+          <parent />
+          <label>Conference</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>The event where this publication was presented or that is recorded in the publication (report / proceeding).</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>dataset</dc-qualifier>
+          <parent />
+          <label>Dataset(s)</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Dataset that are used or described by this publication</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Description</label>
+          <input-type>textarea</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>Enter any other description or comments in this box.</hint>
+        </field>
+      </page>
+    </form>
+    <form name="product">
+      <page number="1">
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>title</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Name/Title</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required>You must specify a name/title for the product</required>
+          <hint>The name of the product</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>title</dc-element>
+          <dc-qualifier>alternative</dc-qualifier>
+          <parent />
+          <label>Other Titles</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>If the item has any alternative titles, please enter them here.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>date</dc-element>
+          <dc-qualifier>issued</dc-qualifier>
+          <parent />
+          <label>Date of creation</label>
+          <input-type>date</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>Date of creation of the product</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier>version</dc-qualifier>
+          <parent />
+          <label>Version</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>If applicable, the version of the product</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>contributor</dc-element>
+          <dc-qualifier>affiliation</dc-qualifier>
+          <parent>dc_contributor_author</parent>
+          <label>Affiliation</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Enter the affiliation of the contributor as stated on the product</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>contributor</dc-element>
+          <dc-qualifier>author</dc-qualifier>
+          <parent />
+          <label>Creator</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>The creators of this product</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>identifier</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Identifiers</label>
+          <input-type value-pairs-name="product_identifiers">qualdrop_value</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>If the item has any identification numbers or codes associated with
+it, please enter the types and the actual numbers or codes.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>type</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Type</label>
+          <input-type value-pairs-name="product_types">dropdown</input-type>
+          <repeatable>false</repeatable>
+          <required>You must select a product type</required>
+          <hint>The type of the resulting product (other than publication or patent)</hint>
+        </field>
+      </page>
+      <page number="2">
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>language</dc-element>
+          <dc-qualifier>iso</dc-qualifier>
+          <parent />
+          <label>Language</label>
+          <input-type value-pairs-name="iso_languages">dropdown</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>Select the language used.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>subject</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Subject Keywords</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Enter appropriate subject keywords or phrases.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier>abstract</dc-qualifier>
+          <parent />
+          <label>Abstract</label>
+          <input-type>textarea</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>Enter the abstract of the item.</hint>
+        </field>
+      </page>
+      <page number="3">
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>publisher</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Publisher</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>The publisher or publishers of this product</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>ispartof</dc-qualifier>
+          <parent />
+          <label>Journal or Serie</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>Link to the research output of which this product is a part (e.g. a data set collection that contains it)</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>issn</dc-qualifier>
+          <parent />
+          <label>ISSN</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The journal or Serie ISSN if it was not found in the system</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>grantno</dc-qualifier>
+          <parent>dc_relation</parent>
+          <label>Grant Number / Funding identifier</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint />
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Project</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Enter the name of project, if any, that has supported this product</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>conference</dc-qualifier>
+          <parent />
+          <label>Conference</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The event where this product was presented or that is recorded in the product.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>equipment</dc-qualifier>
+          <parent />
+          <label>Generated by</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>The equipment that generated this product</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>references</dc-qualifier>
+          <parent />
+          <label>References</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Result outputs that are referenced by this product</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>publication</dc-qualifier>
+          <parent />
+          <label>References</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Result outputs that use this product</hint>
+        </field>
+      </page>
+    </form>
+    <form name="patent">
+      <page number="1">
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>title</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Title</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required>You must specify a title for the patent</required>
+          <hint>The title of the patent</hint>
+        </field>
+        <field>
+          <dc-schema>dcterms</dc-schema>
+          <dc-element>dateAccepted</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Approval Date</label>
+          <input-type>date</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The Approval date.
+You can leave out the day and/or month if they aren't applicable.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>date</dc-element>
+          <dc-qualifier>issued</dc-qualifier>
+          <parent />
+          <label>Registration Date</label>
+          <input-type>date</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The registration date of the patent.
+You can leave out the day and/or month if they aren't applicable.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>contributor</dc-element>
+          <dc-qualifier>affiliation</dc-qualifier>
+          <parent>dc_contributor_author</parent>
+          <label>Affiliation</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Enter the affiliation of the inventor</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>contributor</dc-element>
+          <dc-qualifier>author</dc-qualifier>
+          <parent />
+          <label>Inventor</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>The inventor: The actual devisor of an invention that is the subject of a patent.</hint>
+        </field>
+        <field>
+          <dc-schema>dcterms</dc-schema>
+          <dc-element>rightsHolder</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Holder</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>The holders of this patent</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>publisher</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Issuer</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>The issuer of the patent: the patent office</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>identifier</dc-element>
+          <dc-qualifier>patentno</dc-qualifier>
+          <parent />
+          <label>Patent Number</label>
+          <input-type>onebox</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>The patent number.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>type</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Type</label>
+          <input-type value-pairs-name="patent_types">dropdown</input-type>
+          <repeatable>false</repeatable>
+          <required>You must select a patent type</required>
+          <hint>Select the type of content of the patent.</hint>
+        </field>
+      </page>
+      <page number="2">
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>language</dc-element>
+          <dc-qualifier>iso</dc-qualifier>
+          <parent />
+          <label>Language</label>
+          <input-type value-pairs-name="iso_languages">dropdown</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>Select the country and its language.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>subject</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Subject Keywords</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Enter appropriate subject keywords or phrases.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>description</dc-element>
+          <dc-qualifier>abstract</dc-qualifier>
+          <parent />
+          <label>Abstract</label>
+          <input-type>textarea</input-type>
+          <repeatable>false</repeatable>
+          <required />
+          <hint>Enter the description of the patent.</hint>
+        </field>
+      </page>
+      <page number="3">
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier />
+          <parent />
+          <label>Originates From</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Enter the name of project, if any, that has produced this patent.</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>patent</dc-qualifier>
+          <parent />
+          <label>Predecessor</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Patents that precede (i.e., have priority over) this patent</hint>
+        </field>
+        <field>
+          <dc-schema>dc</dc-schema>
+          <dc-element>relation</dc-element>
+          <dc-qualifier>references</dc-qualifier>
+          <parent />
+          <label>References</label>
+          <input-type>onebox</input-type>
+          <repeatable>true</repeatable>
+          <required />
+          <hint>Result outputs that are referenced by this patent</hint>
+        </field>
+      </page>
+    </form>
+  </form-definitions>
+  <form-value-pairs>
+    <value-pairs value-pairs-name="publication_identifiers" dc-term="publication_identifiers">
+      <pair>
+        <displayed-value>DOI</displayed-value>
+        <stored-value>doi</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>ISBN</displayed-value>
+        <stored-value>isbn</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>ISMN</displayed-value>
+        <stored-value>ismn</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>ISI Number</displayed-value>
+        <stored-value>isi</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Scopus Number</displayed-value>
+        <stored-value>scopus</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Pubmed ID</displayed-value>
+        <stored-value>pmid</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>PMC ID</displayed-value>
+        <stored-value>pmcid</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Gov’t Doc #</displayed-value>
+        <stored-value>govdoc</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>arXiv</displayed-value>
+        <stored-value>arxiv</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>ADS Bibcode</displayed-value>
+        <stored-value>bibcode</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Article Number</displayed-value>
+        <stored-value>artno</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>URL</displayed-value>
+        <stored-value>url</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>URN</displayed-value>
+        <stored-value>uri</stored-value>
+      </pair>
+    </value-pairs>
+    <value-pairs value-pairs-name="publication_types" dc-term="publication_types">
+      <pair>
+        <displayed-value>Text</displayed-value>
+        <stored-value>text</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Annotation</displayed-value>
+        <stored-value>annotation</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Bibliography</displayed-value>
+        <stored-value>bibliography</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Book</displayed-value>
+        <stored-value>book</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Book Part</displayed-value>
+        <stored-value>book part</stored-value>
+      </pair>      
+      <pair>
+        <displayed-value>Conference Object</displayed-value>
+        <stored-value>conference object</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Conference Proceedings</displayed-value>
+        <stored-value>conference proceedings</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Conference Paper</displayed-value>
+        <stored-value>conference paper</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Conference Poster</displayed-value>
+        <stored-value>conference poster</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Conference Paper not in Proceedings</displayed-value>
+        <stored-value>conference paper not in proceedings</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Conference Poster not in Proceedings</displayed-value>
+        <stored-value>conference poster not in proceedings</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Lecture</displayed-value>
+        <stored-value>lecture</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Letter</displayed-value>
+        <stored-value>letter</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Periodical</displayed-value>
+        <stored-value>periodical</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Journal</displayed-value>
+        <stored-value>journal</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Contribution to Journal</displayed-value>
+        <stored-value>contribution to journal</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Journal Article</displayed-value>
+        <stored-value>journal article</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Review Article</displayed-value>
+        <stored-value>review article</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Research Article</displayed-value>
+        <stored-value>research article</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Editorial</displayed-value>
+        <stored-value>editorial</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Data Paper</displayed-value>
+        <stored-value>data paper</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Letter to the Editor</displayed-value>
+        <stored-value>letter to the editor</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Preprint</displayed-value>
+        <stored-value>preprint</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Report</displayed-value>
+        <stored-value>report</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Report Part</displayed-value>
+        <stored-value>report part</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Internal Report</displayed-value>
+        <stored-value>internal report</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Memorandum</displayed-value>
+        <stored-value>memorandum</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Other Type of Report</displayed-value>
+        <stored-value>other type of report</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Policy Report</displayed-value>
+        <stored-value>policy report</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Project Deliverable</displayed-value>
+        <stored-value>project deliverable</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Report to Funding Agency</displayed-value>
+        <stored-value>report to funding agency</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Research Report</displayed-value>
+        <stored-value>research report</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Technical Report</displayed-value>
+        <stored-value>technical report</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Research Proposal</displayed-value>
+        <stored-value>research proposal</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Review</displayed-value>
+        <stored-value>review</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Book Review</displayed-value>
+        <stored-value>book review</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Technical Documentation</displayed-value>
+        <stored-value>technical documentation</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Working Paper</displayed-value>
+        <stored-value>working paper</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Thesis</displayed-value>
+        <stored-value>thesis</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Bachelor Thesis</displayed-value>
+        <stored-value>bachelor thesis</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Doctoral Thesis</displayed-value>
+        <stored-value>doctoral thesis</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Master Thesis</displayed-value>
+        <stored-value>master thesis</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Musical Notation</displayed-value>
+        <stored-value>musical notation</stored-value>
+      </pair>
+    </value-pairs>
+    <value-pairs value-pairs-name="product_identifiers" dc-term="product_identifiers">
+      <pair>
+        <displayed-value>DOI</displayed-value>
+        <stored-value>doi</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>ARK</displayed-value>
+        <stored-value>ark</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>URL</displayed-value>
+        <stored-value>url</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>URN</displayed-value>
+        <stored-value>uri</stored-value>
+      </pair>
+    </value-pairs>
+    <value-pairs value-pairs-name="product_types" dc-term="product_types">
+      <pair>
+        <displayed-value>Interactive Resource</displayed-value>
+        <stored-value>interactive resource</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Website</displayed-value>
+        <stored-value>website</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Dataset</displayed-value>
+        <stored-value>dataset</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Image</displayed-value>
+        <stored-value>image</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Moving Image</displayed-value>
+        <stored-value>moving image</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Video</displayed-value>
+        <stored-value>video</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Still Image</displayed-value>
+        <stored-value>still image</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Other</displayed-value>
+        <stored-value>other</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Software</displayed-value>
+        <stored-value>software</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Workflow</displayed-value>
+        <stored-value>workflow</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Cartographic Material</displayed-value>
+        <stored-value>cartographic material</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Map</displayed-value>
+        <stored-value>map</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Sound</displayed-value>
+        <stored-value>sound</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Musical Composition</displayed-value>
+        <stored-value>musical composition</stored-value>
+      </pair>
+    </value-pairs>
+    <value-pairs value-pairs-name="patent_types" dc-term="patent_types">
+      <pair>
+        <displayed-value>Patent</displayed-value>
+        <stored-value>patent</stored-value>
+      </pair>
+    </value-pairs>
+    <value-pairs value-pairs-name="iso_languages" dc-term="iso_languages">
+      <pair>
+        <displayed-value>N/A</displayed-value>
+        <stored-value />
+      </pair>
+      <pair>
+        <displayed-value>English</displayed-value>
+        <stored-value>en</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Spanish</displayed-value>
+        <stored-value>es</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>German</displayed-value>
+        <stored-value>de</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>French</displayed-value>
+        <stored-value>fr</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Italian</displayed-value>
+        <stored-value>it</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Japanese</displayed-value>
+        <stored-value>ja</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Chinese</displayed-value>
+        <stored-value>zh</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Turkish</displayed-value>
+        <stored-value>tr</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Arabic</displayed-value>
+        <stored-value>ar</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>(Other)</displayed-value>
+        <stored-value>other</stored-value>
+      </pair>
+    </value-pairs>
+  </form-value-pairs>
+</input-forms>
+

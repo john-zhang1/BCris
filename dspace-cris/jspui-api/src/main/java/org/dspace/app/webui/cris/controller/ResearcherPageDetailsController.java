@@ -1,0 +1,391 @@
+/**
+ * The contents of this file are subject to the license and copyright
+ * detailed in the LICENSE and NOTICE files at the root of the source
+ * tree and available online at
+ *
+ * https://github.com/CILEA/dspace-cris/wiki/License
+ */
+package org.dspace.app.webui.cris.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.dspace.app.cris.integration.RPAuthority;
+import org.dspace.app.cris.model.ResearcherPage;
+import org.dspace.app.cris.model.jdyna.BoxResearcherPage;
+import org.dspace.app.cris.model.jdyna.RPPropertiesDefinition;
+import org.dspace.app.cris.model.jdyna.RPProperty;
+import org.dspace.app.cris.model.jdyna.TabResearcherPage;
+import org.dspace.app.cris.service.ApplicationService;
+import org.dspace.app.cris.service.CrisSubscribeService;
+import org.dspace.app.cris.statistics.util.StatsConfig;
+import org.dspace.app.cris.util.ICrisHomeProcessor;
+import org.dspace.app.cris.util.ResearcherPageUtils;
+import org.dspace.app.webui.cris.metrics.ItemMetricsDTO;
+import org.dspace.app.webui.cris.util.CrisAuthorizeManager;
+import org.dspace.app.webui.util.Authenticate;
+import org.dspace.app.webui.util.JSPManager;
+import org.dspace.app.webui.util.UIUtil;
+import org.dspace.authorize.AuthorizeException;
+import org.dspace.content.authority.AuthorityDAO;
+import org.dspace.content.authority.AuthorityDAOFactory;
+import org.dspace.core.ConfigurationManager;
+import org.dspace.core.Context;
+import org.dspace.core.LogManager;
+import org.dspace.discovery.BadRequestSearchServiceException;
+import org.dspace.discovery.SearchServiceException;
+import org.dspace.eperson.EPerson;
+import org.dspace.eperson.Group;
+import org.dspace.eperson.factory.EPersonServiceFactory;
+import org.dspace.eperson.service.GroupService;
+import org.dspace.statistics.SolrLoggerServiceImpl;
+import org.dspace.usage.UsageEvent;
+import org.dspace.utils.DSpace;
+import org.springframework.web.servlet.ModelAndView;
+
+import it.cilea.osd.jdyna.components.IBeanSubComponent;
+import it.cilea.osd.jdyna.components.IComponent;
+import it.cilea.osd.jdyna.web.controller.SimpleDynaController;
+
+/**
+ * This SpringMVC controller is used to build the ResearcherPage details page.
+ * The DSpace items included in the details are returned by the DSpace Browse
+ * System.
+ * 
+ * @author cilea
+ * 
+ */
+public class ResearcherPageDetailsController
+        extends
+        SimpleDynaController<ResearcherPage, RPProperty, RPPropertiesDefinition, BoxResearcherPage, TabResearcherPage>
+{
+
+    public ResearcherPageDetailsController(
+            Class<ResearcherPage> anagraficaObjectClass,
+            Class<RPPropertiesDefinition> classTP,
+            Class<TabResearcherPage> classT, Class<BoxResearcherPage> classH)
+            throws InstantiationException, IllegalAccessException
+    {
+        super(anagraficaObjectClass, classTP, classT, classH);
+    }
+
+    /** log4j category */
+    private static Logger log = Logger
+            .getLogger(ResearcherPageDetailsController.class);
+
+    private CrisSubscribeService subscribeService;
+    
+    private List<ICrisHomeProcessor<ResearcherPage>> processors;
+    
+    public void setSubscribeService(CrisSubscribeService rpSubscribeService)
+    {
+        this.subscribeService = rpSubscribeService;
+    }
+
+    @Override
+    public ModelAndView handleDetails(HttpServletRequest request,
+            HttpServletResponse response) throws Exception
+    {
+        log.debug("Start handleRequest");
+        Map<String, Object> model = new HashMap<String, Object>();
+
+        ResearcherPage researcher = null;
+        try {
+            researcher = extractObject(request, response);
+        }
+        catch(Exception ex) {
+            return null;
+        }
+
+        Context context = UIUtil.obtainContext(request);
+        EPerson currUser = context.getCurrentUser();
+        
+        model.put("selfClaimRP", new Boolean(false));
+        if(currUser != null) {
+            model.put("isLoggedIn", new Boolean(true));
+            ResearcherPage rp = ((ApplicationService) applicationService).getResearcherPageByEPersonId(currUser.getID());
+        	model.put("userID", currUser.getID());
+            if(rp!=null){
+            	model.put("userHasRP", new Boolean(true));
+
+            }else
+            {
+            	model.put("userHasRP", new Boolean(false));
+                String nameGroupSelfClaim = ConfigurationManager.getProperty("cris",
+                        "rp.claim.group.name");
+                if (StringUtils.isNotBlank(nameGroupSelfClaim))
+                {
+                	GroupService groupService = EPersonServiceFactory.getInstance().getGroupService();
+                    Group selfClaimGroup = groupService.findByName(context,
+                            nameGroupSelfClaim);
+                    if (groupService.isMember(context, selfClaimGroup))
+                    {
+                        model.put("selfClaimRP", new Boolean(true));
+                    }
+                }
+            }
+        }
+        else {
+            model.put("isLoggedIn", new Boolean(false));
+        }
+        
+        boolean isAdmin = CrisAuthorizeManager.isAdmin(context,researcher);
+      
+        
+        if (isAdmin
+                || (currUser != null && (researcher.getEpersonID() != null && currUser
+                        .getID().equals(researcher.getEpersonID()))))
+        {
+            model.put("researcher_page_menu", new Boolean(true));
+            model.put("authority_key",
+                    ResearcherPageUtils.getPersistentIdentifier(researcher));
+
+            if (isAdmin)
+            {
+                AuthorityDAO dao = AuthorityDAOFactory.getInstance(context);
+                long pendingItems = dao
+                        .countIssuedItemsByAuthorityValueInAuthority(
+                                RPAuthority.RP_AUTHORITY_NAME,
+                                ResearcherPageUtils
+                                        .getPersistentIdentifier(researcher));
+                model.put("pendingItems", new Long(pendingItems));
+            }
+        }
+        
+        else if ((researcher.getStatus() == null || researcher.getStatus()
+                .booleanValue() == false))
+        {
+            if (context.getCurrentUser() != null
+                    || Authenticate.startAuthentication(context, request,
+                            response))
+            {
+                // Log the error
+                log.info(LogManager
+                        .getHeader(context, "authorize_error",
+                                "Only administrator can access to disabled researcher page"));
+
+                JSPManager
+                        .showAuthorizeError(
+                                request,
+                                response,
+                                new AuthorizeException(
+                                        "Only administrator can access to disabled researcher page"));
+            }
+            return null;
+        }
+
+        
+        if (subscribeService != null)
+        {
+            boolean subscribed = subscribeService.isSubscribed(currUser,
+                    researcher);
+            model.put("subscribed", subscribed);
+            EPerson eperson = EPersonServiceFactory.getInstance().getEPersonService().find(context, researcher.getEpersonID());
+            if (eperson != null) {
+            	model.put("subscriptions", subscribeService.getSubscriptions(eperson));
+            }
+        }
+
+        ModelAndView mvc = null;
+
+        try
+        {
+            mvc = super.handleDetails(request, response);
+        }
+        catch (RuntimeException e)
+        {
+            return null;
+        }
+
+        mvc.getModel().putAll(model);
+        
+        List<ICrisHomeProcessor<ResearcherPage>> resultProcessors = new ArrayList<ICrisHomeProcessor<ResearcherPage>>();
+        Map<String, Object> extraTotal = new HashMap<String, Object>();
+        Map<String, ItemMetricsDTO> metricsTotal = new HashMap<String, ItemMetricsDTO>();
+        HashSet<String> metricsTypeTotal = new LinkedHashSet<String>();
+        for (ICrisHomeProcessor processor : processors)
+        {
+            if (ResearcherPage.class.isAssignableFrom(processor.getClazz()))
+            {
+                processor.process(context, request, response, researcher);
+                Map<String, Object> extra = (Map<String, Object>)request.getAttribute("extra");
+                if(extra!=null && !extra.isEmpty()) {
+                    Object metricsObject = extra.get("metrics");
+                    if(metricsObject!=null) {
+                        Map<String, ItemMetricsDTO> metrics = (Map<String, ItemMetricsDTO>)metricsObject;
+                        List<String> metricTypes = (List<String>)extra.get("metricTypes");
+                        if(metrics!=null && !metrics.isEmpty()) {
+                            metricsTotal.putAll(metrics);
+                        }
+                        if(metricTypes!=null && !metricTypes.isEmpty()) {
+                            metricsTypeTotal.addAll(metricTypes);
+                        }
+                    }
+                }
+            }
+        }
+        
+        List<String> metricsTypes = new ArrayList<String>( metricsTypeTotal);
+        extraTotal.put("metricTypes",metricsTypes );
+        extraTotal.put("metrics", metricsTotal);
+        request.setAttribute("extra", extraTotal);  
+        request.setAttribute("components", super.getComponents());
+        request.setAttribute("entity", researcher);        
+        mvc.getModel().put("researcher", researcher);
+        mvc.getModel().put("exportscitations",
+                ConfigurationManager.getArrayProperty("dspacecris","exportcitation.options"));
+        mvc.getModel()
+                .put("showStatsOnlyAdmin",
+                        ConfigurationManager
+                                .getBooleanProperty(SolrLoggerServiceImpl.CFG_STAT_MODULE,"authorization.admin"));
+        mvc.getModel().put("isAdmin", isAdmin);
+        
+        // Fire usage event.
+        request.setAttribute("sectionid", StatsConfig.DETAILS_SECTION);
+        new DSpace().getEventService().fireEvent(
+                    new UsageEvent(
+                            UsageEvent.Action.VIEW,
+                            request,
+                            context,
+                            researcher));
+        
+        
+        log.debug("end servlet handleRequest");
+
+        return mvc;
+    }
+
+    @Override
+    protected List<TabResearcherPage> findTabsWithVisibility(
+            HttpServletRequest request, Map<String, Object> model,
+            HttpServletResponse response) throws Exception
+    {
+        Integer researcherId = extractEntityId(request, response);
+        
+        Context context = UIUtil.obtainContext(request);
+
+        List<TabResearcherPage> tabs = applicationService.getList(TabResearcherPage.class);
+        List<TabResearcherPage> authorizedTabs = new LinkedList<TabResearcherPage>();
+        
+        for(TabResearcherPage tab : tabs) {
+            if(CrisAuthorizeManager.authorize(context, applicationService, ResearcherPage.class, RPPropertiesDefinition.class, researcherId, tab)) {
+                authorizedTabs.add(tab);
+            }
+        }
+        return authorizedTabs;
+    }
+
+    @Override
+    protected Integer getAnagraficaId(HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        ResearcherPage researcher = null;
+        try
+        {
+            researcher = extractObject(request, response);
+        }
+        catch (NumberFormatException e)
+        {
+            return -1;
+        }
+        return researcher.getDynamicField().getId();
+    }
+
+    @Override
+    protected Integer getTabId(HttpServletRequest request)
+    {
+        String tabName = extractTabName(request);
+        if (StringUtils.isNotEmpty(tabName))
+        {
+            TabResearcherPage tab = applicationService.getTabByShortName(
+                    TabResearcherPage.class, tabName);
+            if (tab != null)
+                return tab.getId();
+        }
+        return null;
+    }
+
+    private String extractTabName(HttpServletRequest request)
+    {
+        String path = request.getPathInfo().substring(1); // remove first /
+        String[] splitted = path.split("/");
+        if (splitted.length > 2)
+        {
+            return splitted[2].replaceAll("\\.html", "");
+        }
+        else
+            return null;
+    }
+
+    @Override
+    protected String extractAnchorId(HttpServletRequest request)
+    {
+        String type = request.getParameter("open");
+        if (type != null && !type.isEmpty())
+        {
+
+            if (getComponents() != null && !getComponents().isEmpty())
+            {
+                for (String key : getComponents().keySet())
+                {
+                    IComponent component = getComponents().get(key);
+                    Map<String, IBeanSubComponent> comp = component.getTypes();
+
+                    if (comp.containsKey(type))
+                    {
+                        return key;
+                    }
+                }
+            }
+
+            return type;
+        }
+
+        return "";
+    }
+
+    @Override
+    protected void showAuthorizeError(HttpServletRequest request,
+            HttpServletResponse response, Exception ex, String objectId)
+            throws IOException, ServletException
+    {
+    	if(ex instanceof BadRequestSearchServiceException) {
+            JSPManager.showIntegrityError(request, response);
+    	}
+    	else if(ex instanceof SearchServiceException) {
+            JSPManager.showInternalError(request, response);
+    	}
+    	else {
+            JSPManager.showAuthorizeError(request, response,
+                    new AuthorizeException(ex.getMessage()));    		
+    	}
+    }
+    
+    protected Integer getRealPersistentIdentifier(String persistentIdentifier)
+    {
+        return ResearcherPageUtils.getRealPersistentIdentifier(persistentIdentifier, ResearcherPage.class);
+    }
+
+    public void setProcessors(List<ICrisHomeProcessor<ResearcherPage>> processors)
+    {
+        this.processors = processors;
+    }
+
+    @Override
+    protected boolean authorize(HttpServletRequest request, HttpServletResponse response, BoxResearcherPage box) throws Exception
+    {
+        return CrisAuthorizeManager.authorize(UIUtil.obtainContext(request), getApplicationService(), ResearcherPage.class, RPPropertiesDefinition.class, extractEntityId(request, response), box);        
+    }
+
+}
