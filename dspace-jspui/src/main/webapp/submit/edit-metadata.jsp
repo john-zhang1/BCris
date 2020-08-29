@@ -1275,7 +1275,7 @@
 		List<IMetadataValue> unfiltered = ContentServiceFactory.getInstance().getItemService().getMetadata(item, schema,
 				element, Item.ANY, Item.ANY);
 		// filter out both unqualified and qualified values occurring elsewhere in inputs
-		List<IMetadataValue> filtered = new ArrayList<>();
+		List<IMetadataValue> filtered = new ArrayList<IMetadataValue>();
 		for (int i = 0; i < unfiltered.size(); i++) {
 			String unfilteredFieldName = unfiltered.get(i).getMetadataField().getElement();
 			if (unfiltered.get(i).getMetadataField().getQualifier() != null
