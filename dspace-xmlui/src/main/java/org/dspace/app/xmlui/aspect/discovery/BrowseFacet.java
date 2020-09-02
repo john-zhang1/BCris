@@ -375,7 +375,7 @@ public class BrowseFacet extends AbstractDSpaceTransformer implements CacheableP
         {
             if (dso instanceof Collection)
             {
-                browseContext.addItem().addXref(contextPath + "/discovery/?q=search.resourcetype%3A2+AND+location%3Al" + dso.getID(), T_head_this_collection );
+                browseContext.addItem().addXref(contextPath + "/discovery/?q=search.%3A2+AND+location%3Al" + dso.getID(), T_head_this_collection );
             }
             if (dso instanceof Community)
             {

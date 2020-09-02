@@ -64,7 +64,7 @@
         currentPage = currentPage.substring( 0, c );
     }
     
-    boolean networkModuleEnabled = ConfigurationManager.getBooleanProperty(NetworkPlugin.CFG_MODULE,"network.enabled");
+    boolean networkModuleEnabled = ConfigurationManager.getBooleanProperty("network.enabled");
     boolean changeStatusAdmin = ConfigurationManager.getBooleanProperty("cris","rp.changestatus.admin");
     boolean claimEnabled = ConfigurationManager.getBooleanProperty("cris","rp.claim.enabled");
 %>
