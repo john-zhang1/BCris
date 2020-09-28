@@ -437,4 +437,18 @@
             <argument>PJStatsViewIndicatorsPlugin</argument>
         </step>
     </command>           
+    <command>
+        <name>geo-export</name>
+        <description>Geo Info Export</description>
+        <step>
+            <class>org.dspace.statistics.util.GeoActivityExport</class>
+        </step>
+    </command>
+    <command>
+        <name>geo-solr-export</name>
+        <description>Geo solr data Export</description>
+        <step>
+            <class>org.dspace.statistics.util.GeoSolrExport</class>
+        </step>
+    </command>
 </commands>

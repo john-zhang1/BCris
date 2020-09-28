@@ -131,11 +131,11 @@ function sortBy(idx, ord)
             if(configurationService.getBooleanProperty("webui.strengths.show"))
             {
 %>
-                : [<%= ic.getCount(collection) %>]
+                <span class="badge"><%= ic.getCount(collection) %></span>
 <%
             }
 %>
-		<small><fmt:message key="jsp.collection-home.heading1"/></small>
+        <%--<small><fmt:message key="jsp.collection-home.heading1"/></small>--%>
       <a class="statisticsLink btn btn-info" href="<%= request.getContextPath() %>/cris/stats/collection.html?handle=<%= collection.getHandle() %>&type=selected"><fmt:message key="jsp.collection-home.display-statistics"/></a>
       </h2></div>
 <%  if (logo != null) { %>
@@ -179,49 +179,6 @@ function sortBy(idx, ord)
 			<input class="btn btn-success col-md-12" type="submit" name="submit" value="<fmt:message key="jsp.collection-home.submit.button"/>" />
           </form>
 <%  } %>
-        <form class="well" method="get" action="">
-<%  if (loggedIn && subscribed)
-    { %>
-                <small><fmt:message key="jsp.collection-home.subscribed"/> <a href="<%= request.getContextPath() %>/subscribe"><fmt:message key="jsp.collection-home.info"/></a></small>
-           		<input class="btn btn-sm btn-warning" type="submit" name="submit_unsubscribe" value="<fmt:message key="jsp.collection-home.unsub"/>" />
-<%  } else { %>
-                <small>
-            		  <fmt:message key="jsp.collection-home.subscribe.msg"/>
-                </small>
-				<input class="btn btn-sm btn-info" type="submit" name="submit_subscribe" value="<fmt:message key="jsp.collection-home.subscribe"/>" />
-<%  }
-    if(feedEnabled)
-    { %>
-    <span class="pull-right">
-    <%
-    	String[] fmts = feedData.substring(5).split(",");
-    	String icon = null;
-    	int width = 0;
-    	for (int j = 0; j < fmts.length; j++)
-    	{
-    		if ("rss_1.0".equals(fmts[j]))
-    		{
-    		   icon = "rss1.gif";
-    		   width = 80;
-    		}
-    		else if ("rss_2.0".equals(fmts[j]))
-    		{
-    		   icon = "rss2.gif";
-    		   width = 80;
-    		}
-    		else
-    	    {
-    	       icon = "rss.gif";
-    	       width = 36;
-    	    }
-%>
-    <a href="<%= request.getContextPath() %>/feed/<%= fmts[j] %>/<%= collection.getHandle() %>"><img src="<%= request.getContextPath() %>/image/<%= icon %>" alt="RSS Feed" width="<%= width %>" height="15" style="margin: 3px 0 3px" /></a>
-<%
-    	} %>
-    	</span><%
-    }
-%>
-        </form>
 
 <div class="row">
 	<%@ include file="discovery/static-tagcloud-facet.jsp" %>
@@ -271,14 +228,14 @@ function sortBy(idx, ord)
       if (bi.hasPrevPage())
       {
 %>
-      <a href="<%= prev %>"><fmt:message key="browse.full.prev"/></a>&nbsp;
+      <a class="btn btn-primary" href="<%= prev %>" role="button"><fmt:message key="browse.full.prev"/></a>
 <%
       }
 
       if (bi.hasNextPage())
       {
 %>
-      &nbsp;<a href="<%= next %>"><fmt:message key="browse.full.next"/></a>
+      <a class="btn btn-primary" href="<%= next %>" role="button"><fmt:message key="browse.full.next"/></a>
 <%
       }
 %>
@@ -317,14 +274,14 @@ function sortBy(idx, ord)
       if (bi.hasPrevPage())
       {
 %>
-      <a href="<%= prev %>"><fmt:message key="browse.full.prev"/></a>&nbsp;
+      <a class="btn btn-primary" href="<%= prev %>" role="button"><fmt:message key="browse.full.prev"/></a>
 <%
       }
 
       if (bi.hasNextPage())
       {
 %>
-      &nbsp;<a href="<%= next %>"><fmt:message key="browse.full.next"/></a>
+      <a class="btn btn-primary" href="<%= next %>" role="button"><fmt:message key="browse.full.next"/></a>
 <%
       }
 %>

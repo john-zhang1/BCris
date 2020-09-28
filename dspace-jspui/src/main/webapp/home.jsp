@@ -84,10 +84,16 @@
 %>
 
 <dspace:layout locbar="nolink" titlekey="jsp.home.title" feedData="<%= feedData %>">
-<div class="row">
-	<div class="col-md-8 sm-12 pull-<%= isRtl? "right":"left" %>">
-        <%= topNews %>
+    <p/>
+    <div class="row hidden-xs hidden-sm">
+        <div class="col-sm-12 brand pull-<%= isRtl ?"right" :"left" %>">
+            <dspace:include page="/layout/home-carousel.jsp" />
+        </div>
+    </div>
 
+<div class="row">
+
+    <div class="col-md-12 sm-12 pull-<%= isRtl? "right":"left" %>">
 	<%
     	int discovery_panel_cols = 8;
     	int discovery_facet_cols = 4;
@@ -99,10 +105,8 @@
 	<%@ include file="discovery/static-globalsearch-component-facet.jsp" %>
 	<% } %>        
 		  </div>
-	<div class="col-md-4 sm-12 pull-<%= isRtl? "left":"right" %>">
-		<%= sideNews %>
-	</div>
 </div>
+
 <div class="row">
 	<div class="col-md-4 <%= isRtl ? "pull-right":""%>">
 		<%@ include file="components/most-viewed.jsp" %>	
@@ -115,6 +119,9 @@
 	<%-- <%@ include file="discovery/static-tagcloud-facet.jsp" %> --%>
 	<%-- <%@ include file="components/most-cited.jsp" %> --%>
 	</div>
+</div>
+<div class="row" style="overflow:hidden">
+    <%@ include file="components/stats-action.jsp" %>
 </div>
 <%
 if (communities != null && communities.size() != 0)

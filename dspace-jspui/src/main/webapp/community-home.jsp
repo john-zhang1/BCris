@@ -110,11 +110,11 @@
             if(configurationService.getBooleanProperty("webui.strengths.show"))
             {
 %>
-                : [<%= ic.getCount(community) %>]
+                <span class="badge"><%= ic.getCount(community) %></span>
 <%
             }
 %>
-		<small><fmt:message key="jsp.community-home.heading1"/></small>
+        <%--<small><fmt:message key="jsp.community-home.heading1"/></small>--%>
         <a class="statisticsLink btn btn-info" href="<%= request.getContextPath() %>/cris/stats/community.html?handle=<%= community.getHandle() %>&type=selected"><fmt:message key="jsp.community-home.display-statistics"/></a>
 		</h2>
 	</div>
@@ -130,29 +130,6 @@
 <% } %>
 </div>
 <p class="copyrightText"><%= copyright %></p>
- <form class="well" method="get" action="">
-<%  if (loggedIn && subscribed)
-    { %>
-                <small><fmt:message key="jsp.collection-home.subscribed"/> <a href="<%= request.getContextPath() %>/subscribe"><fmt:message key="jsp.collection-home.info"/></a></small>
-           		<input class="btn btn-sm btn-warning" type="submit" name="submit_unsubscribe" value="<fmt:message key="jsp.collection-home.unsub"/>" />
-<%  } else { %>
-                <small>
-            		  <fmt:message key="jsp.collection-home.subscribe.msg"/>
-                </small>
-				<input class="btn btn-sm btn-info" type="submit" name="submit_subscribe" value="<fmt:message key="jsp.collection-home.subscribe"/>" />
-<%  } %>
-</form>
-
-	<div class="row">
-	<div class="col-md-4">
-	<%@ include file="components/recent-submissions.jsp" %>
-		    </div>
-	<div class="col-md-4">
-	<%@ include file="components/most-viewed.jsp" %>
-	<%-- @ include file="components/most-downloaded.jsp" --%>
-		</div>
-</div>	
-
 <%-- Browse --%>
 <div class="panel panel-primary">
 	<div class="panel-heading"><fmt:message key="jsp.general.browse"/></div>
@@ -163,10 +140,10 @@
 	{
 		String key = "browse.menu." + bis[i].getName();
 %>
-	<form method="get" action="<%= request.getContextPath() %>/handle/<%= community.getHandle() %>/browse">
+    <form method="get" class="btn-group" action="<%= request.getContextPath() %>/handle/<%= community.getHandle() %>/browse">
 		<input type="hidden" name="type" value="<%= bis[i].getName() %>"/>
 		<%-- <input type="hidden" name="community" value="<%= community.getHandle() %>" /> --%>
-		<input class="btn btn-default col-md-3" type="submit" name="submit_browse" value="<fmt:message key="<%= key %>"/>"/>
+		<input class="btn btn-default" type="submit" name="submit_browse" value="<fmt:message key="<%= key %>"/>"/>
 	</form>
 <%	
 	}
@@ -174,6 +151,16 @@
 			
 	</div>
 </div>
+
+	<div class="row">
+	<div class="col-md-4">
+	<%@ include file="components/recent-submissions.jsp" %>
+		    </div>
+	<div class="col-md-4">
+	<%@ include file="components/most-viewed.jsp" %>
+	<%-- @ include file="components/most-downloaded.jsp" --%>
+		</div>
+</div>	
 
 <div class="row">
 
@@ -225,7 +212,7 @@
                 if (configurationService.getBooleanProperty("webui.strengths.show"))
                 {
 %>
-                    [<%= ic.getCount(subcommunities.get(j)) %>]
+                    <span class="badge"><%= ic.getCount(subcommunities.get(j)) %></span>
 <%
                 }
 			if(isAdmin || !ConfigurationManager.getBooleanProperty("solr-statistics","authorization.admin")) { %>
@@ -296,7 +283,7 @@
             if(configurationService.getBooleanProperty("webui.strengths.show"))
             {
 %>
-                [<%= ic.getCount(collections.get(i)) %>]
+                <span class="badge"><%= ic.getCount(collections.get(i)) %></span>
 <%
             }
 			if(isAdmin || !ConfigurationManager.getBooleanProperty("solr-statistics","authorization.admin")) { %>

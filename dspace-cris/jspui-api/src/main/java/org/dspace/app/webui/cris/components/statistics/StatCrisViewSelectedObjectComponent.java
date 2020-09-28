@@ -19,6 +19,7 @@ public class StatCrisViewSelectedObjectComponent extends
     @Override
     protected void _prepareBasicQuery(SolrQuery solrQuery, Integer yearsQuery,Date startDate, Date endDate)
     {
+        _addExtraConfiguration(solrQuery);
         _addBasicConfiguration(solrQuery, yearsQuery, startDate, endDate);
         solrQuery.addFacetField(_CONTINENT, _COUNTRY_CODE, _CITY, ID,
                 _LOCATION, _FISCALYEAR, _SOLARYEAR);

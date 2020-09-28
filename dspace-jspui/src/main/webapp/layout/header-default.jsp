@@ -78,7 +78,12 @@
 		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/static/css/buttons.bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/static/css/responsive.bootstrap.min.css"/>
 		<link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/bootstrap/dspace-theme.css" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/bootstrap-datetimepicker.min.css" />
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/bootstrap-datetimepicker.min.css" />
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/leaflet/leaflet.css" type="text/css" />
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/leaflet/MarkerCluster.css" type="text/css" />
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/leaflet/MarkerCluster.Default.css" type="text/css" />
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/leaflet/screen.css" type="text/css" />
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/static/css/css/flag-icon.css" type="text/css" />
 <%
     if (!"NONE".equals(feedRef))
     {
@@ -122,6 +127,10 @@
 	<script type="text/javascript" src="<%= request.getContextPath() %>/js/dataTables.responsive.min.js"></script>	
 	<script type="text/javascript" src="<%= request.getContextPath() %>/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jszip.min.js"></script>
+    <script type='text/javascript' src='<%= request.getContextPath()%>/static/js/leaflet/leaflet-src.js'></script>
+    <script type='text/javascript' src='<%= request.getContextPath()%>/static/js/leaflet/leaflet.js'></script>
+    <script type='text/javascript'
+        src='<%= request.getContextPath()%>/static/js/leaflet/leaflet.markercluster-src.js'></script>
 	<script type='text/javascript'>
 		var j = jQuery.noConflict();
 		var $ = jQuery.noConflict();
@@ -182,12 +191,12 @@
     <%-- HACK: marginwidth, marginheight: for non-CSS compliant Netscape browser --%>
     <body class="undernavigation" dir="<%= LocaleUIHelper.ifLtr(request, "ltr","rtl") %>">
 <a class="sr-only" href="#content">Skip navigation</a>
-<header class="navbar navbar-inverse navbar-square">    
+<header class="container navbar navbar-default">
     <%
     if (!navbar.equals("off"))
     {
 %>
-            <div class="container-fluid">
+            <div class="row">
                 <dspace:include page="<%= navbar %>" />
             </div>
 <%
@@ -195,7 +204,7 @@
     else
     {
     %>
-        <div class="container-fluid">
+        <div class="row">
             <dspace:include page="/layout/navbar-minimal.jsp" />
         </div>
 <%
@@ -230,7 +239,7 @@ window.cookieconsent.initialise({
 <% } %>
 </header>
 
-<main id="content" role="main">
+<main id="content-main" role="main">
 <div class="container banner">
 	<div class="row">
 		<div class="col-sm-12">
@@ -253,37 +262,12 @@ window.cookieconsent.initialise({
      </ul>
  <%
    }
- %>		
-		
-		
-		
+ %>
+
 		</div>
-		  <div class="col-sm-8 brand pull-<%= isRtl ?"right" :"left" %>">
-		<h1><fmt:message key="jsp.layout.header-default.brand.heading" /></h1>
-        <fmt:message key="jsp.layout.header-default.brand.description" /> 
-        </div>
-        <div class="col-sm-4 hidden-xs pull-<%= isRtl ?"left" :"right" %>"><img class="img-responsive" src="<%= request.getContextPath() %>/image/logo.gif" alt="DSpace logo" />
-        </div>
     </div>
 </div>
 <br/>
-                <%-- Location bar --%>
-<%
-    if (locbar)
-    {
-%>
-<div class="container">
-	<div class="row">
-		<div class="col-sm-12">
-                <dspace:include page="/layout/location-bar.jsp" />
-        </div>        
-    </div>
-</div>                
-<%
-    }
-%>
-
-
 
         <%-- Page contents --%>
 <div class="container fullheight">

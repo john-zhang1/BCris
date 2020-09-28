@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+
+<!--
+  - dublin-core-types.xml
+  -
+  - Version:  $Revision$
+  -
+  - Date:     $Date$
+  -
+  - Initial contents for Dublin Core type registry.  Once the registry has
+  - been loaded, this file becomes obsolete; the current version of the
+  - registry must be read from the database.
+  - Use org.dspace.content.MetadataSchema, org.dspace.content.MetadataField, org.dspace.content.MetadataValue instead.
+  - Omit <qualifier> tags for unqualified elements
+  -
+  - <dc-type>
+  -   <schema></schema>
+  -   <element></element>
+  -   <qualifier></qualifier>
+  -   <scope_note></scope_note>
+  - </dc-type>
+  -->
+
+<!-- start of XML -->
+
+<dspace-dc-types>
+
+  <dspace-header>
+    <title>WKU metadata types registry</title>
+  </dspace-header>
+
+  <dc-schema>
+    <name>wku</name>
+    <namespace>http://www.wku.edu.cn/wku/terms</namespace>
+  </dc-schema>
+
+  <dc-type>
+    <schema>wku</schema>
+    <element>identifier</element>
+    <!-- unqualified -->
+    <scope_note></scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>wku</schema>
+    <element>faculty</element>
+    <!-- unqualified -->
+    <scope_note></scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>wku</schema>
+    <element>teacher</element>
+    <!-- unqualified -->
+    <scope_note>WKU course teacher/instructor/Lecturer/GA</scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>wku</schema>
+    <element>group</element>
+    <!-- unqualified -->
+    <scope_note></scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>wku</schema>
+    <element>course</element>
+    <qualifier>dept</qualifier>
+    <scope_note>WKU course abbreviation</scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>wku</schema>
+    <element>course</element>
+    <qualifier>number</qualifier>
+    <scope_note>WKU course number</scope_note>
+  </dc-type>
+
+  # add new dc fields
+  <dc-type>
+    <schema>dc</schema>
+    <element>contributor</element>
+    <qualifier>assignee</qualifier>
+    <scope_note>Assignee</scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>dc</schema>
+    <element>contributor</element>
+    <qualifier>inventor</qualifier>
+    <scope_note>Inventor</scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>dc</schema>
+    <element>contributor</element>
+    <qualifier>publisher</qualifier>
+    <scope_note>Publisher</scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>dc</schema>
+    <element>date</element>
+    <qualifier>field</qualifier>
+    <scope_note>Date Filed</scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>dc</schema>
+    <element>indentifier</element>
+    <qualifier>patentID</qualifier>
+    <scope_note>PatentID</scope_note>
+  </dc-type>
+
+
+  <dc-type>
+    <schema>dc</schema>
+    <element>indentifier</element>
+    <qualifier>studentID</qualifier>
+    <scope_note>studentID</scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>dc</schema>
+    <element>description</element>
+    <qualifier>peerreview</qualifier>
+    <scope_note>Peer Review</scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>dc</schema>
+    <element>description</element>
+    <qualifier>peerreviewnotes</qualifier>
+    <scope_note></scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>dc</schema>
+    <element>identifier</element>
+    <qualifier>doi</qualifier>
+    <scope_note></scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>dc</schema>
+    <element>thesis</element>
+    <qualifier>degree</qualifier>
+    <scope_note></scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>dc</schema>
+    <element>discipline</element>
+    <scope_note></scope_note>
+  </dc-type>
+
+</dspace-dc-types>

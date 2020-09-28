@@ -25,6 +25,7 @@ import org.dspace.discovery.DiscoverResult;
 import org.dspace.discovery.SearchUtils;
 import org.dspace.discovery.configuration.DiscoveryConfiguration;
 import org.dspace.discovery.configuration.DiscoverySearchFilterFacet;
+import org.dspace.statistics.util.GeoSolrExport;
 import org.dspace.utils.DSpace;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,6 +36,10 @@ public class ExploreController extends BaseAbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+
+                String[] argv1 = new String[]{};
+                GeoSolrExport.main(argv1);            
+            
 		Map<String, Object> model = new HashMap<String, Object>();
 
 		String configurationName = request.getPathInfo().substring("/explore/".length());

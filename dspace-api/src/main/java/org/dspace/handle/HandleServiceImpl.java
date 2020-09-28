@@ -126,7 +126,7 @@ public class HandleServiceImpl implements HandleService
         String handlePrefix = configurationService.getProperty("handle.canonical.prefix");
         if (StringUtils.isBlank(handlePrefix))
         {
-            handlePrefix = "http://hdl.handle.net/";
+            handlePrefix = "https://hdl.handle.net/";
         }
 
         return handlePrefix;

@@ -474,22 +474,52 @@ public class SolrServiceImpl implements SearchService, IndexingService {
         {
             switch (type)
             {
-            case Constants.ITEM: 
+            case Constants.ITEM:
                 startMultiThreadIndex(context, force, null);
                 break;
             case Constants.COLLECTION:
-            List<Collection> collections = collectionService.findAll(context);
-            for (Collection collection : collections)
-            {
-                indexContent(context, collection, force);
-            }
+                List<Collection> collections = collectionService.findAll(context);
+                for (Collection collection : collections)
+                {
+                    String handle = collection.getHandle();
+
+                    if (handle == null)
+                    {
+                        handle = collection.findHandle(context);
+                    }
+
+                    try {
+                            buildDocument(context, (Collection) collection);
+                            log.info("Wrote Collection: " + handle + " to Index");
+
+                    } catch (Exception e)
+                    {
+                        log.error(e.getMessage(), e);
+                    }
+                    // indexContent(context, collection, force);
+                }
                 break;
             case Constants.COMMUNITY:
-            List<Community> communities = communityService.findAll(context);
-            for (Community community : communities)
-            {
-                indexContent(context, community, force);
-            }
+                List<Community> communities = communityService.findAll(context);
+                for (Community community : communities)
+                {
+                    String handle = community.getHandle();
+
+                    if (handle == null)
+                    {
+                        handle = community.findHandle(context);
+                    }
+
+                    try {
+                        buildDocument(context, (Community) community);
+                        log.info("Wrote community: " + handle + " to Index");
+
+                    } catch (Exception e)
+                    {
+                        log.error(e.getMessage(), e);
+                    }
+                    // indexContent(context, community, force);
+                }
                 break;
             default:
                 new RuntimeException("No type known: " + type);

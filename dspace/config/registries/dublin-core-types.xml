@@ -808,4 +808,48 @@
         <qualifier>patentno</qualifier>
         <scope_note>Used by the DSpace-CRIS default inputform</scope_note>
     </dc-type>
+
+
+	<dc-type>
+      <schema>dc</schema>
+      <element>rights</element>
+      <qualifier>requestable</qualifier>
+      <scope_note></scope_note>
+  </dc-type>
+
+	<dc-type>
+      <schema>dc</schema>
+      <element>type</element>
+      <qualifier>material</qualifier>
+      <scope_note></scope_note>
+  </dc-type>
+
+	<dc-type>
+      <schema>dc</schema>
+      <element>subject</element>
+      <qualifier>keywords</qualifier>
+      <scope_note></scope_note>
+  </dc-type>
+
+	<dc-type>
+      <schema>dc</schema>
+      <element>contributor</element>
+      <qualifier>sponsor</qualifier>
+      <scope_note></scope_note>
+  </dc-type>
+
+	<dc-type>
+      <schema>dc</schema>
+      <element>description</element>
+      <qualifier>peerreview</qualifier>
+      <scope_note></scope_note>
+  </dc-type>
+
+	<dc-type>
+      <schema>dc</schema>
+      <element>description</element>
+      <qualifier>peerreviewnotes</qualifier>
+      <scope_note></scope_note>
+  </dc-type>
+
 </dspace-dc-types>

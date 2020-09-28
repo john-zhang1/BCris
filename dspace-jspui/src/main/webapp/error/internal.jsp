@@ -35,7 +35,7 @@
     <dspace:include page="/components/contact-info.jsp" />
 
     <p align="center">
-        <%-- <a href="<%= request.getContextPath() %>/">Go to the DSpace home page</a> --%>
+        <%-- <a href="<%= request.getContextPath() %>/">Go to the Wire home page</a> --%>
         <a href="<%= request.getContextPath() %>/"><fmt:message key="jsp.general.gohome"/></a>
     </p>
         <!--

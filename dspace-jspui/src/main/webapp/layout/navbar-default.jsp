@@ -84,7 +84,7 @@
  // get the locale languages
     Locale[] supportedLocales = I18nUtil.getSupportedLocales();
     Locale sessionLocale = UIUtil.getSessionLocale(request);
-    boolean isRtl = StringUtils.isNotBlank(LocaleUIHelper.ifLtr(request, "","rtl"));    
+    boolean isRtl = StringUtils.isNotBlank(LocaleUIHelper.ifLtr(request, "","rtl"));
 
     String[] mlinks = ConfigurationManager.getArrayProperty("cris","navbar.cris-entities");
     
@@ -92,12 +92,12 @@
 %>
 
 <script type='text/javascript'>
-    function hover(element) {
-        element.className = "dropdown open";
-    }
-    function out(element) {
-        element.className = "dropdown";
-    }
+  function hover(element) {
+      element.className = "dropdown open";
+  }
+  function out(element) {
+      element.className = "dropdown";
+  }
 </script>
 
        <div class="navbar-header">
@@ -107,13 +107,70 @@
            <span class="icon-bar"></span>
          </button>
        </div>
-       <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+       <nav class="collapse navbar-collapse bs-navbar-collapse navbar-default navbar-toggleable-sm bg-inverse">
+        <ul id="top-menu" class="nav navbar-nav navbar-<%= isRtl ? "right" : "left"%>">
+            <li class="pull-<%= isRtl ? "right" : "left"%>">
+                <a class="navbar-brand" href="<%= request.getContextPath()%>/">
+                    <img height="45" src="<%= request.getContextPath()%>/image/logo.PNG" alt="Wire logo" />
+                </a>
+            </li>
+            <li id="navbar-brand-title" class="pull-left" style="padding-top: 5px;">
+                <h5>WIRE - Wenzhou-Kean University</h5>
+                <h5>Intellectual Research Environment</h5>
+            </li>
+          </ul>
+        <div class="nav top-menu-library-div navbar-<%= isRtl ? "left" : "right"%>">
+            <ul class="nav navbar-nav navbar-<%= isRtl ? "left" : "right"%>">
+                <li id="library-top-menu" class="hidden-xs hidden-sm "><a target="_blank" href="http://www.wku.edu.cn/en/library">Library</a></li>
+                <li><a href="mailto:wire@wku.edu.cn">Contact us <i class="fa fa-envelope-o"></i></a></li>
+                <%
+                    if (user != null) {
+                %>
+                <li id="userloggedin-top-menu" class="dropdown" onmouseover="hover(this);" onmouseout="out(this);">
+                    <a href="#" class="dropdown-toggle <%= isRtl ? "" : "text-right"%>" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <fmt:message key="jsp.layout.navbar-default.loggedin">
+                            <fmt:param><%= StringUtils.abbreviate(navbarEmail, 20)%></fmt:param>
+                        </fmt:message> <b class="caret"></b></a>
+
+
+                    <ul class="dropdown-menu">
+                        <li><a href="<%= request.getContextPath()%>/mydspace"><fmt:message key="jsp.layout.navbar-default.users"/></a></li>
+    
+                        <%
+                            if (isAdmin) {
+                        %>
+                        <li class="divider"></li>
+                        <% if (isAdmin) {%>
+                 
+                             <li><a href="<%= request.getContextPath()%>/dspace-admin">
+                        <% } else if (isCommunityAdmin || isCollectionAdmin) {%>
+                     
+                             <li><a href="<%= request.getContextPath()%>/tools">
+                        <% } %>
+                        <fmt:message key="jsp.administer"/></a></li>
+                        <%
+                            }
+                        if (user != null) {
+                            %>
+                        <li><a href="<%= request.getContextPath()%>/logout"><span class="glyphicon glyphicon-log-out"></span> <fmt:message key="jsp.layout.navbar-default.logout"/></a></li>
+                            <% }%>
+                    </ul>
+                  </li>
+                    <%
+                  } else {
+                  %>
+                  <li id="user-top-menu" class="dropdown" onmouseover="hover(this);" onmouseout="out(this);">
+                      <a href="<%= request.getContextPath()%>/mydspace"><span class="glyphicon glyphicon-user"></span> <fmt:message key="jsp.layout.navbar-default.signin"/></b></a>
+                          <% }%>
+                  </li>
+            </ul>
+        </div>
+       </nav>
+       <nav class="collapse navbar-collapse navbar-wire bs-navbar-collapse" role="navigation">
          <ul id="top-menu" class="nav navbar-nav navbar-<%= isRtl ? "right":"left"%>">
-           <li class="pull-<%= isRtl ? "right":"left"%>"><a class="navbar-brand" href="<%= request.getContextPath() %>/"><img height="25" src="<%= request.getContextPath() %>/image/dspace-logo-only.png" alt="DSpace logo" /></a></li>
            <li id="home-top-menu" class="pull-<%= isRtl ? "right":"left"%>   <%= currentPage.endsWith("/home.jsp")? 
         		   "active" : "" %>"><a href="<%= request.getContextPath() %>/"><fmt:message key="jsp.layout.navbar-default.home"/></a></li>
 		  <% if(showCommList){ %>
-		   <li id="communitylist-top-menu" class="<%= currentPage.endsWith("/community-list")? 
+		   <li id="communitylist-top-menu1" class="<%= currentPage.endsWith("/community-list")?
         		   "active" : "" %>"><a href="<%= request.getContextPath() %>/community-list"><fmt:message key="jsp.layout.navbar-default.communities-collections"/></a></li>
         		 <% }%> 
            <% for (String mlink : mlinks) { %>
@@ -123,8 +180,23 @@
            <c:set var="fmtkey">
            jsp.layout.navbar-default.cris.<%= mlink.trim() %>
            </c:set>
-           <li id="<%= mlink.trim() %>-top-menu" class="hidden-xs hidden-sm <c:if test="${exploremlink == location}">active</c:if>"><a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>"><fmt:message key="${fmtkey}"/></a></li>
+            <li id="<%= mlink.trim() %>-top-menu" class="hidden-xs hidden-sm <c:if test="${exploremlink == location}">active</c:if>">
+              <c:choose>
+                <c:when test="${exploremlink == 'researcherprofiles'}">
+                  <a href="<%= request.getContextPath() %>/simple-search?query=&location=researcherprofiles">
+                </c:when>
+                <c:when test="${exploremlink == 'orgunits'}">
+                  <a href="<%= request.getContextPath() %>/simple-search?query=&location=orgunits">
+                </c:when>
+                <c:otherwise>
+                  <a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>">
+                </c:otherwise>
+              </c:choose>
+              <fmt:message key="${fmtkey}" /></a>
+            </li>
            <% } %>
+           <li id="home-about-menu" class="hidden-xs hidden-sm <%= currentPage.endsWith("/about.jsp")? 
+            "active" : "" %>"><a href="<%= request.getContextPath() %>/handle/20.500.12540/20"><fmt:message key="jsp.layout.navbar-default.cris.theses"/></a></li>
            <li class="dropdown hidden-md hidden-lg">
              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="jsp.layout.navbar-default.explore"/> <b class="caret"></b></a>
              <ul class="dropdown-menu">
@@ -137,7 +209,9 @@
            </c:set>
            <li class="<c:if test="${exploremlink == location}">active</c:if>"><a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>"><fmt:message key="${fmtkey}"/></a></li>
            <% } %>
-           </ul>
+           <li class="<%= currentPage.endsWith("/about.jsp")? 
+            "active" : "" %>"><a href="<%= request.getContextPath() %>/#"><fmt:message key="jsp.layout.navbar-default.cris.theses"/></a></li>
+        </ul>
            </li>
  <%
  if (extraNavbarData != null)
@@ -147,7 +221,6 @@
 <%
  }
 %>
-          <li id="help-top-menu" class="<%= ( currentPage.endsWith( "/help" ) ? "active" : "" ) %>"><dspace:popup page="<%= LocaleSupport.getLocalizedMessage(pageContext, \"help.index\") %>"><fmt:message key="jsp.layout.navbar-default.help"/></dspace:popup></li>
        </ul>
 
  <%-- if (supportedLocales != null && supportedLocales.length > 1)
@@ -156,7 +229,7 @@
     <div class="nav navbar-nav navbar-<%= isRtl ? "left" : "right" %>">
 	 <ul class="nav navbar-nav navbar-<%= isRtl ? "left" : "right" %>">
       <li id="language-top-menu" class="dropdown" onmouseover="hover(this);" onmouseout="out(this);">
-       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="jsp.layout.navbar-default.language"/><b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="jsp.layout.navbar-default.language"/><b class="caret"></b></a>
         <ul class="dropdown-menu">
  <%
     for (int i = supportedLocales.length-1; i >= 0; i--)
@@ -179,70 +252,37 @@
    }
  %>
  --%>
-       <div class="nav navbar-nav navbar-<%= isRtl ? "left" : "right" %>">
-		<ul class="nav navbar-nav navbar-<%= isRtl ? "left" : "right" %>">
-                    <li id="search-top-menu" class="dropdown" onmouseover="hover(this);" onmouseout="out(this);">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><b class="caret"></b></a>
-          <div class="dropdown-menu">
-          
-	<%-- Search Box --%>
-	<form id="formsearch-top-menu" method="get" action="<%= request.getContextPath() %>/global-search" class="navbar-form navbar-<%= isRtl ? "left" : "right" %>" scope="search">		
-	    <div class="form-group">
-          <input type="text" class="form-control" placeholder="<fmt:message key="jsp.layout.navbar-default.search"/>" name="query" id="tequery" size="25"/>
-        </div>
-        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
-<%--               <br/><a href="<%= request.getContextPath() %>/advanced-search"><fmt:message key="jsp.layout.navbar-default.advanced"/></a>
-<%
+
+  <div class="nav navbar-nav navbar-<%= isRtl ? "left" : "right" %>">
+    <ul class="nav navbar-nav navbar-<%= isRtl ? "left" : "right" %>">
+      <li id="search-top-menu" class="dropdown" onmouseover="hover(this);" onmouseout="out(this);">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span><b
+            class="caret"></b></a>
+        <div class="dropdown-menu">
+
+          <%-- Search Box --%>
+          <form id="formsearch-top-menu" method="get" action="<%= request.getContextPath() %>/global-search"
+            class="navbar-form navbar-<%= isRtl ? "left" : "right" %>" scope="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="<fmt:message key="jsp.layout.navbar-default.search" />" name="query" id="tequery" size="25"/>
+            </div>
+            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+            <%--               <br/><a href="<%= request.getContextPath() %>/advanced-search">
+            <fmt:message key="jsp.layout.navbar-default.advanced" /></a>
+            <%
 			if (ConfigurationManager.getBooleanProperty("webui.controlledvocabulary.enable"))
 			{
-%>        
-              <br/><a href="<%= request.getContextPath() %>/subject-search"><fmt:message key="jsp.layout.navbar-default.subjectsearch"/></a>
-<%
+%>
+            <br /><a href="<%= request.getContextPath() %>/subject-search">
+              <fmt:message key="jsp.layout.navbar-default.subjectsearch" /></a>
+            <%
             }
 %> --%>
-	</form>
-	
-          </div>
-          </li>
-         <%
-    if (user != null)
-    {
-		%>
-		<li id="userloggedin-top-menu" class="dropdown" onmouseover="hover(this);" onmouseout="out(this);">
-		<a href="#" class="dropdown-toggle <%= isRtl ? "" : "text-right" %>" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <fmt:message key="jsp.layout.navbar-default.loggedin">
-		      <fmt:param><%= StringUtils.abbreviate(navbarEmail, 20) %></fmt:param>
-		  </fmt:message> <b class="caret"></b></a>
-		<%
-    } else {
-		%>
-			<li id="user-top-menu" class="dropdown" onmouseover="hover(this);" onmouseout="out(this);">
-             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <fmt:message key="jsp.layout.navbar-default.sign"/> <b class="caret"></b></a>
-	<% } %>             
-             <ul class="dropdown-menu">
-               <li><a href="<%= request.getContextPath() %>/mydspace"><fmt:message key="jsp.layout.navbar-default.users"/></a></li>
-               <li><a href="<%= request.getContextPath() %>/subscribe"><fmt:message key="jsp.layout.navbar-default.receive"/></a></li>
-               <li><a href="<%= request.getContextPath() %>/profile"><fmt:message key="jsp.layout.navbar-default.edit"/></a></li>
+          </form>
 
-		<%
-                if (isAdmin || isCommunityAdmin || isCollectionAdmin) {
-                %>
-			   <li class="divider"></li>
-                           <% if (isAdmin) {%>
-                    
-                                <li><a href="<%= request.getContextPath()%>/dspace-admin">
-                           <% } else if (isCommunityAdmin || isCollectionAdmin) {%>
-                        
-                                <li><a href="<%= request.getContextPath()%>/tools">
-                <% } %>
-                <fmt:message key="jsp.administer"/></a></li>
-                <%
-                    }
-		  if (user != null) {
-		%>
-		<li><a href="<%= request.getContextPath() %>/logout"><span class="glyphicon glyphicon-log-out"></span> <fmt:message key="jsp.layout.navbar-default.logout"/></a></li>
-		<% } %>
-             </ul>
-           </li>
-          </ul>
-	</div>
-    </nav>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+       </nav>

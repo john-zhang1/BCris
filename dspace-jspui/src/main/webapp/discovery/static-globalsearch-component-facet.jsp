@@ -101,7 +101,7 @@
 <div class="row">
 <form id="searchglobalprocessor" name="searchglobalprocessor" class="col-md-10 col-md-offset-1" action="<%= request.getContextPath() %>/simple-search" method="get">
 <div class="input-group">
-    <input type="text" class="form-control" name="query" placeholder="Search term...">
+	<input type="text" class="form-control" name="query" placeholder="Search WIRE@WKU...">
     <span class="input-group-btn">
         <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
     </span>    
@@ -140,6 +140,9 @@
         </ul>
     </span>
     </div>
+	<div class="input-group-btn">
+		<button class="btn btn-default" type="button" onclick="window.location.href='/cris/explore/publications'">Advanced</button>
+	</div>
     <input type="hidden" name="location" value="global" id="search_param">         
 </div>
 </form>
@@ -177,21 +180,18 @@
 %>
 <div class="row">
 	<a href="#group-left-info-popover-content"><div class="col-md-4 text-center">
-		<h4 class="text-success"><fmt:message key="jsp.home.explore.group-left-info" /></h4>
 		<p><span class="fa fa-users fa-5x" id="group-left-info" data-placement="right"></span> <span class="badge"><%= totGroupLeft %></span></p>
-		<small class="label label-success"><fmt:message key="jsp.home.explore.title.group-left-info" /></small>
+		<h4 class="text-success"><fmt:message key="jsp.home.explore.group-left-info" /></h4>
 	</div></a>
 	
 	<a href="#group-center-info-popover-content"><div class="col-md-4 text-center">
-		<h4 class="text-success"><fmt:message key="jsp.home.explore.group-center-info" /></h4>
 		<p><span class="fa fa-cogs fa-5x" id="group-center-info"  data-placement="bottom"></span> <span class="badge"><%= totGroupCenter%></span></p>
-		<small class="label label-success"><fmt:message key="jsp.home.explore.title.group-center-info" /></small>
+		<h4 class="text-success"><fmt:message key="jsp.home.explore.group-center-info" /></h4>
 	</div></a>
 	
 	<a href="#group-right-info-popover-content"><div class="col-md-4 text-center">
-		<h4 class="text-success"><fmt:message key="jsp.home.explore.group-right-info" /></h4>
 		<p><span class="fa fa-file-text-o fa-5x" id="group-right-info"  data-placement="left"></span> <span class="badge"><%= totGroupRight %></span></p>
-		<small class="label label-success"><fmt:message key="jsp.home.explore.title.group-right-info" /></small>
+		<h4 class="text-success"><fmt:message key="jsp.home.explore.group-right-info" /></h4>
 	</div></a>
 </div>
 

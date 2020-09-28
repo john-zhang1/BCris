@@ -71,7 +71,7 @@ public class ScriptStatsMetrics
             System.out.println(
                     "\n\nUSAGE:\n ScriptStatsIndicators <-s <connection_name>>] \n");
 
-            System.exit(0);
+//            System.exit(0);
         }
 
         String connection = "";
@@ -86,7 +86,7 @@ public class ScriptStatsMetrics
                 System.out.println(
                         "Plugin name parameter is needed after option -s");
                 log.error("Plugin name parameter is needed after option -s");
-                System.exit(1);
+//                System.exit(1);
             }
 
             log.info(
@@ -101,7 +101,7 @@ public class ScriptStatsMetrics
             {
                 System.out.println(
                         "\n\nUSAGE:\n ScriptStatsIndicators -s <plugin_name>] -l <filter>\n");
-                System.exit(1);
+//                System.exit(1);
             }
         }
             
@@ -184,7 +184,7 @@ public class ScriptStatsMetrics
         log.info("#### ########################### ####");
         log.info("#### END: -----" + new Date() + " ----- ####");
 
-        System.exit(0);
+//        System.exit(0);
     }
 
 }

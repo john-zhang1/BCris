@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -23,6 +24,7 @@ import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.util.NamedList;
 import org.apache.solr.common.util.SimpleOrderedMap;
@@ -31,11 +33,11 @@ import org.dspace.app.cris.model.CrisConstants;
 import org.dspace.app.cris.statistics.bean.BarrChartStatisticDatasBean;
 import org.dspace.app.cris.statistics.bean.MapDataBean;
 import org.dspace.app.cris.statistics.bean.MapPointBean;
+import org.dspace.app.cris.statistics.bean.MapPointFullBean;
 import org.dspace.app.cris.statistics.bean.PieStatisticBean;
 import org.dspace.app.cris.statistics.bean.StatisticDatasBeanRow;
 import org.dspace.app.cris.statistics.bean.TreeKeyMap;
 import org.dspace.browse.BrowsableDSpaceObject;
-import org.dspace.content.DSpaceObject;
 
 public abstract class ASolrStatsConfigurerComponent<T extends BrowsableDSpaceObject>
 {
@@ -88,28 +90,27 @@ public abstract class ASolrStatsConfigurerComponent<T extends BrowsableDSpaceObj
 
     public static final String _FACET_DATE_FIELD_SUFFIX = "T00:00:00.001Z";
 
+    protected static final String MAP_VIEW = "map";
+
+    protected static final String _MAP_LOCATION = "mapLocation";
+
     protected TreeKeyMap statisticDatasBeans = new TreeKeyMap();
 
     public QueryResponse solrResponse;
     
     private Integer relationObjectType;
 
-    protected BarrChartStatisticDatasBean generateTotalView(String key1,
-            String key2, String key3)
+    protected BarrChartStatisticDatasBean generateTotalView(String key1, String key2, String key3)
     {
-        BarrChartStatisticDatasBean totalResolutBean = new BarrChartStatisticDatasBean(
-                key1, key2, key3);
+        BarrChartStatisticDatasBean totalResolutBean = new BarrChartStatisticDatasBean(key1, key2, key3);
         totalResolutBean.setName(key2);
         totalResolutBean.setHits(1);
-        SolrDocumentList sdl = (SolrDocumentList) solrResponse.getResponse()
-                .get("response");
-        totalResolutBean.setDataTable(new String[][] { new String[] { Long
-                .toString(sdl.getNumFound()) } });
+        SolrDocumentList sdl = (SolrDocumentList) solrResponse.getResponse().get("response");
+        totalResolutBean.setDataTable(new String[][] { new String[] { Long.toString(sdl.getNumFound()) } });
         return totalResolutBean;
     }
 
-    public MapDataBean generateMapView(String key1, String key2, String key3,
-            Integer hitsNumber)
+    public MapDataBean generateMapView(String key1, String key2, String key3, Integer hitsNumber)
     {
         MapDataBean mapDataBean = new MapDataBean(key1, key2, key3);
         mapDataBean.setName(key2);
@@ -117,9 +118,7 @@ public abstract class ASolrStatsConfigurerComponent<T extends BrowsableDSpaceObj
 
         try
         {
-            NamedList result = (NamedList) ((SimpleOrderedMap) ((SimpleOrderedMap) solrResponse
-                    .getResponse().get("facet_counts")).get("facet_fields"))
-                    .get(key3);
+            NamedList result = (NamedList) ((SimpleOrderedMap) ((SimpleOrderedMap) solrResponse.getResponse().get("facet_counts")).get("facet_fields")).get(key3);
             int limit = result.size();
             if (key3.equals(_CONTINENT) && hitsNumber != null && hitsNumber > 0)
             {
@@ -143,20 +142,15 @@ public abstract class ASolrStatsConfigurerComponent<T extends BrowsableDSpaceObj
                 {
                     if (result.getVal(i).getClass().equals(Integer.class))
                     {
-                        StringTokenizer st = new StringTokenizer(
-                                (result.getName(i)).toString(),
-                                DELIM_LATITUDE_LONGITUDE);
-                        MapPointBean mapPointBean = new MapPointBean(
-                                st.nextToken(), st.nextToken(),
-                                (Integer) result.getVal(i));
+                        StringTokenizer st = new StringTokenizer((result.getName(i)).toString(), DELIM_LATITUDE_LONGITUDE);
+                        MapPointBean mapPointBean = new MapPointBean(st.nextToken(), st.nextToken(), (Integer) result.getVal(i));
                         fullData.add(mapPointBean);
                     }
 
                 }
                 catch (Exception e)
                 {
-                    fullData.add(new MapPointBean(_NotAvailable, _NotAvailable,
-                            null));
+                    fullData.add(new MapPointBean(_NotAvailable, _NotAvailable, null));
                     e.printStackTrace();
                 }
             }
@@ -175,6 +169,47 @@ public abstract class ASolrStatsConfigurerComponent<T extends BrowsableDSpaceObj
         {
             log.warn(e.getMessage());
             fullData.add(new MapPointBean(_NotAvailable, _NotAvailable, null));
+        }
+        return mapDataBean;
+    }
+
+    public MapDataBean generateFullMapView(String key1, String key2, String key3)
+    {
+        MapDataBean mapDataBean = new MapDataBean(key1, key2, key3);
+        mapDataBean.setName(key2);
+        Collection<MapPointFullBean> fullData = new ArrayList<>();
+
+        try
+        {
+            @SuppressWarnings("unchecked")
+            List<SolrDocument> documents = (List<SolrDocument>) solrResponse.getResponse().get("response");
+            Map<String, String> points = new HashMap<String, String>();
+
+            for (SolrDocument doc : documents) {
+                if(doc.size() >= 3) {
+                    String latitude = String.valueOf(doc.get("latitude"));
+                    String longitude = String.valueOf(doc.get("longitude"));
+                    String city = (String) doc.get("city");
+                    String countryCode = (String) doc.get("countryCode");
+
+                    String key = latitude + "," + longitude;
+                    if(points.get(key) == null) {
+                        points.put(key, key);
+                        if(city == null) {
+                            city = "Unknown";
+                        }
+                        if(countryCode != null) {
+                            MapPointFullBean mapPointBean = new MapPointFullBean(latitude, longitude, city, countryCode);
+                            fullData.add(mapPointBean);
+                        }
+                    }
+                }
+            }
+            mapDataBean.setDataTable(fullData);
+        }
+        catch (Exception e)
+        {
+            log.warn(e.getMessage());
         }
         return mapDataBean;
     }
@@ -335,6 +370,8 @@ public abstract class ASolrStatsConfigurerComponent<T extends BrowsableDSpaceObj
     {
         statisticDatasBeans.addValue(TOP, key2, _LOCATION,
                 generateMapView(TOP, key2, _LOCATION, null));
+        statisticDatasBeans.addValue(TOP, key2, _MAP_LOCATION,
+                generateFullMapView(TOP, key2, _MAP_LOCATION));
     }
 
     protected void buildTopGeoBasedResult(String key2)
@@ -462,6 +499,8 @@ public abstract class ASolrStatsConfigurerComponent<T extends BrowsableDSpaceObj
     {
         statisticDatasBeans.addValue(key1, GEO_VIEW, _LOCATION,
                 generateMapView(key1, GEO_VIEW, _LOCATION, null));
+        statisticDatasBeans.addValue(key1, GEO_VIEW, _MAP_LOCATION,
+                generateFullMapView(key1, GEO_VIEW, _MAP_LOCATION));
     }
 
     protected void buildSelectedObjectGeoBasedResults(String key1)
@@ -512,6 +551,7 @@ public abstract class ASolrStatsConfigurerComponent<T extends BrowsableDSpaceObj
 
     protected void _prepareBasicQuery(SolrQuery solrQuery, Integer yearsQuery,Date startDate, Date endDate)
     {
+        _addExtraConfiguration(solrQuery);
         _addBasicConfiguration(solrQuery, yearsQuery, startDate, endDate);
         solrQuery.addFacetField(_CONTINENT, _COUNTRY_CODE, _CITY, ID,
                 _LOCATION, _FISCALYEAR, _SOLARYEAR);
@@ -530,6 +570,11 @@ public abstract class ASolrStatsConfigurerComponent<T extends BrowsableDSpaceObj
         solrQuery.set("f." + _LOCATION + ".facet.mincount", 1);
         solrQuery.set("f." + _FISCALYEAR + ".facet.mincount", 1);
         solrQuery.set("f." + _SOLARYEAR + ".facet.mincount", 1);
+    }
+
+    protected void _addExtraConfiguration(SolrQuery solrQuery) {
+        solrQuery.setRows(2147483647);
+        solrQuery.set("fl", "latitude,longitude,city,countryCode");
     }
 
     protected void _addBasicConfiguration(SolrQuery solrQuery,
@@ -553,8 +598,7 @@ public abstract class ASolrStatsConfigurerComponent<T extends BrowsableDSpaceObj
     		}
     		fq += "]";
     		solrQuery.addFilterQuery(fq);
-    	}    	
-        solrQuery.setRows(0);
+    	}
         solrQuery.setFacet(true);
         solrQuery.set("facet.date", "time");
         solrQuery.set("facet.date.end", "NOW/MONTH+1MONTH");
