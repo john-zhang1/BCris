@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DIR=/dspace/webapps/jspui/static/json
+
+NOW=$(date +"%m-%d-%Y %T")
+echo -e $NOW >> $DIR/ivrecord.txt;
+
+while read line; do
+    echo -e "$line" >> $DIR/ivrecord.txt;
+done < $DIR/item-view-total.json
