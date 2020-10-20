@@ -67,7 +67,7 @@
             <table class="table table-striped" style="font-size: 11px;">
                 <tbody>
                     <tr>
-                        <td>Item views in past month</td>
+                        <td>Downloads in past month</td>
                         <td><strong><span id="currentVal">0</span> of <span id="totalPastDayVal">0</span></strong></td>
                     </tr>
                     <tr>
@@ -143,6 +143,7 @@
 
 <script type="text/javascript">
     var jsonpath = "<%= request.getContextPath()%>/static/json/geos.json";
+    var jsonpath_file = "<%= request.getContextPath()%>/static/json/geos-file.json";
     var haloIconPath = "<%= request.getContextPath()%>/static/css/leaflet/images/haloicon.png";
     var dotIconPath = "<%= request.getContextPath()%>/static/css/leaflet/images/doticon.png";
     var downloadFilePath = "<%= request.getContextPath()%>/static/json/downloads.json";
@@ -190,7 +191,7 @@
         setMonthlyViewVal(monthlyViews);
     });
 
-    $.getJSON(jsonpath, function (data) {
+    $.getJSON(jsonpath_file, function (data) {
         queue = loadQueue(data);
         oneDaylength = data.length;
         setTotalPastDayVal(data.length);
