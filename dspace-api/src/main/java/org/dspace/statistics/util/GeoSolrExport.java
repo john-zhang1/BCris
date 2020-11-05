@@ -86,13 +86,17 @@ public class GeoSolrExport {
             gmd.setLatitude(view.getLatitude());
             gmd.setLongitude(view.getLongitude());
             gmd.setTime(view.getTime());
-            Map<String, Object> itemData = gse.getItemInfo(view.getId(),its);
-            gmd.setItemTitles((List<String>)itemData.get("titles"));
-            gmd.setAuthors((List<String>)itemData.get("authors"));
-            gmd.setItemUrls((List<String>)itemData.get("uris"));
-            List<String> collectionTitles = gse.getCollectionTitles(view.getOwningColl(),cols);
-            gmd.setCollectionTitles(collectionTitles);
-            lgmd.add(gmd);
+            Map<String, Object> itemData;
+
+            if(isUUID(view.getId())) {
+                itemData = gse.getItemInfo(UUID.fromString(view.getId()),its);
+                gmd.setItemTitles((List<String>)itemData.get("titles"));
+                gmd.setAuthors((List<String>)itemData.get("authors"));
+                gmd.setItemUrls((List<String>)itemData.get("uris"));
+                List<String> collectionTitles = gse.getCollectionTitles(view.getOwningColl(),cols);
+                gmd.setCollectionTitles(collectionTitles);
+                lgmd.add(gmd);
+            }
         }
         String jsonString = gse.toJson(lgmd);
 
@@ -141,15 +145,17 @@ public class GeoSolrExport {
         Map<UUID, String> items = new TreeMap<>();
         for(ItemViewRecord ivr : views) {
             String ip = ivr.getIp();
-            UUID uid = ivr.getId();
-            if(items.get(uid) == null) {
-                items.put(uid, ip);
-                list.add(ivr);
+            if(isUUID(ivr.getId())) {
+                UUID id = UUID.fromString(ivr.getId());
+                if(items.get(id) == null) {
+                    items.put(id, ip);
+                    list.add(ivr);
+                }
             }
         }
-        
         return list;
     }
+
 
     public void writeGeoMapData(String outFile, String jsonString) {
         try 
@@ -172,7 +178,7 @@ public class GeoSolrExport {
         return gson.toJson(lgmd);
     }    
 
-    private Map<String, Object> getItemInfo(UUID uid, List<ItemRecord> lir) {
+    private Map<String, Object> getItemInfo(UUID id, List<ItemRecord> lir) {
         Map<String, Object> data = new HashMap<>();
         List<String> itemTitles = new ArrayList<>();
         List<String> itemAuthors = new ArrayList<>();
@@ -180,7 +186,7 @@ public class GeoSolrExport {
 
         for(ItemRecord ir : lir) {
             UUID resourceId = ir.getResourceid();
-            if(uid == resourceId) {
+            if(id.compareTo(resourceId) == 0) {
                 itemTitles = ir.getTitles();
                 itemAuthors = ir.getAuthors();
                 itemUris = ir.getUris();
@@ -198,7 +204,7 @@ public class GeoSolrExport {
         for(UUID colId : owningCol) {
             for(CollectionRecord cr : lcr) {
                 UUID resourceId = cr.getResourceid();
-                if(colId == resourceId) {
+                if(colId.compareTo(resourceId) == 0) {
                     collectionTitles.addAll(cr.getTitles());
                     break;
                 }
@@ -208,6 +214,14 @@ public class GeoSolrExport {
         return collectionTitles;
     } 
 
+    private static boolean isUUID(String string) {
+        try {
+            UUID.fromString(string);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
 
     protected File ensureGeosDir() {
         String dir = config.getProperty("geo.json.dir");
@@ -239,7 +253,7 @@ public class GeoSolrExport {
 
     public class ItemViewRecord {
 
-        private UUID uid;
+        private String id;
         private String ip;
         private String latitude;
         private String longitude;
@@ -248,12 +262,12 @@ public class GeoSolrExport {
         private String countryCode;
         private List<UUID> owningColl;
 
-        public UUID getId() {
-            return uid;
+        public String getId() {
+            return id;
         }
 
-        public void setUid(UUID uid) {
-            this.uid = uid;
+        public void setUid(String id) {
+            this.id = id;
         }
 
         public String getIp() {

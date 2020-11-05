@@ -15,6 +15,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.dspace.app.cris.batch.BatchCreateUUID;
+import org.dspace.app.cris.batch.ScriptStatsMetrics;
 import org.dspace.app.webui.cris.components.ExploreMapProcessors;
 import org.dspace.app.webui.cris.components.ExploreProcessor;
 import org.dspace.app.webui.discovery.DiscoverUtility;
@@ -30,6 +32,8 @@ import org.dspace.utils.DSpace;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.cilea.osd.common.controller.BaseAbstractController;
+import org.dspace.app.cris.batch.SolrUpgradePre6xCrisStatistics;
+import org.dspace.util.SolrUpgradePre6xStatistics2;
 
 public class ExploreController extends BaseAbstractController {
 
@@ -37,8 +41,13 @@ public class ExploreController extends BaseAbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-                String[] argv1 = new String[]{};
-                GeoSolrExport.main(argv1);            
+                String[] argv1 = new String[]{"-s" + "ItemStatsViewIndicatorsPlugin"};
+                String[] argv2 = new String[]{};
+//                BatchCreateUUID.main(argv2);
+//                ScriptStatsMetrics.main(argv1);
+                SolrUpgradePre6xStatistics2.main(argv2);
+//                SolrUpgradePre6xCrisStatistics.main(argv2);
+//                GeoSolrExport.main(argv1);
             
 		Map<String, Object> model = new HashMap<String, Object>();
 
