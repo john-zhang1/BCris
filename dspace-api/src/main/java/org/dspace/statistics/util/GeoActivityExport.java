@@ -1,8 +1,9 @@
 package org.dspace.statistics.util;
 
 import com.google.gson.Gson;
-import com.maxmind.geoip.Location;
-import com.maxmind.geoip.LookupService;
+import com.maxmind.geoip2.DatabaseReader;
+import com.maxmind.geoip2.exception.GeoIp2Exception;
+import com.maxmind.geoip2.model.CityResponse;
 import org.apache.commons.cli.*;
 import org.apache.log4j.Logger;
 import org.dspace.app.statistics.LogAnalyser;
@@ -10,6 +11,7 @@ import org.dspace.app.statistics.LogLine;
 import org.dspace.core.Context;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.regex.Pattern;
@@ -38,10 +40,11 @@ public class GeoActivityExport {
     private static Queue<ActionRecord> actionRecords = new LinkedList<ActionRecord>();
     private static ConfigurationService config = new DSpace().getConfigurationService();
     public static final int MAX_EVENTS = 250;
-    
-    
-    private static LookupService geoipLookup;
-    String dbfile = ConfigurationManager.getProperty("usage-statistics", "dbfile");
+
+    protected DatabaseReader locationService;
+
+    String dbPath = ConfigurationManager.getProperty("usage-statistics", "dbfile");
+    DatabaseReader service = null;
     private Map<String, Map<String, String>> ipGeoList = new TreeMap<>();
     private List<GeoMapData> geos = new ArrayList<>();
 
@@ -187,8 +190,8 @@ public class GeoActivityExport {
     }
 
     public void getGeoList(List<ActionRecord> records) throws IOException {
-        float longitude = 0f;
-        float latitude = 0f;
+        Double longitude = 0.0;
+        Double latitude = 0.0;
         String city = null;
         String countryCode = null;
         String countryName = null;
@@ -205,34 +208,55 @@ public class GeoActivityExport {
             }
         }
         
-        if(geoipLookup == null) {
-            geoipLookup = new LookupService(dbfile, LookupService.GEOIP_STANDARD);
-        }
-        
-        for (String key : ipAddresses.keySet()){
-            String value = ipAddresses.get(key);
-
-            Map<String, String> items = new TreeMap<>();
-            items = addItems("time", value, items);
-            items = addItems("ip", key, items);
-
-            Location location;
+        if (dbPath != null) {
             try {
-                location = geoipLookup.getLocation(key);
-                latitude = location.latitude;
-                items = addItems("latitude", Float.toString(latitude), items);
-                longitude = location.longitude;
-                items = addItems("longitude", Float.toString(longitude), items);
-                city = location.city;
-                items = addItems("city", city, items);
-                countryCode = location.countryCode;
-                items = addItems("countryCode", countryCode, items);
-                countryName = location.countryName;
-                items = addItems("countryName", countryName, items);
-                addMap(key, items);
-            } catch(Exception e) {
+                File dbFile = new File(dbPath);
+                service = new DatabaseReader.Builder(dbFile).build();
+            } catch (FileNotFoundException fe) {
+                log.error(
+                    "The GeoLite Database file is missing (" + dbPath + ")! Solr Statistics cannot generate location " +
+                        "based reports! Please see the DSpace installation instructions for instructions to install " +
+                        "this file.",
+                    fe);
+            } catch (IOException e) {
+                log.error(
+                    "Unable to load GeoLite Database file (" + dbPath + ")! You may need to reinstall it. See the " +
+                        "DSpace installation instructions for more details.",
+                    e);
+            }
+        }
+        else
+        {
+            log.error("The required 'dbfile' configuration is missing in solr-statistics.cfg!");
+        }
+        locationService = service;
 
-            }                
+        if (locationService != null) {
+            for (String key : ipAddresses.keySet()){
+                String value = ipAddresses.get(key);
+
+                Map<String, String> items = new TreeMap<>();
+                items = addItems("time", value, items);
+                items = addItems("ip", key, items);
+
+                try {
+                    InetAddress ipAddress = InetAddress.getByName(key);
+                    CityResponse location = locationService.city(ipAddress);
+                    latitude = location.getLocation().getLatitude();
+                    items = addItems("latitude", Double.toString(latitude), items);
+                    longitude = location.getLocation().getLongitude();
+                    items = addItems("longitude", Double.toString(longitude), items);
+                    city = location.getCity().getName();
+                    items = addItems("city", city, items);
+                    countryCode = location.getCountry().getIsoCode();
+                    items = addItems("countryCode", countryCode, items);
+                    countryName = location.getCountry().getName();
+                    items = addItems("countryName", countryName, items);
+                    addMap(key, items);
+                } catch (IOException | GeoIp2Exception e) {
+                    log.error("Unable to get location of request:  {}", e);
+                }
+            }
         }
     }
 

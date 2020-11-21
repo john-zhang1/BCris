@@ -7,8 +7,10 @@
  */
 package org.dspace.statistics.util;
 
-import com.maxmind.geoip.Location;
-import com.maxmind.geoip.LookupService;
+import com.maxmind.geoip2.DatabaseReader;
+import com.maxmind.geoip2.exception.GeoIp2Exception;
+import com.maxmind.geoip2.model.CityResponse;
+
 import org.apache.commons.cli.*;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.log4j.Logger;
@@ -29,8 +31,9 @@ import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 
-
 import java.io.*;
+import java.net.InetAddress;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,12 +54,17 @@ public class StatisticsImporterElasticSearch {
     private static final Logger log = Logger.getLogger(StatisticsImporterElasticSearch.class);
 
     /** Date format */
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    private static ThreadLocal<DateFormat> dateFormat = new ThreadLocal<DateFormat>() {
+        @Override
+        protected DateFormat initialValue() {
+            return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        }
+    };
 
     //TODO ES Client
 
     /** GEOIP lookup service */
-    private static LookupService geoipLookup;
+    private static DatabaseReader geoipLookup;
 
     /** Metadata storage information */
     private static Map<String, String> metadataStorageInfo;
@@ -107,8 +115,8 @@ public class StatisticsImporterElasticSearch {
             String continent = "";
             String country = "";
             String countryCode = "";
-            float longitude = 0f;
-            float latitude = 0f;
+            double longitude = 0f;
+            double latitude = 0f;
             String city = "";
             String dns;
 
@@ -129,7 +137,7 @@ public class StatisticsImporterElasticSearch {
 //                uuid = parts[0];
                 action = parts[1];
                 id = parts[2];
-                date = dateFormat.parse(parts[3]);
+                date = dateFormat.get().parse(parts[3]);
                 user = parts[4];
                 ip = parts[5];
 
@@ -176,15 +184,15 @@ public class StatisticsImporterElasticSearch {
                 }
 
                 // Get the geo information for the user
-                Location location;
                 try {
-                    location = geoipLookup.getLocation(ip);
-                    city = location.city;
-                    country = location.countryName;
-                    countryCode = location.countryCode;
-                    longitude = location.longitude;
-                    latitude = location.latitude;
-                    if(verbose) {
+                    InetAddress ipAddress = InetAddress.getByName(ip);
+                    CityResponse cityResponse = geoipLookup.city(ipAddress);
+                    city = cityResponse.getCity().getName();
+                    country = cityResponse.getCountry().getName();
+                    countryCode = cityResponse.getCountry().getIsoCode();
+                    longitude = cityResponse.getLocation().getLongitude();
+                    latitude = cityResponse.getLocation().getLatitude();
+                    if (verbose) {
                         data += (", country = " + country);
                         data += (", city = " + city);
                         System.out.println(data);
@@ -198,7 +206,7 @@ public class StatisticsImporterElasticSearch {
                         }
                         continue;
                     }
-                } catch (Exception e) {
+                } catch (GeoIp2Exception | IOException e) {
                     // No problem - just can't look them up
                 }
 
@@ -389,7 +397,8 @@ public class StatisticsImporterElasticSearch {
         String dbfile = ConfigurationManager.getProperty("usage-statistics", "dbfile");
         try
         {
-            geoipLookup = new LookupService(dbfile, LookupService.GEOIP_STANDARD);
+            File dbFile = new File(dbfile);
+            geoipLookup = new DatabaseReader.Builder(dbFile).build();
         }
         catch (FileNotFoundException fe)
         {

@@ -8,16 +8,11 @@
 package org.dspace.statistics.util;
 
 import org.apache.commons.cli.*;
-import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.log4j.Logger;
-import org.apache.solr.common.SolrInputDocument;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.apache.solr.client.solrj.SolrServerException;
 import org.dspace.content.*;
 import org.dspace.content.Collection;
 import org.dspace.core.Context;
 import org.dspace.core.Constants;
-import org.dspace.core.ConfigurationManager;
 import org.dspace.eperson.EPerson;
 import org.dspace.statistics.SolrLogger;
 import org.dspace.utils.DSpace;
@@ -25,9 +20,6 @@ import org.dspace.utils.DSpace;
 import java.text.*;
 import java.io.*;
 import java.util.*;
-
-import com.maxmind.geoip.LookupService;
-import com.maxmind.geoip.Location;
 
 /**
  * Class to load intermediate statistics files (produced from log files by <code>ClassicDSpaceLogConverter</code>) into Solr

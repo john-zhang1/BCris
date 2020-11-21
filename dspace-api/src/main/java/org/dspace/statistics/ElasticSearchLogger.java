@@ -7,11 +7,12 @@
  */
 package org.dspace.statistics;
 
-
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
-import com.maxmind.geoip.Location;
-import com.maxmind.geoip.LookupService;
+import com.maxmind.geoip2.DatabaseReader;
+import com.maxmind.geoip2.exception.GeoIp2Exception;
+import com.maxmind.geoip2.model.CityResponse;
+
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.log4j.Logger;
@@ -42,8 +43,11 @@ import org.elasticsearch.node.Node;
 import org.elasticsearch.node.NodeBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
@@ -58,7 +62,7 @@ public class ElasticSearchLogger {
 
     public static final String DATE_FORMAT_DCDATE = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
-    private static LookupService locationService;
+    private static DatabaseReader locationService;
 
     public static String clusterName = "dspacestatslogging";
     public static String indexName = "dspaceindex";
@@ -93,12 +97,13 @@ public class ElasticSearchLogger {
     public void initializeElasticSearch() {
         log.info("DSpace ElasticSearchLogger Initializing");
         try {
-        LookupService service = null;
+            DatabaseReader service = null;
         // Get the db file for the location
         String dbfile = ConfigurationManager.getProperty("usage-statistics", "dbfile");
         if (dbfile != null) {
             try {
-                service = new LookupService(dbfile, LookupService.GEOIP_STANDARD);
+                File dbFile = new File(dbfile);
+                service = new DatabaseReader.Builder(dbFile).build();
             } catch (FileNotFoundException fe) {
                 log.error("The GeoLite Database file is missing (" + dbfile + ")! Usage Statistics cannot generate location based reports! Please see the DSpace installation instructions for instructions to install this file.", fe);
             } catch (IOException e) {
@@ -257,26 +262,25 @@ public class ElasticSearchLogger {
 
             // Save the location information if valid, save the event without
             // location information if not valid
-            Location location = locationService.getLocation(ip);
-            if (location != null
-                    && !("--".equals(location.countryCode)
-                    && location.latitude == -180 && location.longitude == -180)) {
-                try {
-                    docBuilder.field("continent", LocationUtils
-                            .getContinentCode(location.countryCode));
-                } catch (Exception e) {
-                    System.out
-                            .println("COUNTRY ERROR: " + location.countryCode);
-                }
-                docBuilder.field("countryCode", location.countryCode);
-                docBuilder.field("city", location.city);
-                docBuilder.field("latitude", location.latitude);
-                docBuilder.field("longitude", location.longitude);
-                docBuilder.field("isBot", isSpiderBot);
+            try {
+                InetAddress ipAddress = InetAddress.getByName(ip);
+                CityResponse location = locationService.city(ipAddress);
+                if (location != null
+                    && !("--".equals(location.getCountry().getIsoCode())
+                    && location.getLocation().getLatitude() == -180 && location.getLocation().getLongitude() == -180)) {
+                    docBuilder.field("continent", LocationUtils.getContinentCode(location.getCountry().getIsoCode()));
+                    docBuilder.field("countryCode", location.getCountry().getIsoCode());
+                    docBuilder.field("city", location.getCity().getName());
+                    docBuilder.field("latitude", location.getLocation().getLatitude());
+                    docBuilder.field("longitude", location.getLocation().getLongitude());
+                    docBuilder.field("isBot", isSpiderBot);
 
-                if (request.getHeader("User-Agent") != null) {
-                    docBuilder.field("userAgent", request.getHeader("User-Agent"));
+                    if (request.getHeader("User-Agent") != null) {
+                        docBuilder.field("userAgent", request.getHeader("User-Agent"));
+                    }
                 }
+            } catch (IOException | GeoIp2Exception e) {
+                log.error("Unable to get location of request:  {}", e);
             }
 
             if (dspaceObject instanceof Bitstream) {
@@ -374,21 +378,22 @@ public class ElasticSearchLogger {
 
             // Save the location information if valid, save the event without
             // location information if not valid
-            Location location = locationService.getLocation(ip);
+            InetAddress ipAddress = InetAddress.getByName(ip);
+            CityResponse location = locationService.city(ipAddress);
             if (location != null
-                    && !("--".equals(location.countryCode)
-                    && location.latitude == -180 && location.longitude == -180)) {
+                    && !("--".equals(location.getCountry().getIsoCode())
+                    && location.getLocation().getLatitude() == -180 && location.getLocation().getLongitude() == -180)) {
                 try {
                     docBuilder.field("continent", LocationUtils
-                            .getContinentCode(location.countryCode));
+                            .getContinentCode(LocationUtils.getContinentCode(location.getCountry().getIsoCode())));
                 } catch (Exception e) {
                     System.out
-                            .println("COUNTRY ERROR: " + location.countryCode);
+                            .println("COUNTRY ERROR: " + location.getCountry().getIsoCode());
                 }
-                docBuilder.field("countryCode", location.countryCode);
-                docBuilder.field("city", location.city);
-                docBuilder.field("latitude", location.latitude);
-                docBuilder.field("longitude", location.longitude);
+                docBuilder.field("countryCode", location.getCountry().getIsoCode());
+                docBuilder.field("city", location.getCity().getName());
+                docBuilder.field("latitude", location.getLocation().getLatitude());
+                docBuilder.field("longitude", location.getLocation().getLongitude());
                 docBuilder.field("isBot", isSpiderBot);
 
                 if (userAgent != null) {
