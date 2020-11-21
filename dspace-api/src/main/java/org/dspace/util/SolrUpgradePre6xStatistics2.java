@@ -556,37 +556,6 @@ public class SolrUpgradePre6xStatistics2 {
                                     e.printStackTrace();
                                 }
                                 if (otype != null) {
-                                    int type = Integer.parseInt(otype.toString());
-                                    if(type == 11) {
-                                        System.out.print(otype);
-                                    } else {
-                                        if(type > 11) {
-                                            System.out.print(otype);
-                                        } else
-                                        if(type == 10) {
-                                            System.out.print(otype);
-                                        } else 
-                                        if(type == 9) {
-                                            System.out.print(otype);
-                                        } else 
-                                        if(type == 4) {
-                                            System.out.print(otype);
-                                        } else 
-                                        if(type == 3) {
-                                            System.out.print(otype);
-                                        } else 
-                                        if(type == 2) {
-                                            System.out.print(otype);
-                                        } else 
-                                        if(type == 1) {
-                                            System.out.print(otype);
-                                        } else 
-                                        if(type == 0) {
-                                            System.out.print(otype);
-                                        } else {
-                                            System.out.print(otype);
-                                        }
-                                    }
                                     Object oId = input.getField("id").getValue();
                                     if(oId != null){
                                         String searchId = otype.toString() + "-" + oId.toString();

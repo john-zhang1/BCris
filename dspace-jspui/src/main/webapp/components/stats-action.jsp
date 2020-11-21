@@ -65,15 +65,15 @@
             <table class="table table-striped" style="font-size: 11px;">
                 <tbody>
                     <tr>
-                        <td>Item views in past month</td>
+                        <td>Downloads in past week</td>
                         <td><strong><span id="currentVal">0</span> of <span id="totalPastDayVal">0</span></strong></td>
                     </tr>
                     <tr>
-                        <td>Total Views</td>
-                        <td><strong><span id="totalViewVal">0</span></strong></td>
+                        <td>Total Downloads</td>
+                        <td><strong><span id="totalDownloadVal">0</span></strong></td>
                     </tr>
                     <tr>
-                        <td>Monthly Views</td><td></td>
+                        <td>Monthly Downloads</td><td></td>
                     </tr>
                     <tr>
                         <td id="twelfthMonth" style="text-align: center;"></td>
@@ -125,8 +125,8 @@
                     </tr>
 
                     <tr>
-                        <td>Total Downloads</td>
-                        <td><strong><span id="totalDownloadVal">0</span></strong></td>
+                        <td>Total Views</td>
+                        <td><strong><span id="totalViewVal">0</span></strong></td>
                     </tr>
                     <tr>
                         <td>Total Items</td>
@@ -141,12 +141,14 @@
 
 <script type="text/javascript">
     var jsonpath = "<%= request.getContextPath()%>/static/json/geos.json";
+    var jsonpath_file = "<%= request.getContextPath()%>/static/json/geos-file.json";
     var haloIconPath = "<%= request.getContextPath()%>/static/css/leaflet/images/haloicon.png";
     var dotIconPath = "<%= request.getContextPath()%>/static/css/leaflet/images/doticon.png";
     var downloadFilePath = "<%= request.getContextPath()%>/static/json/downloads.json";
     var itemFilePath = "<%= request.getContextPath()%>/static/json/items.json";
     var viewItemFilePath = "<%= request.getContextPath()%>/static/json/item-view-total.json";
     var viewItemMonthlyFilePath = "<%= request.getContextPath()%>/static/json/item-view-monthly.json";
+    var downloadBitstreamMonthlyFilePath = "<%= request.getContextPath()%>/static/json/bitstream-download-monthly.json";
     var geoData, queue = null;
     var savedHead = 0, headStatus = false;
     var timer;
@@ -188,7 +190,12 @@
         setMonthlyViewVal(monthlyViews);
     });
 
-    $.getJSON(jsonpath, function (data) {
+    $.getJSON(downloadBitstreamMonthlyFilePath, function (data) {
+        var monthlyDlownloads = data.facet_counts.facet_ranges.time.counts;
+        setMonthlyDownloadVal(monthlyDlownloads);
+    });
+
+    $.getJSON(jsonpath_file, function (data) {
         queue = loadQueue(data);
         oneDaylength = data.length;
         setTotalPastDayVal(data.length);
@@ -227,6 +234,33 @@
     }
 
     function setMonthlyViewVal(Val) {
+        $("#firstMonth").text(getMonth(Val[0]));
+        $("#firstMonthVal").text(Val[1]);
+        $("#secondMonth").text(getMonth(Val[2]));
+        $("#secondMonthVal").text(Val[3]);
+        $("#thirdMonth").text(getMonth(Val[4]));
+        $("#thirdMonthVal").text(Val[5]);
+        $("#fourthMonth").text(getMonth(Val[6]));
+        $("#fourthMonthVal").text(Val[7]);
+        $("#fifthMonth").text(getMonth(Val[8]));
+        $("#fifthMonthVal").text(Val[9]);
+        $("#sixthMonth").text(getMonth(Val[10]));
+        $("#sixthMonthVal").text(Val[11]);
+        $("#seventhMonth").text(getMonth(Val[12]));
+        $("#seventhMonthVal").text(Val[13]);
+        $("#eighthMonth").text(getMonth(Val[14]));
+        $("#eighthMonthVal").text(Val[15]);
+        $("#ninthMonth").text(getMonth(Val[16]));
+        $("#ninthMonthVal").text(Val[17]);
+        $("#tenthMonth").text(getMonth(Val[18]));
+        $("#tenthMonthVal").text(Val[19]);
+        $("#eleventhMonth").text(getMonth(Val[20]));
+        $("#eleventhMonthVal").text(Val[21]);
+        $("#twelfthMonth").text(getMonth(Val[22]));
+        $("#twelfthMonthVal").text(Val[23]);
+    }
+
+    function setMonthlyDownloadVal(Val) {
         $("#firstMonth").text(getMonth(Val[0]));
         $("#firstMonthVal").text(Val[1]);
         $("#secondMonth").text(getMonth(Val[2]));

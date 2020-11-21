@@ -53,10 +53,12 @@ public class GeoSolrExport {
         String itemViewFile = "item-view.json";
         String itemFile = "items.json";
         String collectionFile = "collections.json";
+        String bitstreamDownloadFile = "file-download.json";
 
         List<ItemViewRecord> views = gse.getItemViewFromJson(itemViewFile);
         List<ItemRecord> its = gse.getItemFromJson(itemFile);
         List<CollectionRecord> cols = gse.getCollectionFromJson(collectionFile);
+        List<BitstreamDownloadRecord> downloads = gse.getBitstreamDownloadFromJson(bitstreamDownloadFile);
 
 //        List<ItemViewRecord> filteredViews = gse.filterItemView(views);
         List<GeoMapData> lgmd = new ArrayList<>();
@@ -102,6 +104,52 @@ public class GeoSolrExport {
 
         String savedFileName = "geos.json";
         gse.writeGeoMapData(gse.getFilePath(savedFileName), jsonString);
+
+
+        List<GeoMapData> lgmd_file = new ArrayList<>();
+
+        for(BitstreamDownloadRecord download : downloads) {
+            GeoMapData gmd_file = new GeoMapData();
+            String city = download.getCity();
+            if(city == null) {
+                city = "undefined";
+            }
+            gmd_file.setCity(city);
+            gmd_file.setIp(download.getIp());
+            String cc = download.getCountryCode();
+            String countryName = LocationUtils.getCountryName(download.getCountryCode(), Locale.getDefault());
+            if(cc.equalsIgnoreCase("tw")) {
+                cc = "CN";
+                countryName = countryName + ", China";
+            }
+            if(cc.equalsIgnoreCase("hk")) {
+                countryName = countryName + ", China";
+            }
+            if(cc.equalsIgnoreCase("mo")) {
+                countryName = countryName + ", China";
+            }
+            gmd_file.setCountryCode(cc);
+            gmd_file.setCountryName(countryName);
+            gmd_file.setLatitude(download.getLatitude());
+            gmd_file.setLongitude(download.getLongitude());
+            gmd_file.setTime(download.getTime());
+            Map<String, Object> itemData;
+
+            if(isUUID(download.getId())) {
+                itemData = gse.getItemInfo(UUID.fromString(download.getId()),its);
+                gmd_file.setItemTitles((List<String>)itemData.get("titles"));
+                gmd_file.setAuthors((List<String>)itemData.get("authors"));
+                gmd_file.setItemUrls((List<String>)itemData.get("uris"));
+                List<String> collectionTitles = gse.getCollectionTitles(download.getOwningColl(),cols);
+                gmd_file.setCollectionTitles(collectionTitles);
+                lgmd_file.add(gmd_file);
+            }
+
+        }
+        String jsonString_file = gse.toJson(lgmd_file);
+
+        String savedFileName_file = "geos-file.json";
+        gse.writeGeoMapData(gse.getFilePath(savedFileName_file), jsonString_file);
     }
 
     public List<ItemViewRecord> getItemViewFromJson(String itemViewFile) throws FileNotFoundException, IOException {
@@ -132,6 +180,16 @@ public class GeoSolrExport {
         reader.close();
 
         return collections;
+    }
+
+    public List<BitstreamDownloadRecord> getBitstreamDownloadFromJson(String in) throws FileNotFoundException, IOException {
+        Reader reader = new FileReader(getFilePath(in));
+        ResponseBitstreamDownload rbd = gson.fromJson(reader, ResponseBitstreamDownload.class);
+        ResponseBitstreamDownloadRecord rbrObject = rbd.getResponse();
+        List<BitstreamDownloadRecord> downloads = rbrObject.getDocs();
+        reader.close();
+
+        return downloads;
     }
 
     protected String getFilePath (String in) {
@@ -199,11 +257,11 @@ public class GeoSolrExport {
         return data;
     }
 
-    private List<String> getCollectionTitles(List<UUID> owningCol, List<CollectionRecord> lcr) {
+    private List<String> getCollectionTitles(List<String> owningCol, List<CollectionRecord> lcr) {
         List<String> collectionTitles = new ArrayList<>();
-        for(UUID colId : owningCol) {
+        for(String colId : owningCol) {
             for(CollectionRecord cr : lcr) {
-                UUID resourceId = cr.getResourceid();
+                String resourceId = cr.getResourceid();
                 if(colId.compareTo(resourceId) == 0) {
                     collectionTitles.addAll(cr.getTitles());
                     break;
@@ -260,7 +318,7 @@ public class GeoSolrExport {
         private String time;
         private String city;
         private String countryCode;
-        private List<UUID> owningColl;
+        private List<String> owningColl;
 
         public String getId() {
             return id;
@@ -318,11 +376,115 @@ public class GeoSolrExport {
             this.countryCode = countryCode;
         }
 
-        public List<UUID> getOwningColl() {
+        public List<String> getOwningColl() {
             return owningColl;
         }
 
-        public void setOwningColl(List<UUID> owningColl) {
+        public void setOwningColl(List<String> owningColl) {
+            this.owningColl = owningColl;
+        }
+
+    }
+
+    public class ResponseBitstreamDownload {
+        private ResponseBitstreamDownloadRecord response;
+
+        public ResponseBitstreamDownloadRecord getResponse() {
+            return response;
+        }
+    }
+
+    public class ResponseBitstreamDownloadRecord {
+        private String numFound;
+        private String start;
+        List<BitstreamDownloadRecord> docs;
+
+        public List<BitstreamDownloadRecord> getDocs() {
+            return docs;
+        }
+    }
+
+    public class BitstreamDownloadRecord {
+
+        private String id;
+        private String ip;
+        private String latitude;
+        private String longitude;
+        private String time;
+        private String city;
+        private String countryCode;
+        private List<String> owningItem;
+        private List<String> owningColl;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getIp() {
+            return ip;
+        }
+
+        public void setIp(String ip) {
+            this.ip = ip;
+        }
+
+        public String getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(String latitude) {
+            this.latitude = latitude;
+        }
+
+        public String getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(String longitude) {
+            this.longitude = longitude;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getCountryCode() {
+            return countryCode;
+        }
+
+        public void setCountryCode(String countryCode) {
+            this.countryCode = countryCode;
+        }
+
+        public List<String> getOwningItem() {
+            return owningItem;
+        }
+
+        public void setOwningItem(List<String> owningItem) {
+            this.owningItem = owningItem;
+        }
+
+        public List<String> getOwningColl() {
+            return owningColl;
+        }
+
+        public void setOwningColl(List<String> owningColl) {
             this.owningColl = owningColl;
         }
 
@@ -350,16 +512,16 @@ public class GeoSolrExport {
 
     public class CollectionRecord {
         @SerializedName("search.resourceid")
-        private UUID resourceid;
+        private String resourceid;
         private String handle;
         @SerializedName("dc.title")
         private List<String> titles;
 
-        public UUID getResourceid() {
+        public String getResourceid() {
             return resourceid;
         }
 
-        public void setResourceid(UUID resourceid) {
+        public void setResourceid(String resourceid) {
             this.resourceid = resourceid;
         }
 
