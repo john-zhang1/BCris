@@ -136,7 +136,7 @@ public class GeoSolrExport {
             Map<String, Object> itemData;
 
             if(isUUID(download.getId())) {
-                itemData = gse.getItemInfo(UUID.fromString(download.getId()),its);
+                itemData = gse.getItemInfo(UUID.fromString(download.getOwningItem().get(0)),its);
                 gmd_file.setItemTitles((List<String>)itemData.get("titles"));
                 gmd_file.setAuthors((List<String>)itemData.get("authors"));
                 gmd_file.setItemUrls((List<String>)itemData.get("uris"));
