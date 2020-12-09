@@ -1969,6 +1969,10 @@ it, please enter the types and the actual numbers or codes.</hint>
         <displayed-value>Article</displayed-value>
         <stored-value>Article</stored-value>
       </pair>
+      <pair>
+        <displayed-value>Thesis</displayed-value>
+        <stored-value>Thesis</stored-value>
+      </pair>
     </value-pairs>
 
     <value-pairs value-pairs-name="book_types" dc-term="type">
@@ -2060,6 +2064,14 @@ it, please enter the types and the actual numbers or codes.</hint>
         <stored-value></stored-value>
       </pair>
       <pair>
+        <displayed-value>Bachelor of Arts</displayed-value>
+        <stored-value>Bachelor of Arts</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Bachelor of Fine Arts</displayed-value>
+        <stored-value>Bachelor of Fine Arts</stored-value>
+      </pair>
+      <pair>
         <displayed-value>Bachelor of Science</displayed-value>
         <stored-value>Bachelor of Science</stored-value>
       </pair>
@@ -2075,6 +2087,22 @@ it, please enter the types and the actual numbers or codes.</hint>
         <stored-value>Accounting</stored-value>
       </pair>
       <pair>
+        <displayed-value>Architectural Studies</displayed-value>
+        <stored-value>Architectural Studies</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Biology</displayed-value>
+        <stored-value>Biology</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Computer Science</displayed-value>
+        <stored-value>Computer Science</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>English</displayed-value>
+        <stored-value>English</stored-value>
+      </pair>
+      <pair>
         <displayed-value>Finance</displayed-value>
         <stored-value>Finance</stored-value>
       </pair>
@@ -2083,9 +2111,22 @@ it, please enter the types and the actual numbers or codes.</hint>
         <stored-value>Global Business</stored-value>
       </pair>
       <pair>
+        <displayed-value>Graphic Design</displayed-value>
+        <stored-value>Graphic Design</stored-value>
+      </pair>
+      <pair>
         <displayed-value>Marketing</displayed-value>
         <stored-value>Marketing</stored-value>
       </pair>
+      <pair>
+        <displayed-value>Mathematical Sciences</displayed-value>
+        <stored-value>Mathematical Sciences</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Psychology</displayed-value>
+        <stored-value>Psychology</stored-value>
+      </pair>
+
     </value-pairs>
 
     <value-pairs value-pairs-name="wku_group" dc-term="group">
