@@ -282,7 +282,7 @@
         </field>
 
         <field>
-          <dc-schema>dc</dc-schema>
+          <dc-schema>wku</dc-schema>
           <dc-element>thesis</dc-element>
           <dc-qualifier>degree</dc-qualifier>
           <repeatable>false</repeatable>
@@ -315,8 +315,9 @@
         </field>
 
         <field>
-          <dc-schema>dc</dc-schema>
-          <dc-element>discipline</dc-element>
+          <dc-schema>wku</dc-schema>
+          <dc-element>degree</dc-element>
+          <dc-qualifier>discipline</dc-qualifier>
           <repeatable>false</repeatable>
           <label>Discipline</label>
           <input-type value-pairs-name="wku_discipline">dropdown</input-type>
@@ -333,6 +334,17 @@
           <input-type>name</input-type>
           <hint>Enter your primary advisor(s), not your entire committee. Do not include degrees as part of the name.</hint>
           <required>You must enter an advisor</required>
+        </field>
+
+        <field>
+          <dc-schema>wku</dc-schema>
+          <dc-element>degree</dc-element>
+          <dc-qualifier>grantor</dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Grantor</label>
+          <input-type value-pairs-name="grantor_types">dropdown</input-type>
+          <hint>Select a grantor.</hint>
+          <required></required>
         </field>
 
         <field>
@@ -2005,6 +2017,17 @@ it, please enter the types and the actual numbers or codes.</hint>
       <pair>
         <displayed-value>Dataset</displayed-value>
         <stored-value>Dataset</stored-value>
+      </pair>
+    </value-pairs>
+
+    <value-pairs value-pairs-name="grantor_types" dc-term="type">
+      <pair>
+        <displayed-value>Wenzhou-Kean University</displayed-value>
+        <stored-value>Wenzhou-Kean University</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Kean University</displayed-value>
+        <stored-value>Kean University</stored-value>
       </pair>
     </value-pairs>
 
