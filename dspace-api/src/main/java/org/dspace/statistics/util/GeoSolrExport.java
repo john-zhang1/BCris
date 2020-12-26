@@ -70,6 +70,9 @@ public class GeoSolrExport {
             gmd.setCity(city);
             gmd.setIp(view.getIp());
             String cc = view.getCountryCode();
+            if (cc == null) {
+                cc = "undefined";
+            }
             String countryName = LocationUtils.getCountryName(view.getCountryCode(), Locale.getDefault());
             if(cc.equalsIgnoreCase("tw")) {
                 cc = "CN";
@@ -111,6 +114,9 @@ public class GeoSolrExport {
             gmd_file.setCity(city);
             gmd_file.setIp(download.getIp());
             String cc = download.getCountryCode();
+            if (cc == null) {
+                cc = "undefined";
+            }
             String countryName = LocationUtils.getCountryName(download.getCountryCode(), Locale.getDefault());
             if(cc.equalsIgnoreCase("tw")) {
                 cc = "CN";
