@@ -70,6 +70,7 @@
 							<property name="browseNames">
 								<list>
 									<value>itemdept</value>
+									<value>wkugroup</value>
 									<value>author</value>
 									<value>title</value>
 									<value>type</value>
