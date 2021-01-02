@@ -713,12 +713,25 @@ public final class BrowseIndex
      * @return	an array of all the current browse indices for communities
      * @throws BrowseException
      */
-    public static BrowseIndex[] getBrowseCommunityIndices()
-    	throws BrowseException
+    public static BrowseIndex[] getBrowseCommunityIndices(String handle) throws BrowseException
     {
 
         ArrayList<BrowseIndex> browseIndices = new ArrayList<BrowseIndex>();
-        String commBrowseIdx = ConfigurationManager.getProperty("webui.browse.community.index");
+        String commBrowseIdx = null;
+
+        try {
+            if (isAppliedDepartment(handle)) {
+                commBrowseIdx = ConfigurationManager.getProperty("webui.browse.community.index2");
+            } else {
+                commBrowseIdx = ConfigurationManager.getProperty("webui.browse.community.index");
+            }
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
         if(!StringUtils.isNotBlank(commBrowseIdx)){
         	return getBrowseIndices();
@@ -936,6 +949,9 @@ public final class BrowseIndex
             parents = collection.getCommunities();
         }
         if (dso.getType() == Constants.COMMUNITY) {
+            if(handle.equals("20.500.12540/2")) {
+                return true;
+            }
             Community community = (Community) dso;
             parents = community.getAllParents();
         }
