@@ -8,13 +8,21 @@
 package org.dspace.browse;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.dspace.content.Collection;
+import org.dspace.content.Community;
+import org.dspace.content.DSpaceObject;
 import org.dspace.core.ConfigurationManager;
+import org.dspace.core.Constants;
+import org.dspace.core.Context;
+import org.dspace.handle.HandleManager;
 import org.dspace.sort.SortOption;
 import org.dspace.sort.SortException;
 
@@ -742,12 +750,23 @@ public final class BrowseIndex
      * @return	an array of all the current browse indices for communities
      * @throws BrowseException
      */
-    public static BrowseIndex[] getBrowseCollectionIndices()
-    	throws BrowseException
-    {
-
+    public static BrowseIndex[] getBrowseCollectionIndices(String handle) throws BrowseException {
         ArrayList<BrowseIndex> browseIndices = new ArrayList<BrowseIndex>();
-        String commBrowseIdx = ConfigurationManager.getProperty("webui.browse.collection.index");
+        String commBrowseIdx = null;
+
+        try {
+            if (isAppliedDepartment(handle)) {
+                commBrowseIdx = ConfigurationManager.getProperty("webui.browse.collection.index2");
+            } else {
+                commBrowseIdx = ConfigurationManager.getProperty("webui.browse.collection.index");
+            }
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
         if(!StringUtils.isNotBlank(commBrowseIdx)){
         	return getBrowseIndices();
@@ -771,7 +790,7 @@ public final class BrowseIndex
         bis = browseIndices.toArray(bis);
 
         return bis;
-    }       
+    }
 
     /**
      * Get the browse index from configuration with the specified name.
@@ -902,4 +921,30 @@ public final class BrowseIndex
 		return ConfigurationManager.getBooleanProperty("webui.browse.index.tagcloud." + number);
 		 
 	}
+
+    /**
+     * Returns the boolean value if the collection or community belongs to Community: Student Research.
+     */
+    private static boolean isAppliedDepartment(String handle) throws IllegalStateException, SQLException {
+        boolean isApplied = false;
+        Context context = new Context();
+        Community[] parents = null;
+
+        DSpaceObject dso = HandleManager.resolveToObject(context, handle);
+        if (dso.getType() == Constants.COLLECTION) {
+            Collection collection = (Collection) dso;
+            parents = collection.getCommunities();
+        }
+        if (dso.getType() == Constants.COMMUNITY) {
+            Community community = (Community) dso;
+            parents = community.getAllParents();
+        }
+
+        for (Community c : parents) {
+            if (c.getHandle().equals("20.500.12540/2")) {
+                return true;
+            }
+        }
+        return isApplied;
+    }
 }
