@@ -168,7 +168,7 @@
                   <a href="<%= request.getContextPath() %>/simple-search?query=&location=researcherprofiles">
                 </c:when>
                 <c:when test="${exploremlink == 'orgunits'}">
-                  <a href="<%= request.getContextPath() %>/simple-search?query=&location=orgunits">
+                  <a href="<%= request.getContextPath() %>/handle/20.500.12540/2/browse?type=itemdept&submit_browse=Department">
                 </c:when>
                 <c:otherwise>
                   <a href="<%= request.getContextPath() %>/cris/explore/<%= mlink.trim() %>">
