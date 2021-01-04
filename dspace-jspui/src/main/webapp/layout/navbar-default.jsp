@@ -178,7 +178,7 @@
             </li>
            <% } %>
            <li id="home-about-menu" class="hidden-xs hidden-sm <%= currentPage.endsWith("/about.jsp")? 
-            "active" : "" %>"><a href="<%= request.getContextPath() %>/handle/20.500.12540/20"><fmt:message key="jsp.layout.navbar-default.cris.theses"/></a></li>
+            "active" : "" %>"><a href="<%= request.getContextPath() %>/handle/20.500.12540/2"><fmt:message key="jsp.layout.navbar-default.cris.theses"/></a></li>
            <li class="dropdown hidden-md hidden-lg">
              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="jsp.layout.navbar-default.explore"/> <b class="caret"></b></a>
              <ul class="dropdown-menu">
