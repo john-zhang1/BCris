@@ -281,7 +281,7 @@
 				    		String fkey =  "jsp.home.group-center-info."+fvalue.getAuthorityKey();
 			        %>
 	
-					<li class="list-group-item"> <span class="badge"><%= fvalue.getCount() %></span> <a href="<%= request.getContextPath() %>/handle/20.500.12540/2/browse?type=itemdept&submit_browse=Department"><fmt:message key="<%= fkey %>"/></a></li>
+					<li class="list-group-item"> <span class="badge"><%= fvalue.getCount() %></span> <a href="<%= request.getContextPath() %>/simple-search?query=&location=<%=fvalue.getAuthorityKey()%>"><fmt:message key="<%= fkey %>"/></a></li>
 			<%
 				    		}
 				    	}
