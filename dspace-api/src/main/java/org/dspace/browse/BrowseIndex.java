@@ -705,8 +705,7 @@ public final class BrowseIndex
      * @return	an array of all the current browse indices for communities
      * @throws BrowseException
      */
-    public static BrowseIndex[] getBrowseCommunityIndices()
-    	throws BrowseException
+    public static BrowseIndex[] getBrowseCommunityIndices() throws BrowseException
     {
 
         ArrayList<BrowseIndex> browseIndices = new ArrayList<BrowseIndex>();
@@ -742,13 +741,10 @@ public final class BrowseIndex
      * @return	an array of all the current browse indices for communities
      * @throws BrowseException
      */
-    public static BrowseIndex[] getBrowseCollectionIndices()
-    	throws BrowseException
-    {
-
+    public static BrowseIndex[] getBrowseCollectionIndices() throws BrowseException {
         ArrayList<BrowseIndex> browseIndices = new ArrayList<BrowseIndex>();
         String commBrowseIdx = ConfigurationManager.getProperty("webui.browse.collection.index");
-        
+
         if(!StringUtils.isNotBlank(commBrowseIdx)){
         	return getBrowseIndices();
         }
@@ -771,7 +767,7 @@ public final class BrowseIndex
         bis = browseIndices.toArray(bis);
 
         return bis;
-    }       
+    }
 
     /**
      * Get the browse index from configuration with the specified name.

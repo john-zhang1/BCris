@@ -189,6 +189,17 @@
         </field>
 
         <field>
+          <dc-schema>wku</dc-schema>
+          <dc-element>group</dc-element>
+          <dc-qualifier></dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Department/College</label>
+          <input-type value-pairs-name="wku_group">dropdown</input-type>
+          <hint>Select the name of your academic unit.</hint>
+          <required></required>
+        </field>
+
+        <field>
           <dc-schema>dc</dc-schema>
           <dc-element>description</dc-element>
           <dc-qualifier>sponsorship</dc-qualifier>
@@ -282,7 +293,7 @@
         </field>
 
         <field>
-          <dc-schema>dc</dc-schema>
+          <dc-schema>wku</dc-schema>
           <dc-element>thesis</dc-element>
           <dc-qualifier>degree</dc-qualifier>
           <repeatable>false</repeatable>
@@ -315,8 +326,9 @@
         </field>
 
         <field>
-          <dc-schema>dc</dc-schema>
-          <dc-element>discipline</dc-element>
+          <dc-schema>wku</dc-schema>
+          <dc-element>degree</dc-element>
+          <dc-qualifier>discipline</dc-qualifier>
           <repeatable>false</repeatable>
           <label>Discipline</label>
           <input-type value-pairs-name="wku_discipline">dropdown</input-type>
@@ -333,6 +345,17 @@
           <input-type>name</input-type>
           <hint>Enter your primary advisor(s), not your entire committee. Do not include degrees as part of the name.</hint>
           <required>You must enter an advisor</required>
+        </field>
+
+        <field>
+          <dc-schema>wku</dc-schema>
+          <dc-element>degree</dc-element>
+          <dc-qualifier>grantor</dc-qualifier>
+          <repeatable>false</repeatable>
+          <label>Grantor</label>
+          <input-type value-pairs-name="grantor_types">dropdown</input-type>
+          <hint>Select a grantor.</hint>
+          <required></required>
         </field>
 
         <field>
@@ -1969,6 +1992,10 @@ it, please enter the types and the actual numbers or codes.</hint>
         <displayed-value>Article</displayed-value>
         <stored-value>Article</stored-value>
       </pair>
+      <pair>
+        <displayed-value>Thesis</displayed-value>
+        <stored-value>Thesis</stored-value>
+      </pair>
     </value-pairs>
 
     <value-pairs value-pairs-name="book_types" dc-term="type">
@@ -2001,6 +2028,17 @@ it, please enter the types and the actual numbers or codes.</hint>
       <pair>
         <displayed-value>Dataset</displayed-value>
         <stored-value>Dataset</stored-value>
+      </pair>
+    </value-pairs>
+
+    <value-pairs value-pairs-name="grantor_types" dc-term="type">
+      <pair>
+        <displayed-value>Wenzhou-Kean University</displayed-value>
+        <stored-value>Wenzhou-Kean University</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Kean University</displayed-value>
+        <stored-value>Kean University</stored-value>
       </pair>
     </value-pairs>
 
@@ -2060,6 +2098,14 @@ it, please enter the types and the actual numbers or codes.</hint>
         <stored-value></stored-value>
       </pair>
       <pair>
+        <displayed-value>Bachelor of Arts</displayed-value>
+        <stored-value>Bachelor of Arts</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Bachelor of Fine Arts</displayed-value>
+        <stored-value>Bachelor of Fine Arts</stored-value>
+      </pair>
+      <pair>
         <displayed-value>Bachelor of Science</displayed-value>
         <stored-value>Bachelor of Science</stored-value>
       </pair>
@@ -2075,6 +2121,22 @@ it, please enter the types and the actual numbers or codes.</hint>
         <stored-value>Accounting</stored-value>
       </pair>
       <pair>
+        <displayed-value>Architectural Studies</displayed-value>
+        <stored-value>Architectural Studies</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Biology</displayed-value>
+        <stored-value>Biology</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Computer Science</displayed-value>
+        <stored-value>Computer Science</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>English</displayed-value>
+        <stored-value>English</stored-value>
+      </pair>
+      <pair>
         <displayed-value>Finance</displayed-value>
         <stored-value>Finance</stored-value>
       </pair>
@@ -2083,9 +2145,22 @@ it, please enter the types and the actual numbers or codes.</hint>
         <stored-value>Global Business</stored-value>
       </pair>
       <pair>
+        <displayed-value>Graphic Design</displayed-value>
+        <stored-value>Graphic Design</stored-value>
+      </pair>
+      <pair>
         <displayed-value>Marketing</displayed-value>
         <stored-value>Marketing</stored-value>
       </pair>
+      <pair>
+        <displayed-value>Mathematical Sciences</displayed-value>
+        <stored-value>Mathematical Sciences</stored-value>
+      </pair>
+      <pair>
+        <displayed-value>Psychology</displayed-value>
+        <stored-value>Psychology</stored-value>
+      </pair>
+
     </value-pairs>
 
     <value-pairs value-pairs-name="wku_group" dc-term="group">

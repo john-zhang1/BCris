@@ -1,0 +1,21 @@
+#!/bin/bash
+
+PERCENTAGE=86
+# log directories
+DSPACE_LOG="/dspace/log/"
+TOMCAT_LOG="/usr/share/tomcat/logs/"
+
+SIZE_D=$(du -hs -b $DSPACE_LOG | cut -f1)
+SIZE_T=$(du -hs -b $TOMCAT_LOG | cut -f1)
+SPACE_PERCENT=$(df -k / | awk 'NR > 1 {print $5}' | cut -d "%" -f 1)
+
+# Delete dspace log files older than 1 day if Use% > 90%
+if [[ $SPACE_PERCENT -gt $PERCENTAGE ]]; then
+   find $DSPACE_LOG -type f -name '*.log*' -mtime +0 -exec rm -f {} \;
+fi
+
+# Delete tomcat log files older than 1 day if Use% > 90%
+if [[ $SPACE_PERCENT -gt $PERCENTAGE ]]; then
+   find $TOMCAT_LOG -type f -name '*.log' -mtime +0 -exec rm -f {} \;
+   find $TOMCAT_LOG -type f -name '*.txt' -mtime +0 -exec rm -f {} \;
+fi

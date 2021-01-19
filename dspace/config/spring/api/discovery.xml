@@ -1834,6 +1834,7 @@
 		<property name="metadataFields">
 			<list>
 				<value>dc.description.sponsorship</value>
+                <value>wku.group</value>
 			</list>
 		</property>
 		<property name="facetLimit" value="10" />

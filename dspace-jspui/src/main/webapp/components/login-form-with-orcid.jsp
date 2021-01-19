@@ -17,7 +17,7 @@
 	<div class="row">
     <div class="col-md-6">
      <form name="loginform" class="form-horizontal" id="loginform" method="post" action="<%= request.getContextPath() %>/password-login">  
-      <p><strong><a href="<%= request.getContextPath() %>/register"><fmt:message key="jsp.components.login-form.newuser"/></a></strong></p>
+      <%--<p><strong><a href="<%= request.getContextPath() %>/register"><fmt:message key="jsp.components.login-form.newuser"/></a></strong></p>--%>
 	  <p><fmt:message key="jsp.components.login-form.enter"/></p>
 		<div class="form-group">
             <label class="col-md-offset-1 col-md-4 control-label" for="tlogin_email"><fmt:message key="jsp.components.login-form.email"/></label>
