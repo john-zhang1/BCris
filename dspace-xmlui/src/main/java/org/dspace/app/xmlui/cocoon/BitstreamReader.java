@@ -564,6 +564,7 @@ public class BitstreamReader extends AbstractReader implements Recyclable
          * through most web browser will enable you to resume downloading the
          * bitstream.
          */
+    @Override
     public void generate() throws IOException, SAXException,
             ProcessingException
     {

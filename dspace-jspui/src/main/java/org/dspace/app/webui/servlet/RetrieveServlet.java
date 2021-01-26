@@ -154,7 +154,11 @@ public class RetrieveServlet extends DSpaceServlet
             
     		if(threshold != -1 && bitstream.getSize() >= threshold)
     		{
-    			UIUtil.setBitstreamDisposition(bitstream.getName(), request, response);
+                if(bitstream.getFormat().getMIMEType().equals("video/mp4")) {
+                    UIUtil.setBitstreamRange(request, response, bitstream, is);
+                } else {
+                    UIUtil.setBitstreamDisposition(bitstream.getName(), request, response);
+                }
     		}
 
             Utils.bufferedCopy(is, response.getOutputStream());

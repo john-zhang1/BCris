@@ -609,11 +609,21 @@ public class ItemTag extends TagSupport
 
             					out
                                     .print("<tr><td headers=\"t1\" class=\"standard\">");
-                                out.print("<a ");
-            					out.print(bsLink);
-            					out.print(bitstreams[k].getName());
-                                out.print("</a>");
-                                
+
+                                if(bitstreams[k].getFormat().getMIMEType().equals("video/mp4")) {
+                                    out.print("<video controls=\"controls\" preload=\"auto\" style=\"width:100%;\">");
+                                    String src = "src=\"";
+                                    src= src + viewOptions.get(0).link;
+                                    out.print("<source type=\"video/mp4\"");
+                                    out.print(src);
+                                    out.print("\">");
+                                    out.print("</video>");
+                                } else {
+                                    out.print("<a ");
+                                    out.print(bsLink);
+                                    out.print(bitstreams[k].getName());
+                                    out.print("</a>");
+                                }
 
             					if (multiFile)
             					{

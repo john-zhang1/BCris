@@ -8,6 +8,9 @@
 package org.dspace.app.webui.util;
 
 import java.awt.ComponentOrientation;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
@@ -38,6 +41,7 @@ import org.dspace.app.itemmarking.ItemMarkingInfo;
 import org.dspace.app.util.Util;
 import org.dspace.authenticate.AuthenticationManager;
 import org.dspace.browse.BrowseItem;
+import org.dspace.content.Bitstream;
 import org.dspace.content.Collection;
 import org.dspace.content.Community;
 import org.dspace.content.DCDate;
@@ -74,7 +78,13 @@ public class UIUtil extends Util
 
 	private static final Set<String> RTL;
 
-	static {
+    private static final int BUFFER_SIZE = 8192;
+
+    private static InputStream bitstreamInputStream;
+
+    private static OutputStream out;
+
+    static {
 	  Set<String> lang = new HashSet<String>();
 	  lang.add("ar");
 	  lang.add("dv");
@@ -502,7 +512,78 @@ public class UIUtil extends Util
 			response.setHeader("Content-Disposition", "attachment;filename=" + name);
 		}
 	}
-	
+
+    public static void setBitstreamRange(HttpServletRequest request, HttpServletResponse response, Bitstream bitstream, InputStream bitstreamInputStream) {
+
+        ByteRange byteRange = null;
+        response.setHeader("Accept-Ranges", "bytes");
+        String ranges = request.getHeader("Range");
+        long bitstreamSize = bitstream.getSize();
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int length = -1;
+
+        if (ranges != null) {
+            try {
+                ranges = ranges.substring(ranges.indexOf('=') + 1);
+                byteRange = new ByteRange(ranges);
+            } catch (NumberFormatException e) {
+                byteRange = null;
+                response.setStatus(416);
+            }
+        }
+
+        try {
+            if (byteRange != null) {
+                String entityLength;
+                String entityRange;
+                ByteRange requestedRange = null;
+                if (bitstreamSize != -1) {
+                    entityLength = "" + bitstreamSize;
+                    requestedRange = byteRange.intersection(new ByteRange(0, bitstreamSize - 1));
+                    entityRange = requestedRange.toString();
+                } else {
+                    entityLength = "*";
+                    entityRange = byteRange.toString();
+                }
+
+                response.setHeader("Content-Length", "" + requestedRange.length());
+                response.setHeader("Content-Range", "bytes " + entityRange + "/" + entityLength);
+
+                response.setStatus(206);
+
+                int pos = 0;
+                int posEnd;
+                while ((length = bitstreamInputStream.read(buffer)) > -1) {
+                    posEnd = pos + length - 1;
+                    ByteRange intersection = byteRange.intersection(new ByteRange(pos, posEnd));
+                    if (intersection != null) {
+                        out.write(buffer, (int) intersection.getStart() - pos, (int) intersection.length());
+                    }
+                    pos += length;
+                }
+            } else {
+                response.setHeader("Content-Length", String.valueOf(bitstreamSize));
+
+                while ((length = bitstreamInputStream.read(buffer)) > -1) {
+                    out.write(buffer, 0, length);
+                }
+                out.flush();
+            }
+        } catch (UnsupportedEncodingException e) {
+			log.error(e.getMessage(),e);
+		} catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            try {
+                bitstreamInputStream.close();
+                out.close();
+            } catch (IOException ioe) {
+                log.warn("Caught IO exception when closing a stream: " + ioe.getMessage());
+            }
+        }
+    }
+
 	/**
 	 * Generate the (X)HTML required to show the item marking. Based on the markType it tries to find
 	 * the corresponding item marking Strategy on the iem_marking.xml Spring configuration file in order
