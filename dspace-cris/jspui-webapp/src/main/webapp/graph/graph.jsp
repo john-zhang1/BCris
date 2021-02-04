@@ -53,7 +53,7 @@
 <head>
 		
 	<meta name="author" content="CINECA" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
 	<meta name="language" content="english"/>

@@ -223,10 +223,13 @@ public class BitstreamServlet extends DSpaceServlet
         response.setHeader("Content-Length", String
                 .valueOf(bitstream.getSize()));
 
-		if(threshold != -1 && bitstream.getSize() >= threshold)
-		{
-			UIUtil.setBitstreamDisposition(bitstream.getName(), request, response);
-		}
+        if(bitstream.getFormat().getMIMEType().equals("video/mp4")) {
+            UIUtil.setBitstreamRange(request, response, bitstream, is);
+        } else {
+            if(threshold != -1 && bitstream.getSize() >= threshold) {
+                UIUtil.setBitstreamDisposition(bitstream.getName(), request, response);
+            }
+        }
 
         //DO NOT REMOVE IT - WE NEED TO FREE DB CONNECTION TO AVOID CONNECTION POOL EXHAUSTION FOR BIG FILES AND SLOW DOWNLOADS
         context.complete();
