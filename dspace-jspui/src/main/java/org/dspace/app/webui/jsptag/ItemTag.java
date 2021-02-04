@@ -611,7 +611,7 @@ public class ItemTag extends TagSupport
                                     .print("<tr><td headers=\"t1\" class=\"standard\">");
 
                                 if(bitstreams[k].getFormat().getMIMEType().equals("video/mp4")) {
-                                    out.print("<video controls=\"controls\" preload=\"auto\" style=\"width:426px;height:240px;\">");
+                                    out.print("<video controls=\"controls\" preload=\"auto\" style=\"width:100%;\">");
                                     String src = "src=\"";
                                     src= src + viewOptions.get(0).link;
                                     out.print("<source type=\"video/mp4\"");
