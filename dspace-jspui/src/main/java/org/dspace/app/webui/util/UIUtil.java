@@ -551,6 +551,7 @@ public class UIUtil extends Util
 
                 response.setStatus(206);
 
+                out = response.getOutputStream();
                 int pos = 0;
                 int posEnd;
                 while ((length = bitstreamInputStream.read(buffer)) > -1) {
