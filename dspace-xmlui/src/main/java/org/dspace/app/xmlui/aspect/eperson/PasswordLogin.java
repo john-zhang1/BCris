@@ -212,7 +212,7 @@ public class PasswordLogin extends AbstractDSpaceTransformer implements Cacheabl
         Password password = item.addPassword("login_password");
         password.setRequired();
         password.setLabel(T_password);
-        item.addXref(contextPath + "/forgot", T_forgot_link);
+        // item.addXref(contextPath + "/forgot", T_forgot_link);
 
         list.addLabel();
         Item submit = list.addItem("login-in", null);

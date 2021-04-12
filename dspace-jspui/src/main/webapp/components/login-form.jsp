@@ -34,7 +34,7 @@
         	<input type="submit" class="btn btn-success pull-right" name="login_submit" value="<fmt:message key="jsp.components.login-form.login"/>" tabindex="3" />
         </div>
         </div>
-  		<p><a href="<%= request.getContextPath() %>/forgot"><fmt:message key="jsp.components.login-form.forgot"/></a></p>
+  		<%--<p><a href="<%= request.getContextPath() %>/forgot"><fmt:message key="jsp.components.login-form.forgot"/></a></p>--%>
       </form>
       <script type="text/javascript">
 		document.loginform.login_email.focus();

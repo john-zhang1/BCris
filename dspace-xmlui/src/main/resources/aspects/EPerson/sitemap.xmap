@@ -28,9 +28,9 @@ registration, forgotten passwords, editing profiles, and changing passwords.
 			<map:transformer name="CannotRegister" src="org.dspace.app.xmlui.aspect.eperson.CannotRegister"/>
 			<map:transformer name="InvalidToken" src="org.dspace.app.xmlui.aspect.eperson.InvalidToken"/>
 			
-			<map:transformer name="StartForgotPassword" src="org.dspace.app.xmlui.aspect.eperson.StartForgotPassword"/>
+			<!-- <map:transformer name="StartForgotPassword" src="org.dspace.app.xmlui.aspect.eperson.StartForgotPassword"/>
 			<map:transformer name="ResetPassword" src="org.dspace.app.xmlui.aspect.eperson.ResetPassword"/>
-			<map:transformer name="ForgotPasswordFinished" src="org.dspace.app.xmlui.aspect.eperson.ForgotPasswordFinished"/>
+			<map:transformer name="ForgotPasswordFinished" src="org.dspace.app.xmlui.aspect.eperson.ForgotPasswordFinished"/> -->
 			
 			<map:transformer name="ProfileUpdated" src="org.dspace.app.xmlui.aspect.eperson.ProfileUpdated"/>
 			<map:transformer name="LoginChooser" src="org.dspace.app.xmlui.aspect.eperson.LoginChooser"/>

@@ -257,14 +257,14 @@
     <servlet-class>org.dspace.app.webui.servlet.FeedbackServlet</servlet-class>
   </servlet>
 
-  <servlet>
+  <!-- <servlet>
     <servlet-name>forgot</servlet-name>
     <servlet-class>org.dspace.app.webui.servlet.RegisterServlet</servlet-class>
     <init-param>
       <param-name>register</param-name>
       <param-value>false</param-value>
     </init-param>
-  </servlet>
+  </servlet> -->
 
   <servlet>
     <servlet-name>format-registry</servlet-name>
@@ -601,10 +601,10 @@
     <url-pattern>/feedback</url-pattern>
   </servlet-mapping>
 
-  <servlet-mapping>
+  <!-- <servlet-mapping>
     <servlet-name>forgot</servlet-name>
     <url-pattern>/forgot</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
 
   <servlet-mapping>
     <servlet-name>format-registry</servlet-name>

@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="text-center">
-        	<a class="btn btn-link" href="<%= request.getContextPath() %>/forgot"><fmt:message key="jsp.components.login-form.forgot"/></a>
+        	<%--<a class="btn btn-link" href="<%= request.getContextPath() %>/forgot"><fmt:message key="jsp.components.login-form.forgot"/></a>--%>
         	<input type="submit" class="btn btn-success" name="login_submit" value="<fmt:message key="jsp.components.login-form.login"/>" tabindex="3" />
         </div>
       </form>

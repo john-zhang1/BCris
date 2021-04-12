@@ -23,9 +23,9 @@ Disallow: /search-filter
 #
 # You also may wish to disallow access to the following paths, in order
 # to stop web spiders from accessing user-based content
-# Disallow: /contact
-# Disallow: /feedback
-# Disallow: /forgot
+Disallow: /contact
+Disallow: /feedback
+Disallow: /forgot
 # Disallow: /login
 # Disallow: /register
 
