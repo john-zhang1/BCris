@@ -265,6 +265,8 @@
 				%>
 				
 			 </div>
+			 <jsp:include page="singleTabDetailsPage2.jsp"></jsp:include>
+
 			 <div class="form-group pull-right" style="margin-top:1.5em;">
 				<div class="btn-group">
 					<% if(networkModuleEnabled) { %>

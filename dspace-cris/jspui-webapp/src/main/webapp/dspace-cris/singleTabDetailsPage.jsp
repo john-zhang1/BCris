@@ -60,6 +60,9 @@
 							<%
 								if (fileURL == null) {
 							%>
+							<c:if test="${holder.shortName!='researcherprofile'}">
+
+
 							<div class="panel-group ${extraCSS}" id="${holder.shortName}">
   									<div class="panel panel-default">
     										<div class="panel-heading">
@@ -121,12 +124,13 @@
 															<c:set var="tipologiaDaVisualizzare" value="${tipologiaDaVisualizzare}" scope="request" />
 															<c:import url="${urljspcustomfield}" />
 														<% } %>
+
 													</c:forEach>		
 										        </div>
 										  </div>
 								   </div>
 							</div>
-							
+						</c:if>
 							
 							<%
 								} else {

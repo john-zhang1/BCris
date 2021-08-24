@@ -16,6 +16,7 @@
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="org.dspace.browse.BrowseItem" %>
+<%@page import="org.dspace.eperson.EPerson"%>
 <%@page import="org.dspace.app.webui.cris.dto.ComponentInfoDTO"%>
 <%@page import="it.cilea.osd.jdyna.web.Box"%>
 <%@page import="org.dspace.discovery.configuration.*"%>
@@ -45,7 +46,6 @@
 	
 	Box holder = (Box)request.getAttribute("holder");
 	ComponentInfoDTO info = ((Map<String, ComponentInfoDTO>)(request.getAttribute("componentinfomap"))).get(holder.getShortName());
-	
 	String relationName = info.getRelationName();
 	
 	List<String[]> subLinks = (List<String[]>) request.getAttribute("activeTypes"+relationName);
@@ -68,7 +68,7 @@
 	    }
 	}
 
-	boolean globalShowFacets = false;	
+	boolean globalShowFacets = false;
 	if (info!=null && info.getItems()!=null && info.getItems().length > 0) {
 %>
 	
@@ -98,17 +98,19 @@
     	    { 
     			if(!appliedFilterQueries.contains(f+"::"+fvalue.getFilterType()+"::"+fvalue.getAsFilterQuery()))
     		    {
-    			    globalShowFacets = true;
     		        showFacet = true;
-    		        break;
+    		        globalShowFacets = true;
     		    }
+				else {
+					displayAppliedFilters.put(f+"::"+fvalue.getFilterType()+"::"+fvalue.getAsFilterQuery(),
+							fvalue.getDisplayedValue());
+				}
     	    }
     	    showFacets.put(f, showFacet);
     	    brefine = brefine || showFacet;
     	}
     }
 	%>
-	
 
 <div class="panel-group col-md-12" id="${holder.shortName}">
 	<div class="panel panel-default">
@@ -130,9 +132,7 @@
 	<% if(subLinks!=null && subLinks.size()>0) { %>
 		<jsp:include page="common/commonComponentFacets.jsp"></jsp:include>
 	<% } %>	
-			
 	<p>
-
 
 
 <!-- prepare pagination controls -->
@@ -193,7 +193,7 @@ if (info.getPagetotal() > 1)
 <%
 	}
 %>
-			
+
 <form id="sortform<%= info.getType() %>" action="#<%= info.getType() %>" method="get">
 	   <input id="sort_by<%= info.getType() %>" type="hidden" name="sort_by<%= info.getType() %>" value=""/>
        <input id="order<%= info.getType() %>" type="hidden" name="order<%= info.getType() %>" value="<%= info.getOrder() %>" />
@@ -217,7 +217,6 @@ if (info.getPagetotal() > 1)
 </div>
 </div>
 <script type="text/javascript"><!--
-	var j = jQuery;
     function sortBy(sort_by, order) {
         j('#sort_by<%= info.getType() %>').val(sort_by);
         j('#order<%= info.getType() %>').val(order);
