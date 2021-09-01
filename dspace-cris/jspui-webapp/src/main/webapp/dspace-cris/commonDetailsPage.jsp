@@ -21,6 +21,7 @@
 	<div id="tabs">
 		<ul>
 					<c:forEach items="${tabList}" var="area" varStatus="rowCounter">
+						<c:if test="${rowCounter.count == 1}">
 						<c:set var="tablink"><c:choose>
 							<c:when test="${rowCounter.count == 1}">${root}/cris/${specificPartPath}/${authority}?onlytab=true</c:when>
 							<c:otherwise>${root}/cris/${specificPartPath}/${authority}/${area.shortName}.html?onlytab=true</c:otherwise>
@@ -45,7 +46,7 @@
 			    					<spring:message code="${entity.class.simpleName}.tab.${area.shortName}.label" text="${area.title}"></spring:message></a>
 							</c:otherwise>
 						</c:choose></li>
-
+						</c:if>
 					</c:forEach>
 		</ul>
 	

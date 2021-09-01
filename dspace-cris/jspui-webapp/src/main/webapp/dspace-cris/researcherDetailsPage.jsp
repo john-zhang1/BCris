@@ -239,10 +239,10 @@
 				 	<fmt:message key="jsp.layout.detail.title-first" /> 
 				 	<c:choose>
 						<c:when test="${!empty entity.preferredName.value}">
-							${entity.preferredName.value}
+							<%-- ${entity.preferredName.value} --%>
 						</c:when>
 						<c:otherwise>
-							${entity.fullName}
+							<%-- ${entity.fullName} --%>
 						</c:otherwise>
 					</c:choose>
 				</h1>
@@ -268,9 +268,10 @@
 			 <jsp:include page="singleTabDetailsPage2.jsp"></jsp:include>
 
 			 <div class="form-group pull-right" style="margin-top:1.5em;">
+				<c:if test="${researcher_page_menu && !empty researcher}">
 				<div class="btn-group">
 					<% if(networkModuleEnabled) { %>
-					  <a class="btn btn-default" href="<%= request.getContextPath() %>/cris/network/${researcher.crisID}"><i class="fa fa-globe"></i> <fmt:message key="jsp.cris.detail.link.network" /> </a>
+						<a class="btn btn-default" href="<%= request.getContextPath() %>/cris/network/${researcher.crisID}"><i class="fa fa-globe"></i> <fmt:message key="jsp.cris.detail.link.network" /> </a>
 					<% } %>
 					<a class="btn btn-default"  href="<%= request.getContextPath() %>/cris/stats/rp.html?id=${researcher.uuid}"><i class="fa fa-bar-chart-o"></i> <fmt:message key="jsp.cris.detail.link.statistics" /> </a>
 	  				<c:choose>
@@ -281,9 +282,8 @@
                 				<a class="btn btn-default" href="<%= request.getContextPath() %>/cris/tools/subscription/unsubscribe?uuid=${researcher.uuid}"><i class="fa fa-stop"></i> <fmt:message key="jsp.cris.detail.link.email.alert.remove" /> </a>
         					</c:otherwise>
 					</c:choose>
-	  				<a class="btn btn-default" href="<%= request.getContextPath() %>/open-search?query=author_authority:${authority}&amp;format=rss"><i class="fa fa-rss"></i> <fmt:message key="jsp.cris.detail.link.rssfeed" /></a>
+					<a class="btn btn-default" href="<%= request.getContextPath() %>/open-search?query=author_authority:${authority}&amp;format=rss"><i class="fa fa-rss"></i> <fmt:message key="jsp.cris.detail.link.rssfeed" /></a>
 				</div>
-				<c:if test="${researcher_page_menu && !empty researcher}">
 				<div class="btn-group">
 						<c:if test="${!empty addModeType && addModeType=='display'}">
 							<a class="btn btn-default" href="<%= request.getContextPath() %>/cris/tools/rp/editDynamicData.htm?id=${researcher.id}&anagraficaId=${researcher.dynamicField.id}<c:if test='${!empty tabIdForRedirect}'>&tabId=${tabIdForRedirect}</c:if>"><i class="fa fa-edit"></i> <fmt:message key="jsp.layout.navbar-hku.staff-mode.edit.primary-data"/></a>
@@ -311,9 +311,9 @@
 						</ul>
 					</div> 
 					
-<%-- 					<div class="btn-group">
+					<div class="btn-group">
 						<a class="btn btn-default" href="${root}/cris/uuid/${researcher.uuid}/relMgmt/publications"><i class="fa fa-book"></i> <fmt:message key="jsp.layout.navbar-hku.staff-mode.manage-publication"/></a>
-					</div> --%>
+					</div>
 				</c:if>
 
 				
