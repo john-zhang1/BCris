@@ -566,3 +566,7 @@ body.undernavigation > b { font-weight: 400; }
 #readheader {
     padding-left: 20px;
 }
+
+.dynaField {
+    float: none;
+}
