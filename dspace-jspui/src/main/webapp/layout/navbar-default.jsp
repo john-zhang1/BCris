@@ -268,12 +268,5 @@
     </ul>
   </div>
 
-       </nav>
-<div class="space">
-  <h5>&nbsp;</h5>
-  <div class="alert alert-danger">
-    We've moved. Please come to visit us in our new home <a href="https://wkuwire.org">https://wkuwire.org</a>
-  </div>
-</div>    
-  
+       </nav>  
     
