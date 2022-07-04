@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cd /tmp
+statsDir=stats-backup_$(date +%F)
+gzFile=shareok_prod_stats_$(date +%F).tar.gz
+DSPACE=/dspace/bin/dspace
+
+mkdir -p $statsDir/stats/
+
+$DSPACE solr-export-statistics -i statistics -d $statsDir/stats/
+
+tar -czf $gzFile $statsDir
+rm -rf $statsDir
