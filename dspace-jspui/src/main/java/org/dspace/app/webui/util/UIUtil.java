@@ -147,7 +147,15 @@ public class UIUtil extends Util
             if (userID != null)
             {
                 String remAddr = (String)session.getAttribute("dspace.current.remote.addr");
-                if (remAddr != null && remAddr.equals(request.getRemoteAddr()))
+                String sessionRemAddr = request.getRemoteAddr();
+                if(remAddr != null && (remAddr.equals("127.0.0.1") || remAddr.equals("0:0:0:0:0:0:0:1"))) {
+                    remAddr = "localhost";
+                }
+                if(sessionRemAddr != null && (sessionRemAddr.equals("127.0.0.1") || sessionRemAddr.equals("0:0:0:0:0:0:0:1"))) {
+                    sessionRemAddr = "localhost";
+                }
+
+                if (remAddr != null && remAddr.equals(sessionRemAddr))
                 {
                 	EPerson e = EPerson.find(c, userID.intValue());
 
