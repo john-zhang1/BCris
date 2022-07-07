@@ -557,55 +557,11 @@
         </field>
 
         <field>
-          <dc-schema>wku</dc-schema>
-          <dc-element>thesis</dc-element>
-          <dc-qualifier>degree</dc-qualifier>
-          <repeatable>false</repeatable>
-          <label>Degree Awarded</label>
-          <input-type value-pairs-name="thesis_degree">dropdown</input-type>
-          <hint></hint>
-          <required>You must select a degree</required>
-        </field>
-
-        <field>
-          <dc-schema>dc</dc-schema>
-          <dc-element>contributor</dc-element>
-          <dc-qualifier>author</dc-qualifier>
-          <repeatable>false</repeatable>
-          <label>Author</label>
-          <input-type>name</input-type>
-          <hint>Enter the names of the authors of this item in the form Surname, Firstname [i.e. Smith, Josh or Smith, J].</hint>
-          <required>You must enter an author</required>
-        </field>
-
-        <field>
-          <dc-schema>wku</dc-schema>
-          <dc-element>identifier</dc-element>
-          <dc-qualifier>studentID</dc-qualifier>
-          <repeatable>false</repeatable>
-          <label>Student ID</label>
-          <input-type>onebox</input-type>
-          <hint>Enter the student ID of the main author of this item.</hint>
-          <required></required>
-        </field>
-
-        <field>
-          <dc-schema>wku</dc-schema>
-          <dc-element>degree</dc-element>
-          <dc-qualifier>discipline</dc-qualifier>
-          <repeatable>false</repeatable>
-          <label>Discipline</label>
-          <input-type value-pairs-name="wku_discipline">dropdown</input-type>
-          <hint></hint>
-          <required>You must select a discipline</required>
-        </field>
-
-        <field>
           <dc-schema>dc</dc-schema>
           <dc-element>contributor</dc-element>
           <dc-qualifier>advisor</dc-qualifier>
           <repeatable>true</repeatable>
-          <label>Advisor/Supervisor/Committee Chair</label>
+          <label>Advisor/Supervisor/Committee Chair/Translator</label>
           <input-type>name</input-type>
           <hint>Enter your primary advisor(s), not your entire committee. Do not include degrees as part of the name.</hint>
           <required>You must enter an advisor</required>
