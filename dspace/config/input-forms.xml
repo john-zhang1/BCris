@@ -564,7 +564,6 @@
           <label>Advisor/Supervisor/Committee Chair/Translator</label>
           <input-type>name</input-type>
           <hint>Enter your primary advisor(s), not your entire committee. Do not include degrees as part of the name.</hint>
-          <required>You must enter an advisor</required>
         </field>
 
         <field>
