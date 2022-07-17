@@ -529,7 +529,6 @@
           <label>Other Title</label>
           <input-type>onebox</input-type>
           <hint>If the item has any alternative titles, please enter them here.</hint>
-          <required></required>
         </field>
 
         <field>
@@ -610,7 +609,6 @@
           <label>Subject Keywords</label>
           <input-type>onebox</input-type>
           <hint>Enter appropriate subject keywords or phrases. </hint>
-          <required></required>
           <vocabulary>srsc</vocabulary>
         </field>
 
