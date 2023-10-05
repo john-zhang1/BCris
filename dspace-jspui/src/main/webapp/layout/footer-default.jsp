@@ -125,8 +125,6 @@
                 </div>
                 <div id="designedby" class="col-xs-4 text-right">
                 Built with <a target="_blank" href="https://wiki.duraspace.org/display/DSPACECRIS">DSpace-CRIS</a>
-                Theme by sinoCRIS with
-                <a href="#"><fmt:message key="jsp.layout.footer-default.zhangmeng"/></a>
                 </div>
             </div>
         </footer>
